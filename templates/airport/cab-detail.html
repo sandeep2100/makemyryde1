@@ -1,0 +1,316 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<main xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+
+    <!-- =======================
+Main Banner START -->
+    <section class="pt-1 pb-0">
+        <div class="container position-relative">
+            <!-- Title and button START -->
+            <div class="row">
+                <div class="col-12">
+                    <!-- Meta -->
+                    <div
+                        class="d-flex justify-content-between align-items-lg-center">
+                        <!-- Title -->
+
+                        <!-- Buttons -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Title and button END -->
+
+    </section>
+    <!-- =======================
+Main Banner END -->
+
+    <!-- =======================
+Main Content START -->
+<section class="pt-0">
+  <div class="container" data-sticky-container>
+    <div class="row g-1">
+      <div class="col-xl-6">
+        <div class="vstack gap-2">
+          <div class="card border">
+            <div class="card-body">
+                <h6 style="font-size:15px;" class="mb-1 pb-1 border-bottom">Traveller Information</h6>
+              <div class="tab-content my-0" id="pills-tabContent">
+                <div class="tab-pane fade show active" id="cab2-one-way" role="tabpanel" aria-labelledby="cab2-one-way-tab">
+                  <form class="row g-1" action="{% url 'cab-booking' %}" method="post">
+                    {% csrf_token %}
+                    <!-- Full Name -->
+                    <div class="col-md-12">
+                      <div class="form-group row">
+                        <label for="name" class="col-4 col-form-label required"><b>Name</b></label>
+                        <div class="col-8">
+                          <div class="form-border-bottom form-control-transparent d-flex align-items-center">
+                            <div>
+                              <input size="100" name="name" id="name" type="text" class="form-control" placeholder="Enter name" required>
+                              <input value="{{source}}" name="pickup_city" id="pickup_city" hidden>
+                              <input value="{{destination}}" name="drop_city" id="drop_city" hidden>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12">
+                      <div class="form-group row">
+                        <label for="name" class="col-4 col-form-label required"><b>Mobile</b></label>
+                        <div class="col-8">
+                          <div class="form-border-bottom form-control-transparent d-flex align-items-center">
+                            <div class="input-group">
+                                <select>
+                                    <option value="+91">+ 91</option>
+                                    <option value="+1">+ 1</option>
+                                    <option value="+44">+ 44</option>
+                                    <option value="+355">+ 355</option>
+                                    <option value="+213">+ 213</option>
+
+                                </select>
+                              <input size="100" required minlength="10" maxlength="10" name="mobile_b" id="mobile_b" type="text" class="form-control" placeholder="Enter number">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- DATE -->
+                    <div class="col-md-12">
+                      <div class="form-group row">
+                        <label for="name" class="col-4  col-form-label required"><b>Email</b></label>
+                        <div class="col-8">
+                          <div class="form-border-bottom form-control-transparent d-flex align-items-center">
+                            <div>
+                              <input size="100" name="email" id="email" type="email" class="form-control" placeholder="Enter Email" required>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <!-- TIME -->
+                    <div class="col-md-12">
+                      <div class="form-group row">
+                        <label for="name" class="col-4 col-form-label"><b>Pickup</b></label>
+                        <div class="col-8">
+                          <div class="form-border-bottom form-control-transparent d-flex align-items-center">
+                            <div>
+                              <input size="100" name="pickup_address" id="pickup_address" class="form-control small" placeholder="Pickup Address">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-md-12">
+                      <div class="form-group row">
+                        <label for="name" class="col-4 col-form-label"><b>Drop</b></label>
+                        <div class="col-8">
+                          <div class="form-border-bottom form-control-transparent d-flex align-items-center">
+                            <div>
+                              <input size="100" name="drop_address" id="drop_address" class="form-control small" placeholder="Drop Address">
+                              <input id="booking_id" name="booking_id" type="hidden">
+                              <input id="amount" name="amount" type="hidden" value="{{car_price}}">
+                              <input id="date" name="date" type="hidden" value="{{date}}">
+                              <input id="time" name="time" type="hidden" value="{{time}}">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <!-- Button -->
+                    <div class="d-grid">
+                      <button type="submit" name="save" value="submit" class="btn btn-info mb-0">PROCEED</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+
+            </div>
+
+                            <!-- Trip Details END -->
+                            <div class="container position-relative">
+                                <!-- Title and button START -->
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- Main content END -->
+
+                    <!-- Sidebar START -->
+                    <aside class="col-xl-5">
+                        <div data-sticky data-margin-top="10"
+                            data-sticky-for="1199">
+
+                            <div class="card border p-3">
+                                <div class="card-body p-0">
+                                    <div class="row">
+                                    <h6 class="text-center mb-1 pb-1 border-bottom">Booking Details</h6>
+                                    </div>
+
+                                    <div class="row g-0">
+                                        <!-- Image -->
+                                        <div class="col-md-6">
+                                        </div>
+
+
+                                        <!-- Title -->
+                                        <div class="border-bottom col-12">
+
+                                             <!-- Heading and Value column (col-12) -->
+        <div class="row">
+            <div class="h6 small col-4">Route :</div>
+            <div class="col-8" style="font-size:13px;">
+                <span id="source">{{ source|join:" " }}</span> >> <span id="destination">{{ destination|join:" " }}</span>
+            </div>
+        </div>
+
+        <!-- Heading and Value column (col-12) -->
+        <div class="row">
+            <div class="h6 small col-4">Pickup :</div>
+            <div class="col-8" style="font-size:13px;">
+                {{ date|join:" " }} at {{time}}
+            </div>
+        </div>
+
+        <!-- Heading and Value column (col-12) -->
+        <div class="row">
+            <div class="h6 small col-4">Car Type :</div>
+            <div style="font-size:13px;" class="col-8">
+                {{ car_name }} or Similar
+            </div>
+        </div>
+
+        <!-- Heading and Value column (col-12) -->
+        <div class="row">
+            <div class="h6 small col-4">Distance :</div>
+            <div style="font-size:13px;" class="col-8">
+                {{ distance }} Km
+            </div>
+        </div>
+    </div>
+                                        <!-- List -->
+
+                                            <!--<li
+                                                class="list-group-item d-flex justify-content-between">
+                                                <span class="h6 fw-light mb-0">State
+                                                    Tax</span>
+                                                <span class="h6 fw-light mb-0">₹
+                                                    0</span>
+                                            </li>
+                                            <li
+                                                class="list-group-item d-flex justify-content-between">
+                                                <span class="h6 fw-light mb-0">Night
+                                                    Charge</span>
+                                                <span class="h6 fw-light mb-0">₹
+                                                    0</span>
+                                            </li>
+                                            <li
+                                                class="list-group-item d-flex justify-content-between">
+                                                <span class="h6 fw-light mb-0">Driver
+                                                    Charges</span>
+                                                <span class="h6 fw-light mb-0">₹
+                                                    0</span>
+                                            </li>-->
+                                            <ul class="mb-0 mt-2">                                            <!-- Divider -->
+                                            <li
+                                                class="list-group-item d-flex justify-content-between pb-0">
+                                                <span class="h6 fw-normal mb-0">Total :</span>
+                                                <span class="h5 fw-normal mb-0 badge bg-info lg">₹
+                                                    {{ car_price }}</span>
+                                                <input type="hidden" name="total" value="{{total_fare}}">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        </aside>
+                    </div>
+
+
+            </div>
+
+
+    </section>
+</main>
+<!-- Sidebar END -->
+
+
+                <section class="pt-0">
+                    <div class="container" data-sticky-container>
+                        <div class="row g-4">
+
+                            <!-- Main content START -->
+                            <div class="col-xl-12">
+                                <div class="vstack gap-5">
+                                    <!-- Main cab list END -->
+                                    <!-- Card START -->
+                                    <div class="card border mt-4">
+                                        <!-- Card header -->
+                                        <div class="card-header border-bottom d-md-flex justify-content-md-between">
+                                            <h5 class="card-title mb-0">Safety Guidelines</h5>
+                                        </div>
+
+                                        <!-- Card body -->
+                                        <div class="card-body">
+                                            <h6>Price Included</h6>
+                                            <!-- List -->
+                                            <ul
+                                                class="list-group list-group-borderless mb-0">
+                                                <li
+                                                    class="list-group-item h6 fw-light d-flex mb-0"><i
+                                                        class="bi bi-check text-dark me-2"></i>Your
+                                                    trip includes one pick up in
+                                                    Pick-up city and one drop to
+                                                    destination city. It does
+                                                    not include within city
+                                                    travel.</li>
+                                                <li
+                                                    class="list-group-item h6 fw-light d-flex mb-0"><i
+                                                        class="bi bi-check text-dark me-2"></i>If
+                                                    your Trip has Hill climbs,
+                                                    cab AC may be switched off
+                                                    during such climbs.</li>
+                                                <li
+                                                    class="list-group-item h6 fw-light d-flex mb-0"><i
+                                                        class="bi bi-check text-dark me-2"></i>Your
+                                                    Trip has a KM limit. If your
+                                                    usage exceeds this limit,
+                                                    you will be charged for the
+                                                    excess KM used.</li>
+                                                <li
+                                                    class="list-group-item h6 fw-light d-flex mb-0"><i
+                                                        class="bi bi-check text-dark me-2"></i>To
+                                                    know more about Terms and
+                                                    Conditions you can read your
+                                                    cancellation policy and
+                                                    refund policy.</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <!-- Card END -->
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- =======================
+Main Content END -->
+
+{% endblock %}

@@ -1,0 +1,628 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<!--<h2>Selected Car Packages:</h2>
+{% if selected_car_packages %}
+    <p>City: {{ selected_car_packages.0.city.name }}</p>
+    <p>Car: {{ selected_car_packages.0.car.name }}</p>
+    <p>Package: {{ selected_car_packages.0.package.name }}</p>
+    <p>Price: {{ selected_car_packages.0.price }}</p>
+{% endif %}
+{% if selected_car_packages %}
+    <p>City: {{ selected_car_packages.1.city.name }}</p>
+    <p>Car: {{ selected_car_packages.1.car.name }}</p>
+    <p>Package: {{ selected_car_packages.1.package.name }}</p>
+    <p>Price: {{ selected_car_packages.1.price }}</p>
+{% endif %}-->
+<!-- ==== First Page SECLECTION Destination Details -->
+<section class="pt-2 pb-0" xmlns="http://www.w3.org/1999/html">
+    <div class="position-relative text-center">
+        <!-- Title and button START -->
+        <div class="pb-0">
+            <!-- Title -->
+            <h6 class="fw-normal mb-0 text-secondary " style="font-size: 12px;"><i class="bi bi-taxi-front me-2"
+                                                                                   style="color:#273E47;">LOCAL
+                : </i> <span id="source">{{selected_city}}</span> For {{selected_package}}</h6>
+
+        </div>
+        <div class="pb-0">
+            <span style="font-size: 12px;">{{date}} at {{time}}</span>
+            <span class="badge text-bg-light"><a class="text-danger" href="{% url 'index' %}">(Edit)</a> </span>
+
+        </div>                <!-- Badge -->
+    </div>
+</section>
+
+
+<!-- =======================
+Offer action box START -->
+<section class="pt-0 pt-sm-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- Card -->
+                <div class="card bg-light p-3">
+                    <div
+                            class="card-body border border-2 border-dashed border-dark rounded position-relative">
+                        <!-- Scissor Svg -->
+                        <figure class="position-absolute top-0 start-0 mt-n3 ms-3">
+                            <svg class="pt-1" height="23.4px" style="enable-background:new 0 0 30.1 23.4;"
+                                 viewBox="0 0 30.1 23.4" width="30.1px"
+                                 xml:space="preserve">
+											<path class="fill-dark"
+                                                  d="M30.1,4.4c0,0-1.9-1.6-3.4-0.7c-1.2,0.7-8.9,4.5-12.3,6.2L9.6,7.2c0.5-0.9,0.6-2,0.3-3C9.6,2.8,8.6,1.6,7.2,0.8 C4.7-0.6,1.7-0.1,0.5,2C0,3-0.1,4,0.2,5.1c0.4,1.3,1.3,2.6,2.7,3.4C3.5,8.8,4.1,9,4.8,9.1v0c0,0,0,0,0,0c0.1,0,0.1,0,0.2,0 c4,0.6,6,1.7,7,2.5c-1,0.8-3,1.9-7,2.5c-0.1,0-0.1,0-0.2,0c0,0,0,0,0,0l0,0c-0.6,0.1-1.3,0.3-1.9,0.7c-1.4,0.8-2.3,2-2.7,3.4 c-0.3,1-0.2,2.1,0.3,3.1c1.2,2.1,4.2,2.7,6.7,1.2c1.4-0.8,2.3-2,2.7-3.4c0.3-1,0.2-2.1-0.3-3l4.8-2.8c3.4,1.7,11.1,5.6,12.3,6.2 c1.6,0.9,3.4-0.7,3.4-0.7l-12.7-7.3L30.1,4.4z M7.5,6C7,7,5.4,7.2,4,6.4C3.2,5.9,2.6,5.2,2.4,4.5C2.3,4.1,2.3,3.6,2.6,3.2 c0.5-1,2.2-1.1,3.5-0.3C6.9,3.3,7.4,4,7.6,4.8C7.7,5.1,7.8,5.6,7.5,6z M7.6,18.6c-0.2,0.8-0.8,1.5-1.6,1.9c-1.4,0.8-3,0.6-3.5-0.3 c-0.3-0.4-0.2-0.9-0.1-1.3C2.6,18.1,3.2,17.4,4,17c1.4-0.8,3-0.6,3.5,0.3C7.8,17.8,7.7,18.2,7.6,18.6z"/>
+										</svg>
+                        </figure>
+                        <!-- Scissor Svg -->
+                        <figure class="position-absolute bottom-0 end-0 mb-n3 me-3">
+                            <svg class="pb-1" height="23.4px" style="enable-background:new 0 0 30.1 23.4;"
+                                 viewBox="0 0 30.1 23.4" width="30.1px"
+                                 xml:space="preserve">
+											<path class="fill-dark"
+                                                  d="M0,19c0,0,1.9,1.6,3.4,0.7c1.2-0.7,8.8-4.6,12.2-6.3l4.8,2.7c-0.5,0.9-0.6,2-0.3,3c0.4,1.3,1.3,2.5,2.7,3.3 c2.5,1.4,5.5,0.9,6.7-1.3c0.5-0.9,0.6-2,0.3-3.1c-0.4-1.3-1.3-2.5-2.7-3.3c-0.6-0.3-1.3-0.6-1.9-0.7l0,0c0,0,0,0,0,0 c-0.1,0-0.1,0-0.2,0c-4-0.6-6-1.7-7-2.5c1-0.8,3-1.9,7-2.5c0.1,0,0.1,0,0.2,0c0,0,0,0,0,0l0,0C26,9,26.6,8.7,27.2,8.4 c1.4-0.8,2.3-2.1,2.7-3.4c0.3-1,0.2-2.1-0.4-3.1c-1.2-2.1-4.2-2.6-6.7-1.2c-1.4,0.8-2.3,2.1-2.7,3.4c-0.3,1-0.2,2.1,0.3,3L15.7,10 C12.3,8.3,4.6,4.5,3.4,3.8C1.8,2.9,0,4.5,0,4.5l12.7,7.2L0,19z M22.6,17.3c0.5-1,2.1-1.1,3.5-0.4c0.8,0.4,1.4,1.2,1.6,1.9 c0.1,0.3,0.2,0.8-0.1,1.3c-0.5,1-2.1,1.1-3.5,0.4c-0.8-0.5-1.4-1.2-1.6-1.9C22.4,18.2,22.4,17.7,22.6,17.3z M22.4,4.7 C22.6,4,23.2,3.3,24,2.8c1.3-0.8,3-0.6,3.5,0.3c0.3,0.4,0.2,0.9,0.1,1.3c-0.2,0.8-0.8,1.5-1.6,1.9c-1.3,0.8-3,0.6-3.5-0.3 C22.3,5.6,22.3,5.1,22.4,4.7z"/>
+										</svg>
+                        </figure>
+
+                        <!-- Title -->
+                        {% if selected_car_packages %}
+                        <form method="post" action="{% url 'local_cab_detail' %}">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h6>WagonR or Similar</h6>
+                                    <h6 class="text-success">₹ {{ selected_car_packages.0.price }}</h6>
+                                    <p>{{selected_package}}</p>
+                                    <a data-bs-toggle="modal" href="#staticBackdrop1"><u>Fare Details</u></a>
+                                </div>
+                                <div class="col-md-4" style="float:right; width:150px;">
+                                    <img alt="Car Image" class="img-fluid" src="{% static 'assets/cars/wagonr.png' %}">
+                                </div>
+                                <input value="{{selected_city}}" name="selected_city" type="text">
+                                <input value="{{selected_package}}" name="selected_package" type="text">
+                                <input value="Wagonr or Similar" name="car_name" type="text">
+                                <input value="{{ selected_car_packages.0.price }}" name="car_price" type="text">
+                                <div class="col-md-4 d-flex align-items-center justify-content-end">
+                                    <button class="btn btn-primary">Select</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- =======================
+Offer action box END -->
+
+<section class="pt-0 pt-sm-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- Card -->
+                <div class="card bg-light p-3">
+                    <div
+                            class="card-body border border-2 border-dashed border-dark rounded position-relative">
+                        <!-- Scissor Svg -->
+                        <figure class="position-absolute top-0 start-0 mt-n3 ms-3">
+                            <svg class="pt-1" height="23.4px" style="enable-background:new 0 0 30.1 23.4;"
+                                 viewBox="0 0 30.1 23.4" width="30.1px"
+                                 xml:space="preserve">
+											<path class="fill-dark"
+                                                  d="M30.1,4.4c0,0-1.9-1.6-3.4-0.7c-1.2,0.7-8.9,4.5-12.3,6.2L9.6,7.2c0.5-0.9,0.6-2,0.3-3C9.6,2.8,8.6,1.6,7.2,0.8 C4.7-0.6,1.7-0.1,0.5,2C0,3-0.1,4,0.2,5.1c0.4,1.3,1.3,2.6,2.7,3.4C3.5,8.8,4.1,9,4.8,9.1v0c0,0,0,0,0,0c0.1,0,0.1,0,0.2,0 c4,0.6,6,1.7,7,2.5c-1,0.8-3,1.9-7,2.5c-0.1,0-0.1,0-0.2,0c0,0,0,0,0,0l0,0c-0.6,0.1-1.3,0.3-1.9,0.7c-1.4,0.8-2.3,2-2.7,3.4 c-0.3,1-0.2,2.1,0.3,3.1c1.2,2.1,4.2,2.7,6.7,1.2c1.4-0.8,2.3-2,2.7-3.4c0.3-1,0.2-2.1-0.3-3l4.8-2.8c3.4,1.7,11.1,5.6,12.3,6.2 c1.6,0.9,3.4-0.7,3.4-0.7l-12.7-7.3L30.1,4.4z M7.5,6C7,7,5.4,7.2,4,6.4C3.2,5.9,2.6,5.2,2.4,4.5C2.3,4.1,2.3,3.6,2.6,3.2 c0.5-1,2.2-1.1,3.5-0.3C6.9,3.3,7.4,4,7.6,4.8C7.7,5.1,7.8,5.6,7.5,6z M7.6,18.6c-0.2,0.8-0.8,1.5-1.6,1.9c-1.4,0.8-3,0.6-3.5-0.3 c-0.3-0.4-0.2-0.9-0.1-1.3C2.6,18.1,3.2,17.4,4,17c1.4-0.8,3-0.6,3.5,0.3C7.8,17.8,7.7,18.2,7.6,18.6z"/>
+										</svg>
+                        </figure>
+                        <!-- Scissor Svg -->
+                        <figure class="position-absolute bottom-0 end-0 mb-n3 me-3">
+                            <svg class="pb-1" height="23.4px" style="enable-background:new 0 0 30.1 23.4;"
+                                 viewBox="0 0 30.1 23.4" width="30.1px"
+                                 xml:space="preserve">
+											<path class="fill-dark"
+                                                  d="M0,19c0,0,1.9,1.6,3.4,0.7c1.2-0.7,8.8-4.6,12.2-6.3l4.8,2.7c-0.5,0.9-0.6,2-0.3,3c0.4,1.3,1.3,2.5,2.7,3.3 c2.5,1.4,5.5,0.9,6.7-1.3c0.5-0.9,0.6-2,0.3-3.1c-0.4-1.3-1.3-2.5-2.7-3.3c-0.6-0.3-1.3-0.6-1.9-0.7l0,0c0,0,0,0,0,0 c-0.1,0-0.1,0-0.2,0c-4-0.6-6-1.7-7-2.5c1-0.8,3-1.9,7-2.5c0.1,0,0.1,0,0.2,0c0,0,0,0,0,0l0,0C26,9,26.6,8.7,27.2,8.4 c1.4-0.8,2.3-2.1,2.7-3.4c0.3-1,0.2-2.1-0.4-3.1c-1.2-2.1-4.2-2.6-6.7-1.2c-1.4,0.8-2.3,2.1-2.7,3.4c-0.3,1-0.2,2.1,0.3,3L15.7,10 C12.3,8.3,4.6,4.5,3.4,3.8C1.8,2.9,0,4.5,0,4.5l12.7,7.2L0,19z M22.6,17.3c0.5-1,2.1-1.1,3.5-0.4c0.8,0.4,1.4,1.2,1.6,1.9 c0.1,0.3,0.2,0.8-0.1,1.3c-0.5,1-2.1,1.1-3.5,0.4c-0.8-0.5-1.4-1.2-1.6-1.9C22.4,18.2,22.4,17.7,22.6,17.3z M22.4,4.7 C22.6,4,23.2,3.3,24,2.8c1.3-0.8,3-0.6,3.5,0.3c0.3,0.4,0.2,0.9,0.1,1.3c-0.2,0.8-0.8,1.5-1.6,1.9c-1.3,0.8-3,0.6-3.5-0.3 C22.3,5.6,22.3,5.1,22.4,4.7z"/>
+										</svg>
+                        </figure>
+
+                        <!-- Title -->
+                        {% if selected_car_packages %}
+                        <form method="post" action="{% url 'local_cab_detail' %}">
+                            <div class="row">
+                                <div class="col-md-4" style="float:right; width:150px;">
+                                    <img alt="Car Image" class="img-fluid" src="{% static 'assets/cars/etios.png' %}">
+                                </div>
+                                <div class="col-md-4">
+                                    <h6>Etios or Similar</h6>
+                                    <h6 class="text-success">₹ {{ selected_car_packages.1.price }}</h6>
+                                </div>
+                                <input class="carNameInput" hidden name="car_name" type="text">
+                                <input class="similarInput" hidden name="similar" type="text">
+                                <input class="carPriceInput" hidden name="car_price" type="text">
+                                <input class="dispriceInput" hidden name="dis_price" type="text">
+                                <input class="base_fareInput" hidden name="base_fare" type="text">
+                                <input class="gstInput" hidden name="gst" type="text">
+                                <div class="col-md-4 d-flex align-items-center justify-content-end">
+                                    <button class="btn btn-primary">Select</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="pt-0 pt-sm-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- Card -->
+                <div class="card bg-light p-3">
+                    <div
+                            class="card-body border border-2 border-dashed border-dark rounded position-relative">
+                        <!-- Scissor Svg -->
+                        <figure class="position-absolute top-0 start-0 mt-n3 ms-3">
+                            <svg class="pt-1" height="23.4px" style="enable-background:new 0 0 30.1 23.4;"
+                                 viewBox="0 0 30.1 23.4" width="30.1px"
+                                 xml:space="preserve">
+											<path class="fill-dark"
+                                                  d="M30.1,4.4c0,0-1.9-1.6-3.4-0.7c-1.2,0.7-8.9,4.5-12.3,6.2L9.6,7.2c0.5-0.9,0.6-2,0.3-3C9.6,2.8,8.6,1.6,7.2,0.8 C4.7-0.6,1.7-0.1,0.5,2C0,3-0.1,4,0.2,5.1c0.4,1.3,1.3,2.6,2.7,3.4C3.5,8.8,4.1,9,4.8,9.1v0c0,0,0,0,0,0c0.1,0,0.1,0,0.2,0 c4,0.6,6,1.7,7,2.5c-1,0.8-3,1.9-7,2.5c-0.1,0-0.1,0-0.2,0c0,0,0,0,0,0l0,0c-0.6,0.1-1.3,0.3-1.9,0.7c-1.4,0.8-2.3,2-2.7,3.4 c-0.3,1-0.2,2.1,0.3,3.1c1.2,2.1,4.2,2.7,6.7,1.2c1.4-0.8,2.3-2,2.7-3.4c0.3-1,0.2-2.1-0.3-3l4.8-2.8c3.4,1.7,11.1,5.6,12.3,6.2 c1.6,0.9,3.4-0.7,3.4-0.7l-12.7-7.3L30.1,4.4z M7.5,6C7,7,5.4,7.2,4,6.4C3.2,5.9,2.6,5.2,2.4,4.5C2.3,4.1,2.3,3.6,2.6,3.2 c0.5-1,2.2-1.1,3.5-0.3C6.9,3.3,7.4,4,7.6,4.8C7.7,5.1,7.8,5.6,7.5,6z M7.6,18.6c-0.2,0.8-0.8,1.5-1.6,1.9c-1.4,0.8-3,0.6-3.5-0.3 c-0.3-0.4-0.2-0.9-0.1-1.3C2.6,18.1,3.2,17.4,4,17c1.4-0.8,3-0.6,3.5,0.3C7.8,17.8,7.7,18.2,7.6,18.6z"/>
+										</svg>
+                        </figure>
+                        <!-- Scissor Svg -->
+                        <figure class="position-absolute bottom-0 end-0 mb-n3 me-3">
+                            <svg class="pb-1" height="23.4px" style="enable-background:new 0 0 30.1 23.4;"
+                                 viewBox="0 0 30.1 23.4" width="30.1px"
+                                 xml:space="preserve">
+											<path class="fill-dark"
+                                                  d="M0,19c0,0,1.9,1.6,3.4,0.7c1.2-0.7,8.8-4.6,12.2-6.3l4.8,2.7c-0.5,0.9-0.6,2-0.3,3c0.4,1.3,1.3,2.5,2.7,3.3 c2.5,1.4,5.5,0.9,6.7-1.3c0.5-0.9,0.6-2,0.3-3.1c-0.4-1.3-1.3-2.5-2.7-3.3c-0.6-0.3-1.3-0.6-1.9-0.7l0,0c0,0,0,0,0,0 c-0.1,0-0.1,0-0.2,0c-4-0.6-6-1.7-7-2.5c1-0.8,3-1.9,7-2.5c0.1,0,0.1,0,0.2,0c0,0,0,0,0,0l0,0C26,9,26.6,8.7,27.2,8.4 c1.4-0.8,2.3-2.1,2.7-3.4c0.3-1,0.2-2.1-0.4-3.1c-1.2-2.1-4.2-2.6-6.7-1.2c-1.4,0.8-2.3,2.1-2.7,3.4c-0.3,1-0.2,2.1,0.3,3L15.7,10 C12.3,8.3,4.6,4.5,3.4,3.8C1.8,2.9,0,4.5,0,4.5l12.7,7.2L0,19z M22.6,17.3c0.5-1,2.1-1.1,3.5-0.4c0.8,0.4,1.4,1.2,1.6,1.9 c0.1,0.3,0.2,0.8-0.1,1.3c-0.5,1-2.1,1.1-3.5,0.4c-0.8-0.5-1.4-1.2-1.6-1.9C22.4,18.2,22.4,17.7,22.6,17.3z M22.4,4.7 C22.6,4,23.2,3.3,24,2.8c1.3-0.8,3-0.6,3.5,0.3c0.3,0.4,0.2,0.9,0.1,1.3c-0.2,0.8-0.8,1.5-1.6,1.9c-1.3,0.8-3,0.6-3.5-0.3 C22.3,5.6,22.3,5.1,22.4,4.7z"/>
+										</svg>
+                        </figure>
+
+                        <!-- Title -->
+                        {% if selected_car_packages %}
+                        <form method="post" action="{% url 'local_cab_detail' %}">
+                            <div class="row">
+                                <div class="col-md-4" style="float:right; width:150px;">
+                                    <img alt="Car Image" class="img-fluid" src="{% static 'assets/cars/ertiga.png' %}">
+                                </div>
+                                <div class="col-md-4">
+                                    <h6>Ertiga or Similar</h6>
+                                    <h6 class="text-success">₹ {{ selected_car_packages.2.price }}</h6>
+                                </div>
+                                <input class="carNameInput" hidden name="car_name" type="text">
+                                <input class="similarInput" hidden name="similar" type="text">
+                                <input class="carPriceInput" hidden name="car_price" type="text">
+                                <input class="dispriceInput" hidden name="dis_price" type="text">
+                                <input class="base_fareInput" hidden name="base_fare" type="text">
+                                <input class="gstInput" hidden name="gst" type="text">
+                                <div class="col-md-4 d-flex align-items-center justify-content-end">
+                                    <button class="btn btn-primary">Select</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="pt-0 pt-sm-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <!-- Card -->
+                <div class="card bg-light p-3">
+                    <div
+                            class="card-body border border-2 border-dashed border-dark rounded position-relative">
+                        <!-- Scissor Svg -->
+                        <figure class="position-absolute top-0 start-0 mt-n3 ms-3">
+                            <svg class="pt-1" height="23.4px" style="enable-background:new 0 0 30.1 23.4;"
+                                 viewBox="0 0 30.1 23.4" width="30.1px"
+                                 xml:space="preserve">
+											<path class="fill-dark"
+                                                  d="M30.1,4.4c0,0-1.9-1.6-3.4-0.7c-1.2,0.7-8.9,4.5-12.3,6.2L9.6,7.2c0.5-0.9,0.6-2,0.3-3C9.6,2.8,8.6,1.6,7.2,0.8 C4.7-0.6,1.7-0.1,0.5,2C0,3-0.1,4,0.2,5.1c0.4,1.3,1.3,2.6,2.7,3.4C3.5,8.8,4.1,9,4.8,9.1v0c0,0,0,0,0,0c0.1,0,0.1,0,0.2,0 c4,0.6,6,1.7,7,2.5c-1,0.8-3,1.9-7,2.5c-0.1,0-0.1,0-0.2,0c0,0,0,0,0,0l0,0c-0.6,0.1-1.3,0.3-1.9,0.7c-1.4,0.8-2.3,2-2.7,3.4 c-0.3,1-0.2,2.1,0.3,3.1c1.2,2.1,4.2,2.7,6.7,1.2c1.4-0.8,2.3-2,2.7-3.4c0.3-1,0.2-2.1-0.3-3l4.8-2.8c3.4,1.7,11.1,5.6,12.3,6.2 c1.6,0.9,3.4-0.7,3.4-0.7l-12.7-7.3L30.1,4.4z M7.5,6C7,7,5.4,7.2,4,6.4C3.2,5.9,2.6,5.2,2.4,4.5C2.3,4.1,2.3,3.6,2.6,3.2 c0.5-1,2.2-1.1,3.5-0.3C6.9,3.3,7.4,4,7.6,4.8C7.7,5.1,7.8,5.6,7.5,6z M7.6,18.6c-0.2,0.8-0.8,1.5-1.6,1.9c-1.4,0.8-3,0.6-3.5-0.3 c-0.3-0.4-0.2-0.9-0.1-1.3C2.6,18.1,3.2,17.4,4,17c1.4-0.8,3-0.6,3.5,0.3C7.8,17.8,7.7,18.2,7.6,18.6z"/>
+										</svg>
+                        </figure>
+                        <!-- Scissor Svg -->
+                        <figure class="position-absolute bottom-0 end-0 mb-n3 me-3">
+                            <svg class="pb-1" height="23.4px" style="enable-background:new 0 0 30.1 23.4;"
+                                 viewBox="0 0 30.1 23.4" width="30.1px"
+                                 xml:space="preserve">
+											<path class="fill-dark"
+                                                  d="M0,19c0,0,1.9,1.6,3.4,0.7c1.2-0.7,8.8-4.6,12.2-6.3l4.8,2.7c-0.5,0.9-0.6,2-0.3,3c0.4,1.3,1.3,2.5,2.7,3.3 c2.5,1.4,5.5,0.9,6.7-1.3c0.5-0.9,0.6-2,0.3-3.1c-0.4-1.3-1.3-2.5-2.7-3.3c-0.6-0.3-1.3-0.6-1.9-0.7l0,0c0,0,0,0,0,0 c-0.1,0-0.1,0-0.2,0c-4-0.6-6-1.7-7-2.5c1-0.8,3-1.9,7-2.5c0.1,0,0.1,0,0.2,0c0,0,0,0,0,0l0,0C26,9,26.6,8.7,27.2,8.4 c1.4-0.8,2.3-2.1,2.7-3.4c0.3-1,0.2-2.1-0.4-3.1c-1.2-2.1-4.2-2.6-6.7-1.2c-1.4,0.8-2.3,2.1-2.7,3.4c-0.3,1-0.2,2.1,0.3,3L15.7,10 C12.3,8.3,4.6,4.5,3.4,3.8C1.8,2.9,0,4.5,0,4.5l12.7,7.2L0,19z M22.6,17.3c0.5-1,2.1-1.1,3.5-0.4c0.8,0.4,1.4,1.2,1.6,1.9 c0.1,0.3,0.2,0.8-0.1,1.3c-0.5,1-2.1,1.1-3.5,0.4c-0.8-0.5-1.4-1.2-1.6-1.9C22.4,18.2,22.4,17.7,22.6,17.3z M22.4,4.7 C22.6,4,23.2,3.3,24,2.8c1.3-0.8,3-0.6,3.5,0.3c0.3,0.4,0.2,0.9,0.1,1.3c-0.2,0.8-0.8,1.5-1.6,1.9c-1.3,0.8-3,0.6-3.5-0.3 C22.3,5.6,22.3,5.1,22.4,4.7z"/>
+										</svg>
+                        </figure>
+
+                        <!-- Title -->
+                        {% if selected_car_packages %}
+                        <form method="post" action="{% url 'local_cab_detail' %}">
+                            <div class="row">
+                                <div class="col-md-4" style="float:right; width:150px;">
+                                    <img alt="Car Image" class="img-fluid" src="{% static 'assets/cars/crysta.png' %}">
+                                </div>
+                                <div class="col-md-4">
+                                    <h6>Innova or Similar</h6>
+                                    <h6 class="text-success">₹ {{ selected_car_packages.3.price }}</h6>
+                                </div>
+                                <input class="carNameInput" hidden name="car_name" type="text">
+                                <input class="similarInput" hidden name="similar" type="text">
+                                <input class="carPriceInput" hidden name="car_price" type="text">
+                                <input class="dispriceInput" hidden name="dis_price" type="text">
+                                <input class="base_fareInput" hidden name="base_fare" type="text">
+                                <input class="gstInput" hidden name="gst" type="text">
+                                <div class="col-md-4 d-flex align-items-center justify-content-end">
+                                    <button class="btn btn-primary">Select</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==== First Page SECLECTION END -->
+<!-- =========Type Car Category Display  -->
+
+
+<!-- ============== Cab list START -->
+
+<!--<section class="pt-0 pb-1 pt-lg-5 ">
+    <div class="container carDetailsContainer ">
+        <div class="row">
+
+            <div class="col-lg-10 ms-auto position-relative">
+                <img alt="" class="rounded-3" src="{% static 'assets/images/bg/04.jpg' %}">
+
+
+                <div class="col-11 col-sm-10 col-lg-8 col-xl-6 position-lg-middle ms-lg-8 ms-xl-7">
+                    <div class="card shadow pb-0 mt-n8 mt-sm-n8 mt-lg-0">
+
+
+
+
+
+                        <div class="rounded-3 card-body form-control-border p-3 p-sm-3">
+                            <div class="col-4 car-image" style="float:right; width:150px;">
+                                <img alt="" class="rounded-3" src="{% static 'assets/cars/wagonr.png' %}">
+                            </div>
+                            <div class="car-details-content">
+                                <div class="car-name row">
+                                    <h6></h6><span class="similar"></span>
+                                    <ul class="list-inline mb-1">
+                                        <li class="disprice list-inline-item text-decoration-line-through me-1 text-danger"></li>
+                                        <li  class="carPrice to list-inline-item h5 mb-0 text-success"></li>
+                                        <li  class="">{{package}}</li>
+                                    </ul>
+                                    <div class="km"></div>
+                                    <div style="font-size: 14px; font-weight: 700;">
+                                        <a data-bs-toggle="modal" href="#staticBackdrop1"><u>Fare Details</u></a>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <form action="{% url 'local_cab_detail' %}" method="post">
+                                {% csrf_token %}
+                                <input class="carNameInput" hidden name="car_name" type="text">
+                                <input class="similarInput" hidden name="similar" type="text">
+                                <input class="carPriceInput" hidden name="car_price" type="text">
+                                <input class="dispriceInput" hidden name="dis_price" type="text">
+                                <input class="base_fareInput" hidden name="base_fare" type="text">
+                                <input class="gstInput" hidden name="gst" type="text">
+                                <div class="d-grid card-body form-control-border">
+                                    <button class="btn btn-info mb-0"  type="submit">
+                                        Select Cab
+                                    </button>
+                                </div>
+                            </form>
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</section>-->
+
+<!--<section class="pt-2 pb-0">
+    <div class="container">
+        <div class="row g-1">
+
+            <div class="col-sm-3 col-3">
+                {% if selected_car_packages %}
+                <a class="back card text-center align-items-center h-90 p-1" data-base_fare="{{base_fare1}}"
+                   data-car-image="{% static 'assets/cars/wagonr.png' %}"
+                   data-car-name="WagonR or Similar" data-coveredKms="{{distance}}"
+                   data-disprice="{{dis_fare1}}" data-gst="{{gst1}}" data-km="{{distance}}"
+                   data-total-fare="{{ selected_car_packages.0.price }}" href="javascript:void(0);"
+                   id="button1">
+                    <div class="icon-lg rounded-circle pb-0 circle">
+                        <img alt="" src="{% static 'assets/images/category/cab/corolla.png' %}">
+                    </div>
+
+                    <div class="card-body px-0 pb-0 pt-0">
+                        <p class="fw-bold mb-0 car-name text-dark" style="font-size: 0.7rem;">HATCHBACK</p>
+                    </div>
+
+
+                    <p class="fw-bold  mb-0 total-fare" style="font-size: 0.7rem; color:#273E47;">₹ {{ selected_car_packages.0.price }}</p>
+                </a>
+                {% endif %}
+            </div>
+
+
+            <div class="col-sm-3 col-3">
+                {% if selected_car_packages %}
+                <a class="back card text-center align-items-center h-90 p-1" data-base_fare="{{base_fare2}}"
+                   data-car-image="{% static 'assets/cars/etios.png' %}"
+                   data-car-name="Etios or Similar" data-coveredKms="{{distance}}" data-disprice="{{dis_fare2}}"
+                   data-gst="{{gst2}}" data-km="{{distance}}"
+                   data-total-fare="{{ selected_car_packages.1.price }}" href="javascript:void(0);" id="button2">
+
+                    <div class="icon-lg rounded-circle circle">
+                        <img alt="" class="w-90px" src="{% static 'assets/images/category/cab/toyota_etios.png' %}">
+                    </div>
+
+                    <div class="card-body px-0 pb-0 pt-0">
+                        <p class="fw-bold mb-0 car-name text-dark" style="font-size: 0.7rem;">SEDAN</p>
+                    </div>
+
+
+                    <p class="fw-bold mb-0 total-fare" style="font-size: 0.7rem; color:#273E47;">₹ {{ selected_car_packages.1.price }}</p>
+                </a>
+                {% endif %}
+            </div>
+
+
+            <div class="col-sm-3 col-3">
+                {% if selected_car_packages %}
+                <a class="back card text-center align-items-center h-90 p-1" data-base_fare="{{base_fare3}}"
+                   data-car-image="{% static 'assets/cars/ertiga.png' %}"
+                   data-car-name="Ertiga or Similar" data-coveredKms="{{distance}}"
+                   data-disprice="{{dis_fare3}}" data-gst="{{gst3}}" data-km="{{distance}}"
+                    data-total-fare="{{ selected_car_packages.2.price }}" href="javascript:void(0);"
+                   id="button3">
+                     <div class="icon-lg rounded-circle circle">
+                        <img alt="" class="w-90px" src="{% static 'assets/images/category/cab/ertiga.png' %}">
+                    </div>
+
+                    <div class="card-body px-0 pb-0 pt-0">
+                        <p class="fw-bold mb-0 car-name text-dark" style="font-size: 0.7rem;">SUV</p>
+                    </div>
+
+
+                    <p class="fw-bold mb-0 total-fare" style="font-size: 0.7rem; color:#273E47;">₹ {{ selected_car_packages.2.price }}</p>
+                </a>
+                {% endif %}
+            </div>
+
+            <div class="col-sm-3 col-3">
+                {% if selected_car_packages %}
+                <a class="back card text-center align-items-center h-90 p-1" data-base_fare="{{base_fare4}}"
+                   data-car-image="{% static 'assets/cars/crysta.png' %}"
+                   data-car-name="Innova or Similar" data-coveredKms="{{distance}}"
+                   data-disprice="{{dis_fare4}}" data-gst="{{gst4}}" data-km="{{distance}}"
+                    data-total-fare="{{ selected_car_packages.3.price }}" href="javascript:void(0);"
+                   id="button4">
+
+                     <div class="icon-lg rounded-circle circle">
+                        <img alt="" src="{% static 'assets/images/category/cab/innova.png' %}">
+                    </div>
+                    <div class="card-body px-0 pb-0 pt-0">
+                        <p class="fw-bold mb-0 car-name text-dark" style="font-size: 0.7rem;">PREMIUM</p>
+                    </div>
+
+
+                    <p class="fw-bold mb-0 total-fare" style="font-size: 0.7rem; color:#273E47;">₹ {{ selected_car_packages.3.price }}</p>
+                </a>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+</section>-->
+
+<div class="container text-center">
+    <h6 class="badge bg-opacity-10 bg-secondary text-dark text-center ">Pick Your Cab</h6>
+</div>
+<!-- ============Car Category Display End -->
+
+<div aria-hidden="true" aria-labelledby="staticBackdropLabel" class="modal fade" data-bs-backdrop="static"
+     data-bs-keyboard="false"
+     id="staticBackdrop1" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 align="center" class="modal-title" id="staticBackdropLabel1">Fare Summary</h5>
+                <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+            </div>
+
+
+            <h2>COMING SOON</h2>
+            <!--<div class="modal-body">
+                <div class="">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="h6 small col-8">Estimated Amount</div>
+                            <div class="col-4" style="font-size:13px;">
+                                <span id="estimatedAmount1" style=" float:right"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="h6 small col-4" hidden=""></div>
+                            <div class="col-8" style="font-size:13px;">
+                                <span hidden="" id="coveredKms1" style=" float:right"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="h6 small col-8"> Driver Allowance</div>
+                            <div class="col-4" style="font-size:13px;">
+                                <span style=" float:right">₹ 0</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="h6 small col-8">State Tax & Tolls</div>
+                            <div class="col-4" style="font-size:13px;">
+                                <span style=" float:right">₹ 0</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="h6 small col-8">GST (5%)</div>
+                            <div class="col-4" style="font-size:13px;">
+                                <span id="gstAmount1" style=" float:right"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="h6 small col-8">Total Cost</div>
+                            <div class="col-4" style="font-size:13px;">
+                                <span class="text-info" id="totalCost1" style="float:right"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <ul style="list-style:none; padding:0;">
+                        <li><h6>Fare Breakup:</h6></li>
+                        <li>Estimated Amount <span class="fw-bold"
+                                                   style="float:right;"></span></li>
+                        <li>Covered Kms <span id="coveredKms1" style="float:right;"></span></li>
+                        <li>GST (5%) <span id="gstAmount1" style="float:right;">₹ </span></li>
+                        <li>Total Cost <span id="totalCost1" style="float:right;">₹ </span></li>
+                    </ul>
+
+                    <h6>Inclusion :</h6>
+                    <ul>
+                        <li>Base Fare Charges for {{distance}} Km</li>
+                        <li>Driver, Vehicle and Fuel Allowance</li>
+                        <li>Toll Tax,State Tax, Driver Food & Stay charge</li>
+                    </ul>
+                    <h6>Exclusion :</h6>
+                    <ul>
+                        <li>Parking Charge, Airport Parking Charge if</li>
+
+                    </ul>
+
+                    <h6>Notes :</h6>
+                    <ul>
+                        <li>Kms & Timing will be charged from customer location</li>
+                        <li>Car shall not be used for local use in (City) after completion of one way duty.</li>
+                        <li>In case of Booking Cancellation then required inform to us before 24 Hrs.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>-->
+
+
+<!-- ============== Cab list END  -->
+
+
+<!--<section class="p-3">
+    <div class="container" data-sticky-container>
+        <div class="row g-4">
+
+
+            <div class="col-xl-12">
+                <div class="vstack gap-12">
+
+
+
+
+                    <div class="card border mt-12">
+                        <div class="card border">
+                            <div class="row">
+                                <div class="col-12">
+
+                                    <div style="align:center;">
+                                        <div class="col-xl-12">
+                                            <div class="vstack gap-5">
+
+                                                <div class="container mt-3">
+
+
+                                                    <div style="align:center;" class="border-bottom p-1">
+                                                        <ul
+                                                            class="nav nav-pills nav justify-content-center" role="tablist">
+                                                            <li class="nav-item">
+                                                                <a class="nav-link active bg-dark" data-bs-toggle="pill" href="#home">INCLUSION</a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link" data-bs-toggle="pill" href="#menu1">EXCLUSION</a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link" data-bs-toggle="pill" href="#menu2">T&C</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+
+
+                                                    <div class="tab-content">
+                                                        <div id="home"
+                                                            class="container tab-pane active"><br>
+                                                            <ul style="font-size:13px;" class="list-group list-group-borderless mb-0">
+                                                                <li class="list-group-item mb-0 pb-0"><i class="bi bi-check text-dark me-1"></i>Driver, Vehicle and Fuel Charges</li>
+                                                                <li class="list-group-item mb-0 pb-0"><i class="bi bi-check text-dark me-1"></i>Toll Tax, State Tax, Driver Food & Stay Charges</li>
+                                                                <li class="list-group-item mb-0 pb-0"><i class="bi bi-check text-dark me-1"></i>GST Charges (5%)</li>
+                                                                <li class="list-group-item mb-0 pb-0"><i class="bi bi-check text-dark me-1"></i>Only one pickup and drop</li>
+                                                            </ul>
+                                                        </div>
+                                                        <div id="menu1" class="container tab-pane fade"><br>
+
+                                                            <ul style="font-size:13px;" class="list-group list-group-borderless mb-0">
+                                                                <li class="list-group-item mb-0 pb-0"><i class="bi bi-patch-check-fill text-primary me-1"></i>airport entry charge</li>
+                                                                <li class="list-group-item mb-0 pb-0"><i class="bi bi-patch-check-fill text-primary me-1"></i>Parking charges</li>
+                                                                <li class="list-group-item mb-0 pb-0"><i class="bi bi-patch-check-fill text-primary me-1"></i>Multiple Pickups and drops</li>
+                                                            </ul>
+                                                        </div>
+                                                        <div id="menu2" class="container tab-pane fade"><br>
+                                                            <h6>Driver & Cab Details</h6>
+                                                            <ul style="font-size:13px; bold" class="list-group list-group-borderless mb-0">
+                                                                <li class="list-group-item mb-0 pb-0"><i class="bi bi-patch-check-fill text-primary me-1"></i>
+                                                                    Cab and driver details will be shared on your registered mobile number before 1 - 2 hours of pickup
+                                                                </li>
+                                                                <li class="list-group-item mb-0 pb-0"><i class="bi bi-patch-check-fill text-primary me-1"></i>
+                                                                    Due to traffic or any other unavoidable reason, the pickup may be delayed for 30 minutes.
+                                                                </li>
+                                                                <li class="list-group-item mb-0 pb-0"><i class="bi bi-patch-check-fill text-primary me-1"></i>
+                                                                    For nighttime driving (between 11:00 pm to 7:00 am) on any of the nights.
+                                                                </li>
+                                                                <li class="list-group-item mb-0 pb-0"><i class="bi bi-patch-check-fill text-primary me-1"></i>
+                                                                    Trip details will be share on WhatsApp or Registered Email.
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>-->
+
+{% endblock %}

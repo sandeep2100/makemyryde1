@@ -1,0 +1,66 @@
+<!-- =======================Footer START -->
+{% load static %}
+<!--Footer START -->
+<footer class="bg-light py-4">
+    <div class="container">
+        <div class="row mx-auto">
+            <div class="col-md-10 col-xl-6 mx-auto text-center">
+                <!-- Logo -->
+                <img class="mx-auto h-40px" src="{% static 'assets/images/MAKE.png' %}" alt="logo">
+                <!-- Links -->
+
+                <!-- Social media button -->
+                <!-- copyright text -->
+                <div class="text-dark text-primary-hover mt-3"> Copyrights ©2023 Makemyryde</div>
+            </div>
+        </div>
+
+    </div>
+</footer>
+
+<!-- Navbar mobile START -->
+<div class="navbar navbar-mobile">
+    <ul class="navbar-nav">
+        <!-- Nav item Home -->
+        <li class="nav-item">
+            <a style="color:#273E47;" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+               class="nav-link  text-info"><i class="bi bi-telephone fa-fw"></i>Request Call</a>
+        </li>
+
+        <!-- Nav item My Trips -->
+        <li class="nav-item">
+            <a style="color:#273E47;" type="button" class="nav-link  text-success"
+               href="https://wa.me/919375144444?text=Hello%20There%F0%9F%96%90%F0%9F%8F%BB%20%2C%0AI%20am%20looking%20for%20Car%20Rental%20Booking.%F0%9F%9A%97"><i
+                    class="bi bi-whatsapp fa-fw"></i>Chat Now </a>
+        </li>
+
+        <!-- Nav item Offer -->
+
+    </ul>
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title fs-5" id="exampleModalLabel">Request For Call</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Book Your Journey by Call :
+                <input type="number" minlength="10" maxlength="10" class="form-control" placeholder="Enter your number">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark text-warning">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Navbar mobile END -->
+
+<!-- =======================
+Footer END -->
+<!-- =======================
+Footer END -->
+
