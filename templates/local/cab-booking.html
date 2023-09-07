@@ -92,22 +92,24 @@ Main Content START -->
                                     <ul class="mb-0 mt-2">                                            <!-- Divider -->
                                         <li class="list-group-item d-flex justify-content-between pb-0">
                                             <span class="h6 fw-normal mb-0">Total :</span>
-                                            <span class="h5 fw-normal mb-0 badge bg-info lg">₹
-                                                    {{ car_price }}</span>
+                                            <span class="text-success"><b>Coupon Code Applied:
+                                                    {{coupon_code}}</b></span>
+                                            <span class="h5 fw-normal mb-0 badge bg-info lg total-price">₹
+                                                    {{ amount }}</span>
 
-                                            <input name="total" type="hidden" value="{{total_fare}}">
+                                            <input name="total" id="total-price-value"
+                                                   value="{{ amount }}" hidden>
                                             <input name="paid" id="paymentAmountInput" class="payment-amount"
                                                    hidden>
                                         </li>
                                     </ul>
                                     <div class="d-grid mt-3">
                                         <button class="btn btn-info mb-0 ">Proceed To Payment
-                                            <span class="payment-amount"></span></button>
+                                            <span class="payment-amount total-price"></span></button>
                                     </div>
                                 </form>
                             </div>
                         </div>
-
                     </div>
                 </aside>
                 <div class="col-xl-6">
@@ -130,7 +132,7 @@ Main Content START -->
                                     </div>
                                     <div style="font-size:12px;" class="col-3 text-dark">Mobile :</div>
                                     <div class="col-9" style="font-size:13px;">
-                                        <span class="text-dark">{{ mobile }}</span>
+                                        <span class="text-dark">{{ mobile_b }}</span>
                                     </div>
                                 </div>
                                 <div class="border-bottom">
@@ -141,6 +143,10 @@ Main Content START -->
                                                 <span class="text-dark" id="source">{{selected_city}}</span>
                                             </div>
                                         </div>
+                                        <div style="font-size:12px;" class="col-3 text-dark">Type :</div>
+                                        <div class="col-9 text-dark" style="font-size:12px;">{{booking_type}}
+                                        </div>
+
                                         <div style="font-size:12px;" class="col-3 text-dark">Date :</div>
                                         <div class="col-9 text-dark" style="font-size:12px;">{{date}}
                                         </div>

@@ -1,20 +1,30 @@
 from django.db import models
 from django.contrib.auth.hashers import make_password
 import random
-from myapp.models import User
+
+from django.utils import timezone
+from oneway.models import User
 
 
 class local_booking(models.Model):
+    booking_type = models.CharField(max_length=100, default="Local")
+    created_at = models.DateTimeField(default=timezone.now)
+    updated_at = models.DateTimeField(default=timezone.now)
     booking_id = models.CharField(max_length=100, unique=True, default="")
-    local_city = models.CharField(max_length=100, default="")
-    pickup_address = models.CharField(max_length=200)
-    drop_address = models.CharField(max_length=200)
+    selected_city = models.CharField(max_length=100, default="")
+    selected_package = models.CharField(max_length=100, default="")
+    pick_up = models.CharField(max_length=200)
+    remark = models.TextField()
     mobile_b = models.CharField(max_length=10)
     email = models.EmailField()
     name = models.CharField(max_length=50)
-    amount = models.CharField(max_length=100, default="")
+    car_price = models.CharField(max_length=100, default="")
     date = models.CharField(max_length=100, default="")
     time = models.CharField(max_length=100, default="")
+    amount = models.CharField(max_length=100, default="")
+    gst_company = models.CharField(max_length=100, null=True, blank=True)
+    gst_number = models.CharField(max_length=100, null=True, blank=True)
+    alternative_number = models.CharField(max_length=100, null=True, blank=True)
 
     def save(self, *args, **kwargs):
         # Check if a user with the provided email already exists
@@ -42,7 +52,7 @@ class local_booking(models.Model):
 
 
 def generate_unique_booking_id():
-    bi = str("MMR23")
+    bi = str("MMRLC")
     random_number = random.randint(10000, 99999)
     booking_id = f"{bi}-{random_number}"
     return booking_id

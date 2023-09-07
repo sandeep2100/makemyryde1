@@ -1,390 +1,46 @@
 {% extends 'base.html' %}
 {% block content %}
 {% load static %}
-<!-- =======================
-Main Banner START -->
-<section class="pt-2">
-    <div class="container" data-sticky-container>
-        <div class="row g-1">
-
-            <div class="col-lg-10 ms-auto position-relative">
-                <img alt="" class="rounded-3" src="{% static 'assets/images/bg/03.jpg' %}">
-
-                <!-- Search START -->
-                <div class="col-12 col-sm-12 col-lg-8 col-xl-6 position-lg-middle ms-lg-8 ms-xl-7">
-                    <div class="card shadow pb-0 mt-n8 mt-sm-n8 mt-lg-0">
-
-                        <!-- Card header -->
-
-                        <div class="pt-3 p-3 p-sm-4 pb-0">
-                            <div aria-label="Basic radio toggle button group" class="btn-group btn-group-sm"
-                                 role="group">
-                                <input autocomplete="off" onclick="changeTab(1)" checked class="btn-check active"
-                                       id="btnradio1" name="btnradio"
-                                       type="radio">
-                                <label class="btn btn-info" for="btnradio1" style="font-size:12px;">ONEWAY</label>
-
-                                <input autocomplete="off" onclick="changeTab(2)" checked class="btn-check"
-                                       id="btnradio2" name="btnradio" type="radio">
-                                <label class="btn btn-info" for="btnradio2" style="font-size:12px;">ROUNDWAY</label>
-
-                                <input autocomplete="off" onclick="changeTab(3)" class="btn-check" id="btnradio3"
-                                       name="btnradio" type="radio">
-                                <label class="btn btn-info" for="btnradio3" style="font-size:12px;">LOCAL</label>
-
-                                <input autocomplete="off" onclick="changeTab(4)" class="btn-check" id="btnradio4"
-                                       name="btnradio" type="radio">
-                                <label class="btn btn-info" for="btnradio4" style="font-size:12px;">AIRPORT</label>
-                            </div>
-                        </div>
-
-                        <!-- Card body START -->
-
-                        <!-- Tabs START -->
-
-                        <div class="tab-content mt-3">
-                            <div class="tab-pane fade show active" id="tab1">
-                                <!-- Tabs END -->
-                                <div class="card-body form-control-border p-2 p-sm-4">
-                                    <form action="{% url 'calculate-fare' %}" id="search-form" method="post"
-                                          novalidate>
-                                        {% csrf_token %}
-                                        <!-- Tabs content START -->
-                                        <div class="tab-content my-0 pb-2" id="pills-tabContent">
-                                            <!-- One way START -->
-                                            <div aria-labelledby="cab2-one-way-tab"
-                                                 class="tab-pane fade show active"
-                                                 id="cab2-one-way"
-                                                 role="tabpanel">
-                                                <div class="row g-2 g-md-3">
-                                                    <!-- Pickup -->
-                                                    <div class="col-md-12">
-                                                        <div class="form-group row">
-                                                            <label class="col-3 small"><b>FROM</b></label>
-                                                            <div class="col-9">
-                                                                <div class="form-border-bottom form-control-transparent d-flex align-items-center">
-                                                                    <!-- Cities -->
-                                                                    <div>
-                                                                        <input class="form-control source"
-                                                                               name="source"
-                                                                               placeholder="Select City"
-                                                                               required
-                                                                               size="100" type="text">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-md-12">
-                                                        <div class="form-group row">
-                                                            <label class="col-3 small"><b>TO</b></label>
-                                                            <div class="col-9">
-                                                                <div class="form-border-bottom form-control-transparent d-flex">
-                                                                    <!-- Cities -->
-                                                                    <div class="form">
-                                                                        <input class="form-control destination"
-                                                                               name="destination"
-                                                                               placeholder="Select City"
-                                                                               required
-                                                                               size="100" type="text">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <!-- Date -->
-                                                    <div class="col-md-12">
-                                                        <div class="form-group row">
-                                                            <label class="col-3 small"><b>DATE</b></label>
-                                                            <div class="col-9">
-                                                                <div class="form-border-bottom form-control-transparent d-flex align-items-center">
-
-                                                                    <div class="form">
-                                                                        <input class="form-control flatpickr"
-                                                                               data-date-format="d/M/Y"
-                                                                               id="date_input"
-                                                                               name="date"
-                                                                               placeholder="Select Date" required
-                                                                               type="date">
 
 
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+<label for="coupon_code">Coupon Code:</label>
+<input type="text" id="coupon_code">
+<button id="apply_coupon">Apply Coupon</button>
+
+<p>Original Price: $<span id="original_price">1000</span></p>
+<p>Discounted Price: $<span id="discounted_price">{{ discounted_price }}</span></p>
 
 
-                                                    <!-- Time -->
-                                                    <div class="col-md-12">
-                                                        <div class="form-group row">
-                                                            <label class="col-3 small"><b>TIME</b></label>
-                                                            <div class="col-9">
-                                                                <div class="form-border-bottom form-control-transparent d-flex align-items-center">
-                                                                    <div class="form">
-                                                                        <select class="form-control" id="time_input"
-                                                                                name="time"
-                                                                                required>
-                                                                            <option value="">Select time</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <!-- One way END -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const originalPriceElement = document.getElementById("original_price");
+        const discountedPriceElement = document.getElementById("discounted_price");
+        const couponCodeInput = document.getElementById("coupon_code");
+        const applyCouponButton = document.getElementById("apply_coupon");
 
-                                            <!-- Round trip START -->
+        applyCouponButton.addEventListener("click", function () {
+            const couponCode = couponCodeInput.value;
 
-                                            <!-- Round trip END -->
-                                        </div>
-                                        <!-- Tabs content END -->
+            // You can implement a dictionary or object containing coupon codes and their discounts.
+            const couponCodes = {
+                "COUPON123": 0.2, // 20% discount
+                // Add more coupon codes and discounts as needed
+            };
 
-                                        <!-- Button -->
-                                        <div class="d-grid">
-                                            <button class="btn btn-info mb-0" type="submit">Search Cabs</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
+            if (couponCode in couponCodes) {
+                const discountAmount = couponCodes[couponCode];
+                const originalPrice = parseFloat(originalPriceElement.textContent);
+                const discountedPrice = originalPrice - (originalPrice * discountAmount);
 
-                            <div class="tab-pane fade card-body p-2 p-sm-4" id="tab2">
-                                <form method="post" novalidate>
-                                    {% csrf_token %}
-                                    <div class="row g-2 g-md-3 pb-1">
-                                        <!-- Pickup -->
-                                        <div class="col-md-12">
-                                            <div class="form-group row">
-                                                <label class="col-3 small"><b>CITY</b></label>
-                                                <div class="col-9">
-                                                    <div class="form-border-bottom form-control-transparent d-flex align-items-center">
-                                                        <!-- Cities -->
-                                                        <div>
-                                                            <input class="form-control source"
-                                                                   name="source"
-                                                                   placeholder="Select City"
-                                                                   required
-                                                                   size="100" type="text">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Date -->
-                                        <div class="col-md-12">
-                                            <div class="form-group row">
-                                                <label class="col-3 small"><b>DATE</b></label>
-                                                <div class="col-9">
-                                                    <div class="form-border-bottom form-control-transparent d-flex align-items-center">
-
-                                                        <div class="form">
-                                                            <input class="form-control flatpickr"
-                                                                   data-date-format="d/M/Y"
-
-                                                                   name="date"
-                                                                   placeholder="Select Date" required
-                                                                   type="date">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <!-- Time -->
-                                        <div class="col-md-12">
-                                            <div class="form-group row">
-                                                <label class="col-3 small"><b>TIME</b></label>
-                                                <div class="col-9">
-                                                    <div class="form-border-bottom form-control-transparent d-flex align-items-center">
-                                                        <div class="form">
-                                                            <select class="form-control"
-                                                                    name="time"
-                                                                    required>
-                                                                <option value="">Select time</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-grid">
-                                        <button class="btn btn-info mb-0" type="submit">Search Cabs</button>
-                                    </div>
-                                </form>
-                            </div>
-                            <!------------------------------------------------------ LOCAL CABS ------------------------------------------------------------>
-                            <div class="tab-pane fade card-body p-2 p-sm-4" id="tab3">
-                                <form method="post" novalidate>
-                                    {% csrf_token %}
-                                    <div class="row g-2 g-md-3 pb-1">
-                                        <!-- Pickup -->
-                                        <div class="col-md-12">
-                                            <div class="form-group row">
-                                                <label class="col-3 small"><b>CITY</b></label>
-                                                <div class="col-9">
-                                                    <div class="form-border-bottom form-control-transparent d-flex align-items-center">
-                                                        <!-- Cities -->
-                                                        <div>
-                                                            <input class="form-control source"
-                                                                   name="source"
-                                                                   placeholder="Select City"
-                                                                   required
-                                                                   size="100" type="text">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Date -->
-                                        <div class="col-md-12">
-                                            <div class="form-group row">
-                                                <label class="col-3 small"><b>DATE</b></label>
-                                                <div class="col-9">
-                                                    <div class="form-border-bottom form-control-transparent d-flex align-items-center">
-
-                                                        <div class="form">
-                                                            <input class="form-control flatpickr"
-                                                                   data-date-format="d/M/Y"
-
-                                                                   name="date"
-                                                                   placeholder="Select Date" required
-                                                                   type="date">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <!-- Time -->
-                                        <div class="col-md-12">
-                                            <div class="form-group row">
-                                                <label class="col-3 small"><b>TIME</b></label>
-                                                <div class="col-9">
-                                                    <div class="form-border-bottom form-control-transparent d-flex align-items-center">
-                                                        <div class="form">
-                                                            <select class="form-control"
-                                                                    name="time"
-                                                                    required>
-                                                                <option value="">Select time</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-grid">
-                                        <button class="btn btn-info mb-0" type="submit">Search Cabs</button>
-                                    </div>
-                                </form>
-                            </div>
-
-                            <!------------------------------------------------------ AIRPORT CABS ------------------------------------------------------------>
-
-                            <div class="tab-pane fade card-body p-2 p-sm-4" id="tab4">
-                                <form method="post" novalidate>
-                                    {% csrf_token %}
-                                    <div class="row g-2 g-md-3 pb-1">
-                                        <!-- Pickup -->
-                                        <div class="col-md-12">
-                                            <div class="form-group row">
-                                                <label class="col-3 small"><b>PICKUP CITY</b></label>
-                                                <div class="col-9">
-                                                    <div class="form-border-bottom form-control-transparent d-flex align-items-center">
-                                                        <!-- Cities -->
-                                                        <div>
-                                                            <input class="form-control source"
-                                                                   name="source"
-                                                                   placeholder="Select City"
-                                                                   required
-                                                                   size="100" type="text">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-12">
-                                            <div class="form-group row">
-                                                <label class="col-3 small"><b>PICKUP ADDRESS</b></label>
-                                                <div class="col-9">
-                                                    <div class="form-border-bottom form-control-transparent d-flex">
-                                                        <!-- Cities -->
-                                                        <div class="form">
-                                                            <input class="form-control destination"
-                                                                   name="destination"
-                                                                   placeholder="Select City"
-                                                                   required
-                                                                   size="100" type="text">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- Date -->
-                                        <div class="col-md-12">
-                                            <div class="form-group row">
-                                                <label class="col-3 small"><b>DATE</b></label>
-                                                <div class="col-9">
-                                                    <div class="form-border-bottom form-control-transparent d-flex align-items-center">
-
-                                                        <div class="form">
-                                                            <input class="form-control flatpickr"
-                                                                   data-date-format="d/M/Y"
-
-                                                                   name="date"
-                                                                   placeholder="Select Date" required
-                                                                   type="date">
-
-
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <!-- Time -->
-                                        <div class="col-md-12">
-                                            <div class="form-group row">
-                                                <label class="col-3 small"><b>TIME</b></label>
-                                                <div class="col-9">
-                                                    <div class="form-border-bottom form-control-transparent d-flex align-items-center">
-                                                        <div class="form">
-                                                            <select class="form-control"
-                                                                    name="time"
-                                                                    required>
-                                                                <option value="">Select time</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="d-grid">
-                                        <button class="btn btn-info mb-0" type="submit">Search Cabs</button>
-                                    </div>
-                                </form>
-
-                            </div>
-                        </div>
-                        <!-- Card-body END -->
-                    </div>
-                </div>
-                <!-- Search END -->
-            </div>
-        </div> <!-- Row END -->
-    </div>
-</section>
-<!-- =======================
-Main Banner END -->
+                // Update the displayed prices.
+                originalPriceElement.textContent = originalPrice.toFixed(2);
+                discountedPriceElement.textContent = discountedPrice.toFixed(2);
+            } else {
+                alert("Invalid coupon code. Please try again.");
+            }
+        });
+    });
+</script>
 
 
 {% endblock %}

@@ -26,14 +26,21 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "myapp",
+    "oneway",
     "django_flatpickr",
     "rest_framework",
     "customadmin",
     "roundway",
     "local",
     "airport",
+    "coupon",
 ]
+
+
+TIME_ZONE = "Asia/Kolkata"
+USE_TZ = True
+DATE_FORMAT = "d-m-Y"  # Change to your preferred date format
+TIME_FORMAT = "H:i"  # Change to your preferred time format
 
 
 REST_FRAMEWORK = {
@@ -137,4 +144,22 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-AUTH_USER_MODEL = "myapp.User"
+AUTH_USER_MODEL = "oneway.User"
+
+
+# Email Backend Configuration (use SMTP)
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+# SMTP Configuration for Gmail (replace with your provider's settings)
+EMAIL_HOST = "smtp.gmail.com"  # SMTP server hostname
+EMAIL_PORT = 587  # SMTP server port
+EMAIL_USE_TLS = True  # Use TLS (True/False)
+EMAIL_USE_SSL = False  # Use SSL (True/False)
+EMAIL_HOST_USER = "sandeepgodbms@gmail.com"  # Your email address
+EMAIL_HOST_PASSWORD = "jezaaekdiddtlcnn"  # Your email password or app-specific password
+
+
+import logging
+
+logger = logging.getLogger("django")
+logger.setLevel(logging.DEBUG)

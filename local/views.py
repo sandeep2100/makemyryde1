@@ -1,6 +1,9 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
+import json
 import math
-from .models import City, Package, CarPackage
+from .models import *
+from decimal import Decimal
+from django.http import JsonResponse
 
 
 def local_cab(request):
@@ -16,6 +19,26 @@ def local_cab(request):
         city_id=selected_city_id, package_id=selected_package_id
     )
 
+    gst_rate = Decimal("0.05")
+
+    fare_summaries = []
+    for car_package in selected_car_packages:
+        total_price = car_package.price
+        estimated_amount = total_price * (1 - gst_rate)
+        gst_amount = total_price * gst_rate
+
+        estimated_amount = math.ceil(estimated_amount)
+        gst_amount = math.ceil(gst_amount)
+        total_price = math.ceil(total_price)
+
+        fare_summary = {
+            "car_package": car_package,
+            "estimated_amount": estimated_amount,
+            "gst_amount": gst_amount,
+            "actual_price": total_price,
+        }
+        fare_summaries.append(fare_summary)
+
     return render(
         request,
         "local/cab-list.html",
@@ -25,6 +48,7 @@ def local_cab(request):
             "selected_car_packages": selected_car_packages,
             "selected_city": selected_city,
             "selected_package": selected_package,
+            "fare_summaries": fare_summaries,
         },
     )
 
@@ -59,10 +83,18 @@ def local_cab_detail(request):
 def local_cab_booking(request):
     if request.method == "POST":
         name = request.POST.get("name")
-        mobile = request.POST.get("mobile")
+        mobile_b = request.POST.get("mobile")
         email = request.POST.get("email")
-        pick_up = request.POST.get("mobile")
+        pick_up = request.POST.get("pick_up")
+        booking_id = request.POST.get("booking_id")
         remark = request.POST.get("remark")
+        booking_type = request.POST.get("booking_type")
+        gst_company = request.POST.get("gst_company")
+        gst_number = request.POST.get("gst_number")
+        alternative_number = request.POST.get("alternative_number")
+        amount = request.POST.get("amount")
+        coupon_price = request.POST.get("coupon_price")
+        coupon_code = request.POST.get("coupon_code")
 
         date = request.session.get("date")
         time = request.session.get("time")
@@ -71,7 +103,28 @@ def local_cab_booking(request):
         selected_city = request.session.get("selected_city")
         selected_package = request.session.get("selected_package")
 
-        a = float(car_price)
+        en = local_booking(
+            name=name,
+            email=email,
+            mobile_b=mobile_b,
+            pick_up=pick_up,
+            selected_city=selected_city,
+            booking_id=booking_id,
+            selected_package=selected_package,
+            date=date,
+            car_price=car_price,
+            time=time,
+            remark=remark,
+            gst_number=gst_number,
+            gst_company=gst_company,
+            amount=amount,
+            booking_type=booking_type,
+            alternative_number=alternative_number,
+        )
+        en.save()
+        booking_id = en.booking_id
+
+        a = float(amount)
         money = a
         money1 = a * 0.2
         money1 = math.ceil(money1)
@@ -79,7 +132,7 @@ def local_cab_booking(request):
 
         context = {
             "name": name,
-            "mobile": mobile,
+            "mobile_b": mobile_b,
             "email": email,
             "pick_up": pick_up,
             "remark": remark,
@@ -92,41 +145,75 @@ def local_cab_booking(request):
             "money": money,
             "money1": money1,
             "money2": money2,
+            "booking_type": booking_type,
+            "booking_id": booking_id,
+            "amount": amount,
+            "coupon_price": coupon_price,
+            "coupon_code": coupon_code,
         }
-    return render(request, "local/cab-booking.html", context)
+
+        request.session["name"] = name
+        request.session["mobile"] = mobile_b
+        request.session["email"] = email
+        request.session["pick_up"] = pick_up
+        request.session["booking_id"] = booking_id
+        request.session["remark"] = remark
+        request.session["booking_type"] = booking_type
+        request.session["money"] = money
+        request.session["coupon_price"] = coupon_price
+        request.session["coupon_code"] = coupon_code
+
+        return render(request, "local/cab-booking.html", context)
+
+
+def apply_discount(total, discount_amount):
+    total = float(total)
+    discount = float(discount_amount)
+    discounted_total = total - discount
+    return round(discounted_total, 2)
 
 
 def local_confirm(request):
+    name = request.session.get("name")
+    email = request.session.get("email")
+    mobile = request.session.get("mobile")
+    booking_id = request.session.get("booking_id")
+    date = request.session.get("date")
+    time = request.session.get("time")
+    car_name = request.session.get("car_name")
+    car_price = request.session.get("car_price")
+    selected_city = request.session.get("selected_city")
+    selected_package = request.session.get("selected_package")
+    money = request.session.get("money")
+    pick_up = request.session.get("pick_up")
+    coupon_price = request.session.get("coupon_price")
+    coupon_code = request.session.get("coupon_code")
+
     if request.method == "POST":
         paid = request.POST.get("paid")
-    request.session["paid"] = paid
+        total = request.POST.get("total")
 
-    local_city = request.session.get("local_city")
-    booking_id = request.session.get("booking_id")
-    name = request.session.get("name")
-    money = request.session.get("money")
-    paid = request.session.get("paid")
-    date = request.session.get("date")
-    package = request.session.get("package")
-    days = request.session.get("days")
-    car_name = request.session.get("car_name")
-    pickup_address = request.session.get("pickup_address")
+        request.session["paid"] = paid
+        b = int(paid)
+        rem_amount = int(total) - b
 
-    b = int(paid)
-    rem_amount = money - b
-
-    context = {
-        "local_city": local_city,
-        "booking_id": booking_id,
-        "name": name,
-        "money": money,
-        "paid": paid,
-        "rem_amount": rem_amount,
-        "date": date,
-        "days": days,
-        "car_name": car_name,
-        "package": package,
-        "pickup_address": pickup_address,
-    }
-
-    return render(request, "local/confirm.html", context)
+        context = {
+            "selected_city": selected_city,
+            "booking_id": booking_id,
+            "name": name,
+            "email": email,
+            "money": money,
+            "mobile": mobile,
+            "time": time,
+            "paid": paid,
+            "date": date,
+            "car_price": car_price,
+            "selected_package": selected_package,
+            "car_name": car_name,
+            "pick_up": pick_up,
+            "rem_amount": rem_amount,
+            "total": total,
+            "coupon_price": coupon_price,
+            "coupon_code": coupon_code,
+        }
+        return render(request, "local/confirm.html", context)

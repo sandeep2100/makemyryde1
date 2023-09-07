@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 import googlemaps
 import math
-from datetime import datetime, timedelta
+from datetime import datetime
 from .models import *
 
 
@@ -39,14 +39,17 @@ def calculate(request):
         source = request.POST.get("source")
         destination = request.POST.get("destination")
         date = request.POST.get("date")
-        re_date = request.POST.get("re_date")
-        time = request.POST.get("time")
+        return_date = request.POST.get("return_date")
+        time1 = request.POST.get("time")
+
+        time24 = time1
+        time_obj = datetime.strptime(time24, "%H:%M")
+        time = time_obj.strftime("%I:%M %p")
 
         distance = 2 * (calculate_distance(source, destination))
         toll_tax = distance
 
-        day_difference = calculate_day_difference(date, re_date)
-        day_difference_km = calculate_day_difference(date, re_date)
+        day_difference_km = calculate_day_difference(date, return_date)
 
         if distance < day_difference_km:
             distance = day_difference_km
@@ -74,7 +77,7 @@ def calculate(request):
         gst3 = base_fare3 * 0.05
         gst4 = base_fare4 * 0.05
 
-        day_difference_fare = calculate_day_difference(date, re_date)
+        day_difference_fare = calculate_day_difference(date, return_date)
 
         total_fare1 = base_fare1 + gst1
         total_fare2 = base_fare2 + gst2
@@ -130,7 +133,7 @@ def calculate(request):
             "total_fare4": total_fare4,
             "date": date,
             "time": time,
-            "re_date": re_date,
+            "return_date": return_date,
             "per_km_price1": per_km_price1,
             "per_km_price2": per_km_price2,
             "per_km_price3": per_km_price3,
@@ -151,6 +154,7 @@ def calculate(request):
             "dis_fare3": dis_fare3,
             "dis_fare4": dis_fare4,
         }
+
         request.session["source"] = source
         request.session["destination"] = destination
         request.session["distance"] = distance
@@ -169,7 +173,7 @@ def calculate(request):
         request.session["dd"] = dd
         request.session["date"] = date
         request.session["time"] = time
-        request.session["re_date"] = re_date
+        request.session["return_date"] = return_date
 
         request.session["gst1"] = gst1
         request.session["gst2"] = gst2
@@ -195,7 +199,7 @@ def round_cab(request):
     destination = request.session.get("destination")
     distance = request.session.get("distance")
     date = request.session.get("date")
-    re_date = request.session.get("re_date")
+    return_date = request.session.get("return_date")
     time = request.session.get("time")
     toll1 = request.session.get("toll1")
     toll2 = request.session.get("toll2")
@@ -231,7 +235,7 @@ def round_cab(request):
         "destination": destination,
         "distance": distance,
         "date": date,
-        "re_date": re_date,
+        "return_date": return_date,
         "time": time,
         "toll1": toll1,
         "toll2": toll2,
@@ -257,6 +261,7 @@ def round_cab(request):
         "dis_fare3": dis_fare3,
         "dis_fare4": dis_fare4,
     }
+
     return render(request, "roundway/cab-list.html", context)
 
 
@@ -272,10 +277,11 @@ def round_cab_detail(request):
     destination = request.session.get("destination")
     distance = request.session.get("distance")
     date = request.session.get("date")
-    re_date = request.session.get("re_date")
+    return_date = request.session.get("return_date")
     time = request.session.get("time")
 
     request.session["car_name"] = car_name
+    request.session["car_price"] = car_price
 
     context = {
         "source": source,
@@ -283,7 +289,7 @@ def round_cab_detail(request):
         "distance": distance,
         "date": date,
         "time": time,
-        "re_date": re_date,
+        "return_date": return_date,
         "gst": gst,
         "base_fare": base_fare,
         "car_name": car_name,
@@ -291,6 +297,7 @@ def round_cab_detail(request):
         "car_price": car_price,
         "dis_price": dis_price,
     }
+
     return render(request, "roundway/cab-detail.html", context)
 
 
@@ -307,13 +314,19 @@ def round_cab_booking(request):
         booking_id = request.POST.get("booking_id")
         amount = request.POST.get("amount")
         date = request.POST.get("date")
-        re_date = request.POST.get("re_date")
+        return_date = request.POST.get("return_date")
         time = request.POST.get("time")
         car_name = request.POST.get("car_name")
         car_price = request.POST.get("car_price")
         paid = request.POST.get("paid")
+        remark = request.POST.get("remark")
+        gst_company = request.POST.get("gst_company")
+        gst_number = request.POST.get("gst_number")
+        alternative_number = request.POST.get("alternative_number")
+        coupon_price = request.POST.get("coupon_price")
+        coupon_code = request.POST.get("coupon_code")
 
-        en = roundway(
+        en = roundway_booking(
             name=name,
             email=email,
             mobile_b=mobile_b,
@@ -324,8 +337,12 @@ def round_cab_booking(request):
             booking_id=booking_id,
             amount=amount,
             date=date,
-            re_date=re_date,
+            return_date=return_date,
             time=time,
+            remark=remark,
+            gst_number=gst_number,
+            gst_company=gst_company,
+            alternative_number=alternative_number,
         )
         en.save()
         booking_id = en.booking_id
@@ -343,6 +360,9 @@ def round_cab_booking(request):
         request.session["name"] = name
         request.session["money"] = money
         request.session["paid"] = paid
+        request.session["total"] = total
+        request.session["coupon_price"] = coupon_price
+        request.session["coupon_code"] = coupon_code
 
         car_name = request.session.get("car_name")
         source = request.session.get("source")
@@ -351,7 +371,7 @@ def round_cab_booking(request):
         # total_fare = request.session.get('total_fare')
         date = request.session.get("date")
         time = request.session.get("time")
-        re_date = request.session.get("re_date")
+        return_date = request.session.get("return_date")
         # re_time = request.session.get('re_time')
         oneway_trip = request.session.get("oneway_trip")
         roundway_trip = request.session.get("roundway_trip")
@@ -365,7 +385,7 @@ def round_cab_booking(request):
             "total": total,
             "date": date,
             "time": time,
-            "re_date": re_date,
+            "return_date": return_date,
             # 're_time': re_time,
             "oneway_trip": oneway_trip,
             "roundway_trip": roundway_trip,
@@ -384,16 +404,20 @@ def round_cab_booking(request):
             "money1": money1,
             "money2": money2,
             "paid": paid,
+            "coupon_price": coupon_price,
+            "coupon_code": coupon_code,
         }
         return render(request, "roundway/cab-booking.html", context)
 
 
+def apply_discount(total, discount_amount):
+    total = float(total)
+    discount = float(discount_amount)
+    discounted_total = total - discount
+    return round(discounted_total, 2)
+
+
 def round_confirm(request):
-    if request.method == "POST":
-        paid = request.POST.get("paid")
-
-    request.session["paid"] = paid
-
     source = request.session.get("source")
     destination = request.session.get("destination")
     booking_id = request.session.get("booking_id")
@@ -403,9 +427,18 @@ def round_confirm(request):
     date = request.session.get("date")
     days = request.session.get("days")
     car_name = request.session.get("car_name")
+    total = request.session.get("total")
+    coupon_price = request.session.get("coupon_price")
+    car_price = request.session.get("car_price")
+    car_code = request.session.get("car_code")
+
+    if request.method == "POST":
+        paid = request.POST.get("paid")
+        total = request.POST.get("total")
+    request.session["paid"] = paid
 
     b = int(paid)
-    rem_amount = money - b
+    rem_amount = int(total) - b
 
     context = {
         "source": source,
@@ -418,6 +451,10 @@ def round_confirm(request):
         "date": date,
         "days": days,
         "car_name": car_name,
+        "total": total,
+        "coupon_price": coupon_price,
+        "car_price": car_price,
+        "coupon_code": coupon_price,
     }
 
     return render(request, "roundway/confirm.html", context)

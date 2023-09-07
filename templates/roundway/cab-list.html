@@ -3,105 +3,20 @@
 {% load static %}
 
 <!-- ==== First Page SECLECTION Destination Details -->
-<section class="pt-2 pb-0">
-    <div class="position-relative text-center">
-        <!-- Title and button START -->
-        <div class="pb-0">
-            <!-- Title -->
-            <h6 class="fw-normal mb-0 text-secondary " style="font-size: 12px;"><i class="bi bi-taxi-front me-2"
-                                                                                   style="color:#273E47;">ROUNDWAY
-                : </i> <span id="source">{{source}}</span> &nbsp;<i
-                    class="bi bi-arrow-right-circle-fill text-dark"></i> &nbsp; <span id="destination">{{destination}}</span>
-                ({{distance}} Km)</h6>
-
-        </div>
-        <div class="pb-0">
-            <span style="font-size: 12px;">{{date}} To {{re_date}} at {{time}}</span>
-            <span class="badge text-bg-light"><a class="text-danger" href="{% url 'index' %}">(Edit)</a> </span>
-
-        </div>                <!-- Badge -->
-    </div>
-</section>
-
-
-<!-- ==== First Page SECLECTION END -->
-<!-- =========Type Car Category Display  -->
-
-
-
-<!-- ============== Cab list START -->
-
-<section class="pt-0 pb-1 pt-lg-5 ">
-    <div class="container carDetailsContainer ">
-        <div class="row">
-
-            <div class="col-lg-10 ms-auto position-relative">
-                <img alt="" class="rounded-3" src="{% static 'assets/images/bg/04.jpg' %}">
-
-                <!-- Search START -->
-                <div class="col-11 col-sm-10 col-lg-8 col-xl-6 position-lg-middle ms-lg-8 ms-xl-7">
-                    <div class="card shadow pb-0 mt-n8 mt-sm-n8 mt-lg-0">
-
-                        <!-- Card header -->
-
-
-                        <!-- Card body START -->
-                        <div class="rounded-3 card-body form-control-border p-3 p-sm-3">
-                            <div class="col-4 car-image" style="float:right; width:150px;">
-                                <img alt="" class="rounded-3" src="{% static 'assets/cars/wagonr.png' %}">
-                            </div>
-                            <div class="car-details-content">
-                                <div class="car-name row">
-                                    <h6></h6><span class="similar"></span>
-                                    <ul class="list-inline mb-1">
-                                        <li class="disprice list-inline-item text-decoration-line-through me-1 text-danger"></li>
-                                        <li  class="carPrice to list-inline-item h5 mb-0 text-success"></li>
-                                        <li  class="">{{distance}} Km</li>
-                                    </ul>
-                                    <div class="km"></div>
-                                    <div style="font-size: 14px; font-weight: 700;">
-                                        <a data-bs-toggle="modal" href="#staticBackdrop1"><u>Fare Details</u></a>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <form action="{% url 'round_cab_detail' %}" method="post">
-                                {% csrf_token %}
-                                <input class="carNameInput" hidden name="car_name" type="text">
-                                <input class="similarInput" hidden name="similar" type="text">
-                                <input class="carPriceInput" hidden name="car_price" type="text">
-                                <input class="dispriceInput" hidden name="dis_price" type="text">
-                                <input class="base_fareInput" hidden name="base_fare" type="text">
-                                <input class="gstInput" hidden name="gst" type="text">
-                                <div class="d-grid card-body form-control-border">
-                                    <button class="btn btn-info mb-0"  type="submit">
-                                        Select Cab
-                                    </button>
-                                </div>
-                            </form>
-
-
-                            <!-- Card-body END -->
-                        </div>
-                    </div>
-                </div>
-                <!-- Search END -->
-            </div>
-        </div>
-    </div> <!-- Row END -->
+<section class="pt-2 pb-0" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
 
 </section>
 
 <section class="pt-2 pb-0">
-    <div class="container">
-        <div class="row g-1">
+    <div class="container d-flex justify-content-center">
+        <!---------------------------------------------------FOR MOBILE SCREENS --------------------------------------->
+        <div class="row g-1 d-flex justify-content-center d-md-none">
             <!-- Fleet item -->
             <div class="col-sm-3 col-3">
                 <a class="back card text-center align-items-center h-90 p-1" data-base_fare="{{base_fare1}}"
-                   data-car-image="{% static 'assets/cars/wagonr.png' %}"
-                   data-car-name="WagonR or Similar" data-coveredKms="{{distance}}" data-per-km-price="{{ per_km_price1 }}"
-                   data-disprice="{{dis_fare1}}" data-gst="{{gst1}}" data-km="{{distance}}"
+                   data-car-image="{% static 'assets/images/category/cab/hatchback.png' %}"
+                   data-car-name="WagonR or Similar" data-coveredKms="{{distance}}"
+                   data-disprice="{{dis_fare1}}" data-gst="{{gst1}}" data-per-km-price="{{per_km_price1}}"
                    data-total-fare="{{ total_fare1 }}" href="javascript:void(0);"
                    id="button1">
                     <div class="icon-lg rounded-circle pb-0 circle">
@@ -112,17 +27,18 @@
                         <p class="fw-bold mb-0 car-name text-dark" style="font-size: 0.7rem;">HATCHBACK</p>
                     </div>
                     <!-- Image -->
+                    <p class="fw-bold mb-0 total-fare" style="font-size: 0.7rem; color:#273E47;">
+                        ₹ {{ total_fare1 }}</p>
 
-                    <p class="fw-bold  mb-0 total-fare" style="font-size: 0.7rem; color:#273E47;">₹ {{ total_fare1 }}</p>
                 </a>
             </div>
 
             <!-- Fleet item -->
             <div class="col-sm-3 col-3">
                 <a class="back card text-center align-items-center h-90 p-1" data-base_fare="{{base_fare2}}"
-                   data-car-image="{% static 'assets/cars/etios.png' %}"
+                   data-car-image="{% static 'assets/images/category/cab/sedan.png' %}"
                    data-car-name="Etios or Similar" data-coveredKms="{{distance}}" data-disprice="{{dis_fare2}}"
-                   data-gst="{{gst2}}" data-km="{{distance}}" data-per-km-price="{{per_km_price2}}"
+                   data-gst="{{gst2}}" data-km="{{distance}}"
                    data-total-fare="{{ total_fare2 }}" href="javascript:void(0);" id="button2">
 
                     <div class="icon-lg rounded-circle circle">
@@ -134,19 +50,20 @@
                     </div>
                     <!-- Image -->
 
-                    <p class="fw-bold mb-0 total-fare" style="font-size: 0.7rem; color:#273E47;">₹ {{ total_fare2 }}</p>
+                    <p class="fw-bold mb-0 total-fare" style="font-size: 0.7rem; color:#273E47;">
+                        ₹ {{ total_fare2 }}</p>
                 </a>
             </div>
 
             <!-- Fleet item -->
             <div class="col-sm-3 col-3">
                 <a class="back card text-center align-items-center h-90 p-1" data-base_fare="{{base_fare3}}"
-                   data-car-image="{% static 'assets/cars/ertiga.png' %}"
-                   data-car-name="Ertiga or Similar" data-coveredKms="{{distance}}" data-per-km-price="{{per_km_price3}}"
+                   data-car-image="{% static 'assets/images/category/cab/suv.png' %}"
+                   data-car-name="Ertiga or Similar" data-coveredKms="{{distance}}"
                    data-disprice="{{dis_fare3}}" data-gst="{{gst3}}" data-km="{{distance}}"
-                    data-total-fare="{{ total_fare3 }}" href="javascript:void(0);"
+                   data-total-fare="{{ total_fare3 }}" href="javascript:void(0);"
                    id="button3">
-                     <div class="icon-lg rounded-circle circle">
+                    <div class="icon-lg rounded-circle circle">
                         <img alt="" class="w-90px" src="{% static 'assets/images/category/cab/ertiga.png' %}">
                     </div>
                     <!-- Card body -->
@@ -155,19 +72,21 @@
                     </div>
                     <!-- Image -->
 
-                    <p class="fw-bold mb-0 total-fare" style="font-size: 0.7rem; color:#273E47;">₹ {{ total_fare3 }}</p>
+                    <p class="fw-bold mb-0 total-fare" style="font-size: 0.7rem; color:#273E47;">
+                        ₹ {{ total_fare3 }}</p>
+
                 </a>
             </div>
 
             <div class="col-sm-3 col-3">
                 <a class="back card text-center align-items-center h-90 p-1" data-base_fare="{{base_fare4}}"
-                   data-car-image="{% static 'assets/cars/crysta.png' %}"
-                   data-car-name="Innova or Similar" data-coveredKms="{{distance}}" data-per-km-price="{{per_km_price4}}"
+                   data-car-image="{% static 'assets/images/category/cab/premium.png' %}"
+                   data-car-name="Innova or Similar" data-coveredKms="{{distance}}"
                    data-disprice="{{dis_fare4}}" data-gst="{{gst4}}" data-km="{{distance}}"
                    data-total-fare="{{ total_fare4 }}" href="javascript:void(0);"
                    id="button4">
                     <!-- Card body -->
-                     <div class="icon-lg rounded-circle circle">
+                    <div class="icon-lg rounded-circle circle">
                         <img alt="" src="{% static 'assets/images/category/cab/innova.png' %}">
                     </div>
                     <div class="card-body px-0 pb-0 pt-0">
@@ -175,17 +94,239 @@
                     </div>
                     <!-- Image -->
 
-                    <p class="fw-bold mb-0 total-fare" style="font-size: 0.7rem; color:#273E47;">₹ {{ total_fare4 }}</p>
+                    <p class="fw-bold mb-0 total-fare" style="font-size: 0.7rem; color:#273E47;">
+                        ₹ {{ total_fare4 }}</p>
+                </a>
+            </div>
+            <!-- Fleet item -->
+        </div>
+        <!---------------------------------------------------FOR DESKTOP SCREEN--------------------------------------->
+
+        <div class="row g-1 d-none d-md-flex justify-content-center col-6">
+            <!-- Fleet item -->
+            <div class="col-sm-3 col-3">
+                <a class="back card text-center align-items-center h-90 p-1" data-base_fare="{{base_fare1}}"
+                   data-car-image="{% static 'assets/images/category/cab/hatchback.png' %}"
+                   data-car-name="WagonR or Similar" data-coveredKms="{{distance}}"
+                   data-disprice="{{dis_fare1}}" data-gst="{{gst1}}"
+                   data-total-fare="{{ total_fare1 }}" href="javascript:void(0);"
+                   id="button5">
+                    <div class="icon-lg rounded-circle pb-0 circle">
+                        <img alt="" src="{% static 'assets/images/category/cab/corolla.png' %}">
+                    </div>
+
+                    <div class="card-body px-0 pb-0 pt-0">
+                        <p class="fw-bold mb-0 car-name text-dark" style="font-size: 0.7rem;">HATCHBACK</p>
+                    </div>
+                    <!-- Image -->
+                    <p class="fw-bold mb-0 total-fare" style="font-size: 0.7rem; color:#273E47;">
+                        ₹ {{ total_fare1 }}</p>
+
+                </a>
+            </div>
+
+            <!-- Fleet item -->
+            <div class="col-sm-3 col-3">
+                <a class="back card text-center align-items-center h-90 p-1" data-base_fare="{{base_fare2}}"
+                   data-car-image="{% static 'assets/images/category/cab/sedan.png' %}"
+                   data-car-name="Etios or Similar" data-coveredKms="{{distance}}" data-disprice="{{dis_fare2}}"
+                   data-gst="{{gst2}}" data-km="{{distance}}"
+                   data-total-fare="{{ total_fare2 }}" href="javascript:void(0);" id="button6">
+
+                    <div class="icon-lg rounded-circle circle">
+                        <img alt="" class="w-90px" src="{% static 'assets/images/category/cab/toyota_etios.png' %}">
+                    </div>
+                    <!-- Card body -->
+                    <div class="card-body px-0 pb-0 pt-0">
+                        <p class="fw-bold mb-0 car-name text-dark" style="font-size: 0.7rem;">SEDAN</p>
+                    </div>
+                    <!-- Image -->
+
+                    <p class="fw-bold mb-0 total-fare" style="font-size: 0.7rem; color:#273E47;">
+                        ₹ {{ total_fare2 }}</p>
+                </a>
+            </div>
+
+            <!-- Fleet item -->
+            <div class="col-sm-3 col-3">
+                <a class="back card text-center align-items-center h-90 p-1" data-base_fare="{{base_fare3}}"
+                   data-car-image="{% static 'assets/images/category/cab/suv.png' %}"
+                   data-car-name="Ertiga or Similar" data-coveredKms="{{distance}}"
+                   data-disprice="{{dis_fare3}}" data-gst="{{gst3}}" data-km="{{distance}}"
+                   data-total-fare="{{ total_fare3 }}" href="javascript:void(0);"
+                   id="button7">
+                    <div class="icon-lg rounded-circle circle">
+                        <img alt="" class="w-90px" src="{% static 'assets/images/category/cab/ertiga.png' %}">
+                    </div>
+                    <!-- Card body -->
+                    <div class="card-body px-0 pb-0 pt-0">
+                        <p class="fw-bold mb-0 car-name text-dark" style="font-size: 0.7rem;">SUV</p>
+                    </div>
+                    <!-- Image -->
+
+                    <p class="fw-bold mb-0 total-fare" style="font-size: 0.7rem; color:#273E47;">
+                        ₹ {{ total_fare3 }}</p>
+
+                </a>
+            </div>
+
+            <div class="col-sm-3 col-3">
+                <a class="back card text-center align-items-center h-90 p-1" data-base_fare="{{base_fare4}}"
+                   data-car-image="{% static 'assets/images/category/cab/premium.png' %}"
+                   data-car-name="Innova or Similar" data-coveredKms="{{distance}}"
+                   data-disprice="{{dis_fare4}}" data-gst="{{gst4}}" data-km="{{distance}}"
+                   data-total-fare="{{ total_fare4 }}" href="javascript:void(0);"
+                   id="button8">
+                    <!-- Card body -->
+                    <div class="icon-lg rounded-circle circle">
+                        <img alt="" src="{% static 'assets/images/category/cab/innova.png' %}">
+                    </div>
+                    <div class="card-body px-0 pb-0 pt-0">
+                        <p class="fw-bold mb-0 car-name text-dark" style="font-size: 0.7rem;">PREMIUM</p>
+                    </div>
+                    <!-- Image -->
+
+                    <p class="fw-bold mb-0 total-fare" style="font-size: 0.7rem; color:#273E47;">
+                        ₹ {{ total_fare4 }}</p>
                 </a>
             </div>
             <!-- Fleet item -->
         </div>
     </div>
 </section>
+<!-- ==== First Page SECLECTION END -->
 
-<div class="container text-center">
-    <h6 class="badge bg-opacity-10 bg-secondary text-dark text-center ">Pick Your Cab</h6>
+<!-- =========Type Car Category Display  -->
+<br>
+
+<div class="d-flex justify-content-center text-info pb-0">
+    <p style="font-size:13px;"><b>Book Comfortable Rides And Select Your Comfort</b></p>
 </div>
+
+<!-- Card body START -->
+
+<!-- ============== Cab list START -->
+<!-- Notice board START -->
+<div class="container carDetailsContainer">
+
+
+    <div class="rounded-3 border overflow-hidden mt-1 p-2">
+        <div class="row g-2 align-items-center">
+            <!-- Image -->
+            <div class="col-6 col-md-3 text-center order-md-1 car-image">
+                <img alt="" class="mb-n5" src="{% static 'assets/images/category/cab/hatchback.png' %}"
+                     style="width:300px;">
+            </div>
+
+            <!-- Content -->
+            <div class="col-md-6 order-2 d-flex justify-content-center d-md-none">
+                <div class="row bg-light rounded-1 col-12 bg-opacity-75 p-1">
+                    <div class="col-1 col-md-1 p-0"></div>
+                    <div class="col-5 col-md-5 p-0">
+                        <ul class="list-group list-group-borderless mb-0">
+                            <li class="list-group-item d-flex p-0 mb-0 text-info">
+                                            <span style="font-size: 12px;"><i
+                                                    class="bi bi-person-check me-2 text-info"></i>Verified Driver</span>
+                            </li>
+                            <li class="list-group-item d-flex p-0 mb-0 text-info">
+                                <span style="font-size: 12px;"><i
+                                        class="bi bi-receipt me-2 text-info"></i>GST Invoice</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-5 col-md-5 p-0">
+                        <ul class="list-group list-group-borderless mb-0">
+                            <li class="list-group-item d-flex p-0 mb-0 text-info">
+                                            <span style="font-size: 12px;"><i
+                                                    class="bi bi-speedometer2 me-2 text-info"></i>On Time Cab</span>
+                            </li>
+                            <li class="list-group-item d-flex p-0 mb-0 text-info">
+                                            <span style="font-size: 12px;"><i
+                                                    class="bi bi-check-circle me-2 text-info"></i>No Hidden Charges</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="col-md-6 order-2 justify-content-center d-none d-md-flex">
+                <div class="row bg-light rounded-3 col-10 bg-opacity-75">
+                    <div class="col-1 col-md-1 p-0"></div>
+                    <div class="col-5 col-md-5 p-0">
+                        <ul class="list-group list-group-borderless mb-0">
+                            <li class="list-group-item d-flex p-0 mb-0 text-info">
+                                            <span style="font-size: 20px;"><i
+                                                    class="bi bi-person-check me-2 text-info"></i>Verified Driver</span>
+                            </li>
+                            <li class="list-group-item d-flex p-0 mb-0 text-info">
+                                <span style="font-size: 20px;"><i
+                                        class="bi bi-receipt me-2 text-info"></i>GST Invoice</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-5 col-md-5 p-0">
+                        <ul class="list-group list-group-borderless mb-0">
+                            <li class="list-group-item d-flex p-0 mb-0 text-info">
+                                            <span style="font-size: 20px;"><i
+                                                    class="bi bi-speedometer2 me-2 text-info"></i>On Time Cab</span>
+                            </li>
+                            <li class="list-group-item d-flex p-0 mb-0 text-info">
+                                            <span style="font-size: 20px;"><i
+                                                    class="bi bi-check-circle me-2 text-info"></i>No Hidden Charges</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Image -->
+            <div class="col-6 col-md-3 order-md-3">
+                <div class="car-name row p-2">
+                    <h6 class="text-info" style="font-size:18px;"><span class="similar"></span></h6>
+                    <ul class="list-inline mb-1">
+                        <li style="font-size:14px;"><span class="bi bi-person-fill text-info"> 4</span>&nbsp;&nbsp;<span
+                                class="bi bi-briefcase-fill text-info">&nbsp; 2</span>
+                            &nbsp;<span class="bi bi-snow2 text-info mt-n1">  AC</span></li>
+
+                        <li><span class="badge bg-danger" style="font-size:9px;">15% OFF</span></li>
+
+                        <li class="carPrice to list-inline-item h5 mb-0 text-dark bg-info bg-opacity-10"></li>
+                        <li class="disprice list-inline-item text-decoration-line-through text-danger"
+                            style="font-size:13px;"></li>
+
+                        <li style="font-size: 14px; font-weight: 700;">
+                            <a data-bs-toggle="modal" href="#staticBackdrop1"><u class="text-primary">Fare summary <i
+                                    class="bi bi-eye"></i></u> </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="order-md-4 order-4">
+                <form action="{% url 'round_cab_detail' %}" method="post">
+                    {% csrf_token %}
+                    <input class="carNameInput" hidden name="car_name" type="text">
+                    <input class="similarInput" hidden name="similar" type="text">
+                    <input class="carPriceInput" hidden name="car_price" type="text">
+                    <input class="dispriceInput" hidden name="dis_price" type="text">
+                    <input class="base_fareInput" hidden name="base_fare" type="text">
+                    <input class="gstInput" hidden name="gst" type="text">
+                    <div class="d-grid card-body form-control-border">
+                        <button class="btn btn-info mb-0" type="submit">
+                            Select Cab
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- Notice board END -->
+
+
 <!-- ============Car Category Display End -->
 
 <div aria-hidden="true" aria-labelledby="staticBackdropLabel" class="modal fade" data-bs-backdrop="static"
@@ -202,44 +343,39 @@
                     <div class="col-12">
                         <div class="row">
                             <div class="h6 small col-4">Fare Calculation</div>
-                            <div class="col-8 text-dark" style="font-size:13px;">
+                            <div class="col-4 text-dark" style="font-size:13px;">
                                 <span style="float:right">Km {{distance}} x <span id="perKmPriceValue"></span>/Km</span>
+                            </div>
+                            <div class="col-4 text-dark d-flex justify-content-end" style="font-size:13px;">
+                                <span id="estimatedAmount1"></span>
                             </div>
                         </div>
 
                         <div hidden="" class="row">
                             <div class="h6 small col-4"></div>
                             <div class="col-8" style="font-size:13px;">
-                                <span id="estimatedAmount1" style=" float:right"></span>
+                                <span style=" float:right"></span>
                                 <span id="coveredKms1" style=" float:right"></span>
 
                                 <span style=" float:right"></span>
                             </div>
                         </div>
-                            <div class="row">
-                            <div class="h6 small col-8"> GST(5%)</div>
-                            <div class="col-4  text-dark" style="font-size:13px;">
-                                <span id="gstAmount1" style=" float:right"></span>
+                        <div class="row">
+                            <div class="h6 small col-4">GST</div>
+                            <div class="col-4 text-dark d-flex justify-content-center" style="font-size:13px;">
+                                <span>5%</span>
                             </div>
-                        </div>
-                              <div class="row">
-                            <div class="h6 small col-8"> Driver Allowance</div>
-                            <div class="col-4  text-dark" style="font-size:13px;">
-                                <span style=" float:right">₹ 300 / Day</span>
+                            <div class="col-4 text-dark d-flex justify-content-end" style="font-size:13px;">
+                                <span id="gstAmount1"></span>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="h6 small col-8">Night Allowance</div>
+                            <div class="h6 small col-8"> Driver DA(₹ 300/Day)</div>
                             <div class="col-4  text-dark" style="font-size:13px;">
-                                <span style=" float:right">₹ 150 / Night</span>
+                                <span style=" float:right"></span>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="h6 small col-8">Toll & State Tax</div>
-                            <div class="col-4  text-dark" style="font-size:13px;">
-                                <span style=" float:right">(₹ {{toll1}} - ₹ {{toll2}})</span>
-                            </div>
-                        </div>
+
 
                         <div class="row">
                             <div class="h6 small col-8"> Total</div>
@@ -258,7 +394,7 @@
                         <div class="row">
                             <div class="h6 small col-8">Return By</div>
                             <div class="col-4 text-dark" style="font-size:13px;">
-                                <span style=" float:right">{{re_date}}</span>
+                                <span style=" float:right">{{return_date}}</span>
                             </div>
                         </div>
                         <!--<div class="row">
@@ -275,32 +411,40 @@
                         <li>Estimated Amount <span class="fw-bold"
                                                    style="float:right;"></span></li>
                         <li>Covered Kms <span id="coveredKms1" style="float:right;"></span></li>
-                        <li>GST (5%) <span id="gstAmount1" style="float:right;">₹ </span></li>
-                        <li>Total Cost <span id="totalCost1" style="float:right;">₹ </span></li>
+                        <li>GST (5%) <span id="gstAmount1" style="float:right;">â‚¹ </span></li>
+                        <li>Total Cost <span id="totalCost1" style="float:right;">â‚¹ </span></li>
                     </ul>-->
 
                     <h6>Trip Extension :</h6>
                     <div class="row">
-                            <div class="h6 small col-6">After &nbsp;{{date}}</div>
-                            <div class="col-6 small text-dark">
-                                <div>After 300 KMs:</div>
-                            </div>
-                        </div>
-                    <div class="row">
-                            <div class="h6 small col-6">Min. 300 KMs /Day</div>
-                            <div class="col-6 small text-dark">
-                                <div>₹ 10 /KM</div>
-                            </div>
-                        </div>
-                    <div class="row">
-                            <div class="h6 small col-12">At ₹ 10 /KM</div>
-                        </div>
-                    <div class="row">
-                            <div class="h6 small col-12">Driver Allowance : ₹ 300/Day</div>
+                        <div class="h6 small col-6">After &nbsp;{{return_date}}</div>
 
-                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="h6 small col-6">Min. 300 KMs /Day</div>
+
+                    </div>
+                    <div class="row">
+                        <div class="h6 small col-12">At â‚¹ 10 /KM</div>
+                    </div>
+                    <div class="row">
+                        <div class="h6 small col-12">Driver Allowance : â‚¹ 300/Day</div>
+
+                    </div>
 
                     <h6>Exclusion :</h6>
+                    <div class="row">
+                        <div class="h6 small col-8">Night Allowance</div>
+                        <div class="col-4  text-dark" style="font-size:13px;">
+                            <span style=" float:right">â‚¹ 150 / Night</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="h6 small col-8">Toll & State Tax</div>
+                        <div class="col-4  text-dark" style="font-size:13px;">
+                            <span style=" float:right">(â‚¹ {{toll1}} - â‚¹ {{toll2}})</span>
+                        </div>
+                    </div>
                     <ul>
                         <li>Parking Charge, Airport Parking Charge if</li>
                     </ul>
@@ -308,8 +452,7 @@
                     <h6>Notes :</h6>
                     <ul>
                         <li>Kms & Timing will be charged from customer location</li>
-                        <li>Car shall not be used for local use in (City) after completion of one way duty.</li>
-                        <li>In case of Booking Cancellation then required inform to us before 24 Hrs. </li>
+                        <li>In case of Booking Cancellation then required inform to us before 2 Hrs.</li>
                     </ul>
                 </div>
 
@@ -317,7 +460,26 @@
         </div>
     </div>
 </div>
+<div class="container bg-info bg-opacity-10 text-center rounded-3 border overflow-hidden mt-1 p-2">
+    <!-- Title and button START -->
+    <div class="">
+
+        <!-- Title -->
+        <h6 class="fw-normal mb-0 text-dark bg-opacity-10" style="font-size: 13px; text-nowrap"><span
+                class="badge bg-secondary"> ROUNDWAY TRIP </span>
+            | From <span id="source">{{source}}</span> To <span
+                    id="destination">{{destination}}</span>
+            | Distance : {{distance}} Km | Date :
+            <span>{{date}} TO {{return_date}} at {{time}}</span> <span class="badge bg-info"><a class="text-light"
+                                                                                                href="{% url 'index' %}">Modify</a> </span>
+        </h6>
+
+    </div>
+    <div class="pb-0">
+
+    </div>                <!-- Badge -->
 </div>
+
 
 <!-- ============== Cab list END  -->
 

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html" xmlns="">
 <head>
     <title>Easy Booking</title>
 
@@ -44,16 +44,83 @@
                     });
             }
         }
+        google.maps.event.addDomListener(window, 'load', initialize);
+
+    </script>
+
+
+    <script>
+        var airportAutocomplete, addressAutocomplete;
+        var selectedCityPrefix;
+
+        function initialize() {
+            var airport = document.getElementById('airport');
+            var address = document.getElementById('address');
+
+            airportAutocomplete = new google.maps.places.Autocomplete(airport, {
+                componentRestrictions: { country: 'in' },
+                types: ['airport']
+            });
+
+            airportAutocomplete.addListener('place_changed', function() {
+                var selectedPlace = airportAutocomplete.getPlace();
+
+                if (!selectedPlace.geometry) {
+                    console.log("Selected place has no geometry");
+                    return;
+                }
+
+                addressAutocomplete.setOptions({
+                    bounds: selectedPlace.geometry.viewport,
+                    componentRestrictions: { country: 'in' }
+                });
+
+                address.value = '';
+            });
+
+            addressAutocomplete = new google.maps.places.Autocomplete(address, {
+                componentRestrictions: { country: 'in' }
+            });
+
+            addressAutocomplete.addListener('place_changed', function() {
+                var selectedPlace = addressAutocomplete.getPlace();
+
+                if (!selectedPlace.geometry) {
+                    console.log("Selected place has no geometry");
+                    return;
+                }
+
+                if (!selectedPlace.formatted_address.toLowerCase().includes(selectedCityPrefix.toLowerCase())) {
+                    address.value = '';
+                    alert('Please select a locality within the selected city.');
+                }
+            });
+        }
 
         google.maps.event.addDomListener(window, 'load', initialize);
     </script>
-
+    <!--------------------------------------------index page's button (outstation, local, airport)------------------------------------>
+    <style>
+        /* Add styles to change the color of the selected button */
+        .btn-group button.active {
+          background-color: #17a2b8;
+          color: #fff;
+        }
+    </style>
+    <!--------------------------------------------index page's button (outstation, local, airport) end------------------------------------>
 
     <style>
         .body{
            background-color:#FFFDDE;
         }
     </style>
+
+    <style>
+        .active-button {
+
+    }
+    </style>
+
 
     <style>
         .radio-label input[type="radio"] {
@@ -91,7 +158,56 @@
 }
     </style>
 
-    <script>
+    <style>
+        .price-container {
+            float: right;
+    }
+    </style>
+
+    <!------------------------FOR AIRPORT CAB BOOKING--------------------------------------------------------------------->
+
+
+    <!--- <script>
+         $(document).ready(function() {
+             // Select option2 by default
+             $('input[name="discountOptions"][value="option2"]').prop('checked', true);
+
+             var totalAmount = parseFloat('{{ car_price }}');
+             var selectedOption = 'option2'; // Default selected option
+
+             function updatePaymentAmount() {
+                 var paymentAmount;
+
+                 if (selectedOption === 'option2') {
+                     paymentAmount = totalAmount;
+                 } else if (selectedOption === 'option1') {
+                     paymentAmount = totalAmount * 0.2;
+                 } else if (selectedOption === 'option3') {
+                     paymentAmount = 0;
+                 }
+
+                 $('.payment-amount').text('₹' + paymentAmount.toFixed(0));
+                 $('#paymentAmountInput').val(paymentAmount.toFixed(0));
+             }
+
+             updatePaymentAmount();
+
+             $('.payment-option').change(function() {
+                 selectedOption = $('input[name="discountOptions"]:checked').val();
+
+                 updatePaymentAmount();
+
+                 $('.radio-label').removeClass('selected');
+                 $(this).closest('.radio-label').addClass('selected');
+             });
+         });
+     </script>-->
+
+    <!------------------------FOR AIRPORT CAB BOOKING END--------------------------------------------------------------------->
+
+
+    <!---------------------------------------------------------FOR LOCAL CAB BOOKING ------------------------------->
+    <!--<script>
         $(document).ready(function() {
             // Select option2 by default
             $('input[name="discountOptions"][value="option2"]').prop('checked', true);
@@ -125,15 +241,53 @@
                 $(this).closest('.radio-label').addClass('selected');
             });
         });
-    </script>
-
-
+    </script>-->
     <script>
         $(document).ready(function() {
             // Select option2 by default
             $('input[name="discountOptions"][value="option2"]').prop('checked', true);
 
-            var totalAmount = parseFloat('{{ car_price }}');
+            var selectedOption = 'option2'; // Default selected option
+
+            function updatePaymentAmount() {
+                var totalAmount = parseFloat($('#total-price-value').val()); // Retrieve the total price value
+
+                var paymentAmount;
+
+                if (selectedOption === 'option2') {
+                    paymentAmount = totalAmount;
+                } else if (selectedOption === 'option1') {
+                    paymentAmount = totalAmount * 0.2;
+                } else if (selectedOption === 'option3') {
+                    paymentAmount = 0;
+                }
+
+                $('.payment-amount').text('₹' + paymentAmount.toFixed(0));
+                $('#paymentAmountInput').val(paymentAmount.toFixed(0));
+            }
+
+            updatePaymentAmount();
+
+            $('.payment-option').change(function() {
+                selectedOption = $('input[name="discountOptions"]:checked').val();
+
+                updatePaymentAmount();
+
+                $('.radio-label').removeClass('selected');
+                $(this).closest('.radio-label').addClass('selected');
+            });
+        });
+    </script>
+    <!---------------------------------------------------------FOR LOCAL CAB BOOKING END ------------------------------->
+
+
+    <!---------------------------------------------------------FOR ONEWAY CAB BOOKING ------------------------------->
+    <!--<script>
+        $(document).ready(function() {
+            // Select option2 by default
+            $('input[name="discountOptions"][value="option2"]').prop('checked', true);
+
+            var totalAmount = parseFloat('{{ amount }}');
             var selectedOption = 'option2'; // Default selected option
 
             function updatePaymentAmount() {
@@ -162,7 +316,8 @@
                 $(this).closest('.radio-label').addClass('selected');
             });
         });
-    </script>
+    </script>-->
+    <!---------------------------------------------------------FOR ONEWAY CAB BOOKING END ------------------------------->
 
 
     <style>
@@ -177,6 +332,7 @@
           padding-right: 10px; /* Add some spacing between the elements */
         }
     </style>
+
 
     <style>
         .ss {
@@ -202,6 +358,20 @@
      }
     </style>
 
+
+    <style>
+        .btn-group-sm .btn {
+    border-radius: 0;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.show {
+    display: block;
+}
+    </style>
 
     <style>
         @media (max-width: 767px) {
@@ -323,7 +493,7 @@
 <script src="{% static 'assets/js/functions.js' %}"></script>
 <script src="{% static 'assets/js/custom.js' %}"></script>
 <script src="{% static 'assets/js/datetime.js' %}"></script>
-<script src="{% static 'assets/js/cab-list.js' %}"></script>
+<script src="{% static 'assets/js/onewaymodal.js' %}"></script>
 
 <!--Datetimepicker-->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -332,7 +502,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 
 
-<!------------cab-list page car and data change for modal------------->
+<!------------RETURN cab-list page car and data change for modal------------->
 <script>
     document.addEventListener('DOMContentLoaded', function () {
       const buttons = document.querySelectorAll('[id^="button"]');
@@ -360,7 +530,6 @@
         // Calculate total cost including GST
         const total = (parseFloat(carData.base_fare) + parseFloat(gst)).toFixed(2);
         totalCost.innerText = '₹ ' + total;
-
 
       }
 
@@ -390,7 +559,6 @@
 
 
 <!------------cab-list page car and data change ------------->
-
 <script>
     document.addEventListener('DOMContentLoaded', function () {
       const buttons = document.querySelectorAll('[id^="button"]');
@@ -409,7 +577,8 @@
         const gst = (0.05 * carData.base_fare).toFixed(2);
         gstAmount.innerText = '₹ ' + gst;
         // Calculate total cost including GST
-        const total = (parseFloat(carData.base_fare) + parseFloat(gst)).toFixed(2);
+        //const total = (parseFloat(carData.base_fare) + parseFloat(gst)).toFixed(2);
+        const total = carData.totalFare
         totalCost.innerText = '₹ ' + total;
       }
 
@@ -420,6 +589,7 @@
           totalFare: button.getAttribute('data-total-fare'),
           distance: button.getAttribute('data-coveredKms'),
           base_fare: button.getAttribute('data-base_fare'),
+
         };
         updateModal(carData);
       }
@@ -517,30 +687,39 @@
 
 <!------------index page airport data change------------->
 <script>
-    const tripSelection = document.getElementById('tripSelection');
-    const cityLabel = document.getElementById('cityLabel');
-    const addressLabel = document.getElementById('addressLabel');
+    const tripSelections = document.querySelectorAll('.tripSelection');
+    const cityLabels = document.querySelectorAll('.cityLabel');
+    const addressLabels = document.querySelectorAll('.addressLabel');
+    const cityInputs = document.querySelectorAll('.cityInput');
+    const addressInputs = document.querySelectorAll('.addressInput');
+    const cabForm = document.querySelector('.cab-form'); // Get the form element
 
-    tripSelection.addEventListener('change', function () {
-        const selectedOption = tripSelection.value;
+    tripSelections.forEach((tripSelection, index) => {
+        tripSelection.addEventListener('change', function () {
+            const selectedOption = tripSelection.value;
 
-        if (selectedOption === 'pickup') {
-            cityLabel.innerText = 'Drop City';
-            addressLabel.innerText = 'Drop Address';
-        } else if (selectedOption === 'drop') {
-            cityLabel.innerText = 'Pickup City';
-            addressLabel.innerText = 'Pickup Address';
-        }
+            if (selectedOption === 'airport_pickup') {
+                cityLabels[index].innerText = 'Airport City';
+                addressLabels[index].innerText = 'Drop Location';
+                cityInputs[index].name = 'airport';
+                addressInputs[index].name = 'address';
+
+            } else if (selectedOption === 'airport_drop') {
+                cityLabels[index].innerText = 'Airport City';
+                addressLabels[index].innerText = 'Pickup Location';
+                cityInputs[index].name = 'address';
+                addressInputs[index].name = 'airport';
+            }
+        });
+
+        // Set the default selected value for the tripSelection dropdown
+        tripSelection.value = 'airport_pickup';
+        // Trigger the change event to update the labels, input names, and form action on page load
+        tripSelection.dispatchEvent(new Event('change'));
     });
-
-    // Set the default selected value for the tripSelection dropdown
-    tripSelection.value = 'pickup';
-    // Trigger the change event to update the labels on page load
-    tripSelection.dispatchEvent(new Event('change'));
 </script>
 
 <!------------index page airport data change end------------->
-
 
 <!------------ cab-list car button color change on click ------------->
 
@@ -641,6 +820,98 @@
 
 
 <script>
+    $(document).ready(function () {
+        // Function to update the data in the next container
+        function updateNextContainerData(carName, carImage, totalFare, disprice, similar, base_fare, gst) {
+            $('.carDetailsContainer .car-name h6').text(carName);
+            $('.carDetailsContainer .car-name h6').addClass('custom-car-name');
+            $('.carDetailsContainer .similar').text(similar);
+            $('.carDetailsContainer .car-image img').attr('src', carImage);
+            $('.carDetailsContainer .carPrice').text('₹ ' + totalFare);
+            $('.carDetailsContainer .disprice').text('₹ ' + disprice);
+            $('.carDetailsContainer .base_fare').text('₹ ' + base_fare);
+            $('.carDetailsContainer .gst').text('₹ ' + gst);
+
+
+
+            // Set the values of input fields
+            $('.carNameInput').val(carName);
+            $('.similarInput').val(similar);
+            $('.carImageInput').val(carImage);
+            $('.carPriceInput').val(totalFare);
+            $('.dispriceInput').val(disprice);
+            $('.base_fareInput').val(base_fare);
+            $('.gstInput').val(gst);
+
+        }
+
+
+        // Attach click event handlers to each button
+        $('#button5').click(function () {
+            var carName = $(this).data('car-name');
+            var carImage = $(this).data('car-image');
+            var totalFare = $(this).data('total-fare');
+            var disprice = $(this).data('disprice');
+            var similar = $(this).data('similar');
+            var base_fare = $(this).data('base_fare');
+            var gst = $(this).data('gst');
+
+            updateNextContainerData(carName, carImage, totalFare, disprice, similar, base_fare,gst);
+        });
+
+        $('#button6').click(function () {
+            var carName = $(this).data('car-name');
+            var carImage = $(this).data('car-image');
+            var totalFare = $(this).data('total-fare');
+            var disprice = $(this).data('disprice');
+            var similar = $(this).data('similar');
+            var base_fare = $(this).data('base_fare');
+            var gst = $(this).data('gst');
+
+            updateNextContainerData(carName, carImage, totalFare, disprice, similar, base_fare, gst);
+        });
+
+        $('#button7').click(function () {
+            var carName = $(this).data('car-name');
+            var carImage = $(this).data('car-image');
+            var totalFare = $(this).data('total-fare');
+            var disprice = $(this).data('disprice');
+            var similar = $(this).data('similar');
+            var base_fare = $(this).data('base_fare');
+            var gst = $(this).data('gst');
+
+            updateNextContainerData(carName, carImage, totalFare, disprice, similar, base_fare,gst);
+        });
+
+
+
+        function handleButtonClick() {
+            var carName = $(this).data('car-name');
+            var carImage = $(this).data('car-image');
+            var totalFare = $(this).data('total-fare');
+            var disprice = $(this).data('disprice');
+            var similar = $(this).data('similar');
+            var base_fare = $(this).data('base_fare');
+            var gst = $(this).data('gst');
+
+            updateNextContainerData(carName, carImage, totalFare, disprice, similar, base_fare, gst);
+        }
+
+        // Attach click event handlers to each button
+        $('#button5').click(handleButtonClick);
+        $('#button6').click(handleButtonClick);
+        $('#button7').click(handleButtonClick);
+        $('#button8').click(handleButtonClick);
+
+
+        // Trigger click event on the first button by default
+        $('#button5').trigger('click');
+
+    });
+</script>
+
+
+<script>
     document.addEventListener("DOMContentLoaded", function() {
         // Get all radio buttons
         const radioButtons = document.querySelectorAll('.payment-option');
@@ -687,54 +958,315 @@
 
 
 <script>
-    // Use jQuery to handle button clicks
     $(document).ready(function() {
         // Set the default selected button
-        $('#button1').css('background-color', '#c1ede0');
+        $('#button1').css('background-color', '#e7f6f8');
+        $('#button1').append('<span class="arrow-down">&#9660;</span>');
 
         $('.back').click(function() {
-            // Reset background color for all buttons
+            // Reset background color and arrow for all buttons
             $('.back').css('background-color', '');
+            $('.arrow-down').remove();
 
-            // Set background color for the clicked button
-            $(this).css('background-color', '#c1ede0');
+            // Set background color and add arrow for the clicked button
+            $(this).css('background-color', '#e7f6f8');
+            $(this).append('<span class="arrow-down">&#9660;</span>');
         });
     });
 </script>
 
 
 <script>
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-      return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
+    $(document).ready(function() {
+        // Set the default selected button
+        $('#button5').css('background-color', '#e7f6f8');
+        $('#button5').append('<span class="arrow-down">&#9660;</span>');
+
+        $('.back').click(function() {
+            // Reset background color and arrow for all buttons
+            $('.back').css('background-color', '');
+            $('.arrow-down').remove();
+
+            // Set background color and add arrow for the clicked button
+            $(this).css('background-color', '#e7f6f8');
+            $(this).append('<span class="arrow-down">&#9660;</span>');
+        });
+    });
 </script>
+
+
+<script>
+    $(document).ready(function() {
+
+        $(".return-date").hide();
+
+        $(".outstation").change(function() {
+            var selectedOption = $(this).val();
+            if (selectedOption === "roundway") {
+                $(".return-date").show();
+            } else {
+                $(".return-date").hide();
+            }
+
+
+            if (selectedOption === "oneway") { // Changed "pickup" to "oneway"
+                $("form").attr("action", "{% url 'calculate-fare' %}");
+            } else if (selectedOption === "roundway") { // Changed "drop" to "roundway"
+                $("form").attr("action", "{% url 'calculate' %}");
+            }
+        });
+    });
+</script>
+
+<!--<script>
+    function changeTab(tabIndex) {
+        // Hide all tab content
+        const tabContents = document.querySelectorAll('.tab-pane');
+        tabContents.forEach(tab => {
+            tab.classList.remove('show', 'active');
+        });
+
+        // Show the selected tab content
+        const selectedTab = document.querySelector(`#tab${tabIndex}`);
+        selectedTab.classList.add('show', 'active');
+    }
+</script>-->
+
+<script>
+    function changeTab(tabIndex) {
+        // Remove active class from all buttons
+        const buttons = document.querySelectorAll('.btn-group button');
+        buttons.forEach(button => {
+            button.classList.remove('active');
+        });
+
+        // Add active class to the clicked button
+        const clickedButton = document.querySelector(`.btn-group button:nth-child(${tabIndex})`);
+        clickedButton.classList.add('active');
+
+        // Show the selected tab content
+        const tabContents = document.querySelectorAll('.tab-pane');
+        tabContents.forEach(tab => {
+            tab.classList.remove('show', 'active');
+        });
+
+        // Show the selected tab content
+        const selectedTab = document.querySelector(`#tab${tabIndex}`);
+        selectedTab.classList.add('show', 'active');
+    }
+</script>
+
+
+<script>
+    $(document).ready(function() {
+    $(".package-button").click(function() {
+    const carName = $(this).data("car");
+    const packageName = $(this).data("package");
+    const price = $(this).data("price");
+
+    $(".car-name").text(carName);
+    $(".selected-package").text(packageName);
+    $(".price").text(price);
+    });
+    });
+</script>
+
+<!---------------------------------------------------------FOR EMPTY FORM ON INDEX --------------------------------------------->
+<script>
+    function resetOtherForms(currentFormId) {
+        // Get all form elements
+        const forms = document.querySelectorAll('.cab-form');
+
+        // Loop through the forms and reset their inputs except for the current form
+        forms.forEach(form => {
+            if (form.id !== currentFormId) {
+                form.reset();
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add submit event listeners to each form
+        const forms = document.querySelectorAll('.cab-form');
+        forms.forEach(form => {
+            form.addEventListener('submit', function(event) {
+                // Prevent the default form submission
+                event.preventDefault();
+
+                // Call the function to reset other forms
+                resetOtherForms(form.id);
+
+                // Submit the current form
+                form.submit();
+            });
+        });
+    });
+</script>
+<!-------------------------------------------------------FOR EMPTY FORM ON INDEX END------------------------------------------->
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const buttons = document.querySelectorAll('[id^="button"]');
+
+      function updateModal(carData) {
+        const modalTitle = document.getElementById('staticBackdropLabel');
+        const estimatedAmount = document.getElementById('estimatedAmount1');
+        const coveredKms = document.getElementById('coveredKms1');
+        const gstAmount = document.getElementById('gstAmount1');
+        const totalCost = document.getElementById('totalCost1');
+
+        modalTitle.innerText = carData.carName + ' Fare Summary';
+        estimatedAmount.innerText = '₹ ' + carData.base_fare;
+        coveredKms.innerText = carData.distance + ' Km';
+        // Calculate GST (assuming 5%)
+        const gst = (0.05 * carData.base_fare).toFixed(2);
+        gstAmount.innerText = '₹ ' + gst;
+        // Calculate total cost including GST
+        const total = (parseFloat(carData.base_fare) + parseFloat(gst)).toFixed(2);
+        totalCost.innerText = '₹ ' + total;
+      }
+
+      function onButtonClick(event) {
+        const button = event.currentTarget;
+        const carData = {
+          carName: button.getAttribute('data-car-name'),
+          totalFare: button.getAttribute('data-total-fare'),
+          distance: button.getAttribute('data-coveredKms'),
+          base_fare: button.getAttribute('data-base_fare'),
+        };
+        updateModal(carData);
+      }
+
+      // Attach event listeners to buttons
+      buttons.forEach(button => {
+        button.addEventListener('click', onButtonClick);
+      });
+
+      // Trigger the first button click to show the initial fare summary
+      buttons[0].click();
+    });
+</script>
+
+<!------------------------------------------------ CAB-DETAIL PAGE GST CHECKBOX------------------------------------->
+
+<!--<script>
+    $(document).ready(function () {
+        $('#showFields').change(function () {
+            if (this.checked) {
+                $('#alternativeNumberField').show();
+                $('#gstField').show();
+            } else {
+                $('#alternativeNumberField').hide();
+                $('#gstField').hide();
+            }
+        });
+    });
+</script>-->
 
 <script>
     $(document).ready(function () {
-        const form = $("#search-form");
-        const radio1 = $("#cabRadio1");
-        const radio2 = $("#cabRadio2");
-
-        radio1.on("change", function () {
-            form.attr("action", "{% url 'calculate-fare' %}");
+        $('#showFields1').change(function () {
+            if (this.checked) {
+                $('#alternativeNumberField').show();
+                $('#gstField').show();
+            } else {
+                $('#alternativeNumberField').hide();
+                $('#gstField').hide();
+            }
         });
 
-        radio2.on("change", function () {
-            form.attr("action", "{% url 'calculate' %}");
+        $('#showFields2').change(function () {
+            if (this.checked) {
+                $('#otherField').show();
+            } else {
+                $('#otherField').hide();
+            }
+        });
+    });
+</script>
+<!------------------------------------------------ CAB-DETAIL PAGE GST CHECKBOX END------------------------------------->
+
+<!------------------------------------------------AIRPORT CAB-DETAIL PAGE GST CHECKBOX------------------------------------->
+
+<script>
+    $(document).ready(function () {
+        $('#showFields').change(function () {
+            if (this.checked) {
+                $('#alternativeNumberField').show();
+                $('#gstField').show();
+                $('#flightNumber').show();
+            } else {
+                $('#alternativeNumberField').hide();
+                $('#gstField').hide();
+                $('#flightNumber').hide();
+            }
+        });
+    });
+</script>
+<!------------------------------------------------AIRPORT CAB-DETAIL PAGE GST CHECKBOX END------------------------------------->
+<script>
+    $(document).ready(function () {
+        $('#showFields1').change(function () {
+            if (this.checked) {
+                $('#alternativeNumberField1').show();
+            } else {
+                $('#alternativeNumberField').hide();
+            }
         });
     });
 </script>
 
-<script>
-    function changeTab(tabNumber) {
-      $('.btn-group button').removeClass('active');
-      $('.tab-pane').removeClass('show active');
+<!--------------------------------------------------------Coupon Code--------------------------------------------------->
 
-      $(`.btn-group button:nth-child(${tabNumber})`).addClass('active');
-      $(`#tab${tabNumber}`).addClass('show active');
-    }
+<script>
+    $(document).ready(function () {
+        $("#apply-coupon").click(function () {
+            var couponCode = $("#coupon-code").val();
+
+            // Make an AJAX request to validate the coupon
+            $.ajax({
+                url: "{% url 'validate_coupon' %}",
+                method: "POST",
+                data: { coupon_code: couponCode },
+                success: function (response) {
+                    try {
+                        if (response.valid) {
+                            $("#coupon-result").html('<div class="alert alert-success">Coupon Applied Successfully! Coupon Code: ' + couponCode + '</div>');
+                            $(".coupon-code").val(couponCode);
+                            var discountAmount = parseFloat(response.discount_amount);
+                            var totalPrice = {{ car_price }} - discountAmount;
+
+                            // Show the "Discounted Price" and "Final Price" list items
+                            $(".discount-price").html("₹ " + discountAmount).parent().show();
+                            $(".total-price").html("₹ " + totalPrice).parent().show();
+
+                            $(".discount-price-input").val(discountAmount);
+
+                            // Store the total price in the hidden input
+                            $("#total-price-value").val(totalPrice);
+
+                            // Update the selected option's price
+                            updatePaymentAmount();
+                        } else {
+                            $("#coupon-result").html('<div class="alert alert-danger">Invalid Coupon Code or Expired</div>');
+
+                            // Hide the "Discounted Price" and "Final Price" list items if the coupon is invalid
+                            $(".discount-price").parent().hide();
+                            $(".total-price").parent().hide();
+                        }
+                    } catch (error) {
+                        console.error("Error in AJAX success callback:", error);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error applying coupon:", error);
+                },
+            });
+        });
+    });
 </script>
+
+<!--------------------------------------------------------Coupon Code END--------------------------------------------------->
 
 
 </html>
