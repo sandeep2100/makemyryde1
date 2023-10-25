@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <title>{{ city.city }} Routes</title>
+</head>
+<body>
+    <h1>Roundway Routes</h1>
+    <ul>
+        {% for city in r_city %}
+        <li><a href="{% url 'roundway_city_routes' city=city.roundway_city %}">{{ city.roundway_city }}</a></li>
+    {% endfor %}
+    </ul>
+
+    <!--<ul>
+        {% for route in routes %}
+        <li><a href="{% url 'roundway_route' route.custom_url %}">{{ route.source }} to {{ route.destination }}</a></li>
+        {% endfor %}
+    </ul>-->
+</body>
+</html>

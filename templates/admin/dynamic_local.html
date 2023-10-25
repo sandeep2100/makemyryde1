@@ -1,0 +1,243 @@
+{% extends 'admin/admin_base.html' %}
+{% block content %}
+{% load static %}
+
+<!-- Traveler 1 form START -->
+<div class="container pb-5">
+    <div class="row">
+        <!-- Sidebar START -->
+        <div class="col-lg-4 col-xl-3">
+            <div class="offcanvas-lg offcanvas-end" tabindex="-1" id="offcanvasSidebar">
+                <!-- Offcanvas header -->
+                <div class="offcanvas-header justify-content-end pb-2">
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                            data-bs-target="#offcanvasSidebar" aria-label="Close"></button>
+                </div>
+
+                <!-- Offcanvas body -->
+                <div class="offcanvas-body p-3 p-lg-0">
+                    <div class="card bg-light w-100">
+                        <!-- Card body START -->
+                        <div class="card-body p-3">
+                            <!-- Sidebar menu item START -->
+                            <ul class="nav nav-pills-primary-soft flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'dashboard' %}"><i
+                                            class="bi bi-person fa-fw me-2"></i>Dashboard</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="masterbooking"
+                                       role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-ticket-perforated fa-fw me-2"></i>Master Booking
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="masterbooking">
+                                        <!-- Dropdown items for Master Bookings -->
+                                        <li><a class="dropdown-item" href="{% url 'master_booking' %}">Master
+                                            Booking</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'booking' %}">Oneway</a></li>
+                                        <li><a class="dropdown-item"
+                                               href="{% url 'roundway_booking' %}">Roundway</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'local_booking' %}">Local</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'airport_booking' %}">Airport</a>
+                                        </li>
+                                        <!-- Add more dropdown items as needed -->
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{% url 'inquiry' %}"><i
+                                            class="bi bi-person fa-fw me-2"></i>Inquiry</a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="cabfaredropdown"
+                                       role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-ticket-perforated fa-fw me-2"></i>Cab fare
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="cabfaredropdown">
+                                        <!-- Dropdown items for Master Bookings -->
+                                        <li><a class="dropdown-item" href="{% url 'cab_fare_oneway' %}">Oneway</a>
+                                        </li>
+                                        <li><a class="dropdown-item"
+                                               href="{% url 'cab_fare_roundway' %}">Roundway</a></li>
+                                        <li><a class="dropdown-item"
+                                               href="{% url 'cab_fare_airport' %}">Airport</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'fix_routes' %}">Popular
+                                            Routes</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'popular_routes' %}">Add Popular
+                                            Routes</a></li>
+                                        <!-- Add more dropdown items as needed -->
+                                    </ul>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle active" href="#" id="dynamicroutedropdown"
+                                       role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-ticket-perforated fa-fw me-2"></i>Dynamic Routes
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="dynamicroutedropdown">
+                                        <!-- Dropdown items for Master Bookings -->
+                                        <li><a class="dropdown-item" href="{% url 'dynamic_route' %}">Oneway</a>
+                                        </li>
+                                        <li><a class="dropdown-item"
+                                               href="{% url 'dynamic_roundway' %}">Roundway</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'dynamic_local' %}">Local</a></li>
+                                        <!-- Add more dropdown items as needed -->
+                                    </ul>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="localpackages"
+                                       role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-ticket-perforated fa-fw me-2"></i>Local Packages
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="localpackages">
+                                        <!-- Dropdown items for Master Bookings -->
+                                        <li><a class="dropdown-item" href="{% url 'route_list' %}">List</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'add_city' %}">Add City</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'add_package' %}">Add Package</a>
+                                        </li>
+                                        <li><a class="dropdown-item" href="{% url 'add_car' %}">Add Car</a></li>
+                                        <!-- Add more dropdown items as needed -->
+                                    </ul>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="otherdropdown"
+                                       role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="bi bi-ticket-perforated fa-fw me-2"></i>Other
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="otherdropdown">
+                                        <!-- Dropdown items for Master Bookings -->
+                                        <li><a class="dropdown-item" href="{% url 'coupon_list' %}">Coupon</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'number' %}">Number</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'edit_social' %}">Social Media</a>
+                                        </li>
+                                        <li><a class="dropdown-item" href="{% url 'logo_settings' %}">Logo</a></li>
+                                        <li><a class="dropdown-item" href="{% url 'email' %}">Email Address</a></li>
+                                    </ul>
+                                </li>
+                                <!-- Repeat similar structure for other sidebar items with dropdowns -->
+                                <!-- ... -->
+                            </ul>
+                            <!-- Sidebar menu item END -->
+                        </div>
+                        <!-- Card body END -->
+                    </div>
+                </div>
+            </div>
+            <!-- Responsive offcanvas body END -->
+        </div>
+        <!-- Sidebar END -->
+        <div class="col-lg-8 col-xl-9">
+            <!-- Offcanvas menu button -->
+            <div class="d-grid mb-0 d-lg-none w-100">
+                <button class="btn btn-primary mb-4" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
+                    <i class="fas fa-sliders-h"></i> Menu
+                </button>
+            </div>
+            <div class="card border">
+                <!-- Card header -->
+                <div class="card-header border-bottom">
+                    <h5 class="mb-0">Local Route</h5>
+                </div>
+                <form action="{% url 'dynamic_local' %}" method="post">
+                    {% csrf_token %}
+                    <!-- Card body START -->
+                    <div class="card-body">
+                        <div class="row g-4">
+
+                            <!-- DOB -->
+                            <div class="col-md-6">
+                                <div class="form-control-bg-light">
+                                    <h6 class="">City Name</h6>
+                                    <input class="form-control" name="city_name" placeholder="City Name">
+                                </div>
+                            </div>
+                            <!-- First Name -->
+                            <div class="col-md-6">
+                                <div class="form-control-bg-light">
+                                    <h6 class="">Local City</h6>
+                                    <input class="form-control source" name="local_city" placeholder="Local City">
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-control-bg-light">
+                                    <h6 class="">Custom Url</h6>
+                                    <input class="form-control" name="custom_url" placeholder="Custom URL">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-center pb-3">
+                        <button class="btn btn-primary mb-0" type="submit">Save Route</button>
+                    </div>
+                    <!-- Card body END -->
+                </form>
+            </div>
+            <!-- Traveler 1 form END -->
+
+        </div>
+
+        <div class="col-md-8 pt-2">
+            <form class="rounded position-relative" method="get"
+                  action="{% url 'dynamic_local' %}">
+                <input aria-label="Search" class="form-control pe-5" placeholder="Search"
+                       type="search" name="q">
+                <button class="btn border-0 px-3 py-0 position-absolute top-50 end-0 translate-middle-y"
+                        type="submit"><i class="fas fa-search fs-6"></i></button>
+            </form>
+        </div>
+
+
+        <!-- Hotel room list START -->
+        <div class="table-responsive border-0 pt-2">
+            <table class="table align-middle p-4 mb-0 table-hover table-shrink">
+                <!-- Table head -->
+                <thead class="table-light">
+                <tr>
+                    <th scope="col" class="border-0 rounded-start">#</th>
+                    <th scope="col" class="border-0">City</th>
+                    <th scope="col" class="border-0">Local City</th>
+                    <th scope="col" class="border-0">Custom URL</th>
+
+                    <th scope="col" class="border-0">Edit</th>
+                    <th scope="col" class="border-0 rounded-end">Delete</th>
+                </tr>
+                </thead>
+
+                <!-- Table body START -->
+                <tbody class="border-top-0">
+                <!-- Table item -->
+                {% for route in routes %}
+                <tr>
+
+                    <td><h6 class="mb-0 ">{{ forloop.counter}}</h6></td>
+                    <td class="text-dark">{{ route.city_name }}</td>
+                    <td>{{ route.local_city }}</td>
+                    <td>{{ route.custom_url }}</td>
+
+
+                    <td>
+                        <a class="btn btn-sm btn-warning mb-0"
+                           href="{% url 'edit_dynamic_local' route.id %}">Edit
+                        </a>
+                    </td>
+                    <td>
+                        <a class="btn btn-sm btn-danger mb-0"
+                           href="{% url 'delete_dynamic_local' route.id %}">Delete
+                        </a>
+                    </td>
+                    <td>{% empty %}
+                        No routes available.
+                    </td>
+                </tr>
+                {% endfor %}
+
+
+                </tbody>
+                <!-- Table body END -->
+            </table>
+        </div>
+        <!-- Hotel room list END -->
+    </div>
+</div>
+
+
+{% endblock %}

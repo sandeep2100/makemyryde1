@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Car</title>
+</head>
+<body>
+<h2>Add Car</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Car</button>
+</form>
+<h2>Cars</h2>
+<ul>
+    {% for car in cars %}
+    <li>
+        {{ car.name }}
+        <form method="post" action="">
+            {% csrf_token %}
+            <button type="submit" name="delete" value="{{ car.id }}">Delete</button>
+            <button type="submit" name="update" value="{{ car.id }}">Update</button>
+        </form>
+    </li>
+
+    {% endfor %}
+</ul>
+<a href=" {% url 'route_list' %}"> Back To List</a>
+
+</body>
+</html>

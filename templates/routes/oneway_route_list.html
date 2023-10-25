@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Route List</title>
+</head>
+<body>
+    <h1>List of Cities</h1>
+    {% for route in routes %}
+            <li><a href="{% url 'oneway_dynamic' route.custom_url %}">{{ route.source }} to {{ route.destination }}</a></li>
+        {% endfor %}
+</body>
+</html>

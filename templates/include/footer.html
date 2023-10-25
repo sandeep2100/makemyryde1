@@ -1,0 +1,91 @@
+<!-- ======================= Footer START -->
+{% load static %}
+
+<style>
+    ul{
+      list-style-type: none;
+    }
+
+</style>
+
+
+<!-- Divider -->
+<hr class="mt-1 mb-0">
+
+<div class="row">
+    <div class="container">
+        <div class="d-lg-flex justify-content-center align-items-center py-3 text-center text-lg-start"></div>
+            <!-- copyright text -->
+            <h6 class="text-warning text-center text-primary-hover"> Copyrights ©2023 MakeMyRyde.</h6>
+                <!-- copyright links-->
+                <div class="nav mt-2 text-center">
+                    <ul class="list-inline text-primary-hover mx-auto mb-0">
+                        <li class="list-inline-item me-0"><a class="nav-link py-1 text-dark" href="{% url 'privacy' %}">Privacy
+                            policy</a></li>
+                        <li class="list-inline-item me-0"><a class="nav-link py-1 text-dark" href="{% url 'terms' %}">Terms
+                            and conditions</a></li>
+                        <li class="list-inline-item me-0"><a class="nav-link py-1 text-dark pe-0"
+                                                             href="{% url 'refund' %}">Refund policy</a></li>
+                    </ul>
+                </div>
+                <div class="text-center">
+                    <ul class="list-inline mb-0 mt-3">
+                        {% for social in socials %}
+                        <li class="list-inline-item"><a class="btn btn-sm px-2 bg-facebook mb-0" href="{{social.facebook_admin}}"><i
+                                class="fab fa-fw fa-facebook-f"></i></a></li>
+                        <li class="list-inline-item"><a class="btn btn-sm shadow px-2 bg-instagram mb-0" href="{{social.instagram_admin}}"><i
+                                class="fab fa-fw fa-instagram"></i></a></li>
+                        <li class="list-inline-item"><a class="btn btn-sm shadow px-2 bg-twitter mb-0" href="{{social.twitter_admin}}"><i
+                                class="fab fa-fw fa-twitter"></i></a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Social media icon -->
+<!-- Bottom footer END -->
+
+
+<!-- Navbar mobile START -->
+<div class="navbar navbar-mobile">
+    <ul class="navbar-nav">
+        <!-- Nav item Home -->
+        <li class="nav-item">
+            <a style="color:#050142;" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+               class="nav-link  text-info"><i class="bi bi-telephone fa-fw"></i>Request Call</a>
+        </li>
+
+        <!-- Nav item My Trips -->
+        <li class="nav-item">
+            <a style="color:#273E47;" type="button" class="nav-link  text-success"
+               href="https://wa.me/919375144444?text=Hello%20There%F0%9F%96%90%F0%9F%8F%BB%20%2C%0AI%20am%20looking%20for%20Car%20Rental%20Booking.%F0%9F%9A%97"><i
+                    class="bi bi-whatsapp fa-fw"></i>Chat Now </a>
+        </li>
+
+        <!-- Nav item Offer -->
+
+    </ul>
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title fs-5" id="exampleModalLabel">Request For Call</span>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Book Your Journey by Call :
+                <input type="number" minlength="10" maxlength="10" class="form-control" placeholder="Enter your number">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-dark text-warning">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Navbar mobile END -->

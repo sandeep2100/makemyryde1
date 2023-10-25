@@ -1,0 +1,1099 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<!-- =======================
+Main Banner START -->
+
+<section class="pt-0 pb-3 overflow-hidden">
+    <div class="container-fluid p-4"
+         data-sticky-container
+         style="background-image:url({% static 'assets/images/background1.jpg' %}); background-size: cover;
+            background-position: center; height: 100%; width:100%;">
+        <div class="pt-8">
+            <h1 class="text-center text-light">Book Cab Anytime, Anywhere</h1>
+        </div>
+        <div class="row g-1 d-flex justify-content-center pt-8 pt-md-2">
+            <div class="col-lg-6 col-sm-12 pt-3">
+                <div class="card border shadow pb-0 mt-n8 mt-sm-n8 mt-lg-0 ">
+                    <div class="tab-content pt-2 p-2">
+                        <div class="pt-2 p-2 p-sm-4 pb-0">
+                            <div class="btn-group btn-group-sm index" role="group" style="">
+                                <button class="btn btn-light rounded active" onclick="changeTab(1)"
+                                        style="font-size:14px; margin-right: 10px;">
+                                    OUTSTATION
+                                </button>
+                                <button class="btn btn-light rounded" onclick="changeTab(2)"
+                                        style="font-size:14px; margin-right: 10px;">
+                                    LOCAL
+                                </button>
+                                <button class="btn btn-light rounded" onclick="changeTab(3)" style="font-size:14px;">
+                                    AIRPORT <i class="bi bi-airplane"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!------------------------------------------------------ LOCAL CABS ------------------------------------------------------------>
+                        <div class="tab-pane fade card-body pt-2" id="tab2">
+                            <div class="col-12 d-flex justify-content-center">
+                                <h3 style="font-size:13px; border-top: 2px solid #f39e22; border-bottom: 2px solid #f39e22; color:#1e1a4d">
+                                    HOURLY RENTALS WITHIN THE CITY</h3>
+                            </div>
+                            <form class="cab-form" method="post"
+                                  novalidate>
+                                {% csrf_token %}
+                                <div class="row g-2 g-md-3 pb-1 p-1">
+                                    <!-- Pickup -->
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label class="col-3 small"><b>CITY</b></label>
+                                            <div class="col-9">
+                                                <div class="form-border-bottom form-control-transparent d-flex align-items-center">
+                                                    <!-- Cities -->
+                                                    <div class="bg-info text-light bg-opacity-10">
+                                                        <select class="form-control" name="city"
+                                                                required>
+                                                            <option value="">Select City</option>
+                                                            {% for city in cities %}
+                                                            <option value="{{ city.id }}">{{city.name}}
+                                                            </option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                    <i class="bi bi-caret-down-square"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label class="col-3 small"><b>PACKAGE</b></label>
+                                            <div class="col-9">
+                                                <div class="form-border-bottom form-control-transparent d-flex align-items-center">
+                                                    <!-- Cities -->
+                                                    <div class="bg-info text-light bg-opacity-10">
+                                                        <select class="form-control" name="package"
+                                                                required>
+                                                            <option value="">Select Package
+                                                            </option>
+                                                            {% for package in packages %}
+                                                            <option value="{{ package.id }}">
+                                                                {{package.name}}
+                                                            </option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                    <i class="bi bi-caret-down-square"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Date -->
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label class="col-3 small"><b>DATE</b></label>
+                                            <div class="col-9">
+                                                <div class="form-border-bottom form-control-transparent d-flex align-items-center">
+                                                    <div class="form input-group" style="position: relative;">
+                                                        <input class="form-control flatpickr"
+                                                               data-date-format="d/M/Y"
+                                                               name="date"
+                                                               placeholder="Select Date" required
+                                                               type="date"
+                                                               style="padding-right: 40px;">
+                                                        <span class="input-group-text"
+                                                              style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; background-color: transparent; border: none; box-shadow: none;">
+                                                            <i class="bi bi-calendar3 text-warning"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Time -->
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label class="col-3 small"><b>TIME</b></label>
+                                            <div class="col-9">
+                                                <div class="form-border-bottom form-control-transparent d-flex align-items-center">
+                                                    <div class="form input-group" style="position: relative;">
+                                                        <select class="form-control" name="time" required
+                                                                style="padding-right: 38px;">
+                                                            <option value="Select time">Select
+                                                                time
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="12:00 AM">
+                                                                12:00
+                                                                AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="00:30 AM">
+                                                                00:30
+                                                                AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="1:00 AM">
+                                                                1:00 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="1:30 AM">
+                                                                1:30 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="2:00 AM">
+                                                                2:00 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="2:30 AM">
+                                                                2:30 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="3:00 AM">
+                                                                3:00 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="3:30 AM">
+                                                                3:30 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="4:00 AM">
+                                                                4:00 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="4:30 AM">
+                                                                4:30 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="5:00 AM">
+                                                                5:00 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="5:30 AM">
+                                                                5:30 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="6:00 AM">
+                                                                6:00 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="6:30 AM">
+                                                                6:30 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="7:00 AM">
+                                                                7:00 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="7:30 AM">
+                                                                7:30 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="8:00 AM">
+                                                                8:00 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="8:30 AM">
+                                                                8:30 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="9:00 AM">
+                                                                9:00 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="9:30 AM">
+                                                                9:00 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="10:00 AM">
+                                                                10:00
+                                                                AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="10:30 AM">
+                                                                10:30
+                                                                AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="11:00 AM">
+                                                                11:00
+                                                                AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="11:30 AM">
+                                                                11:30
+                                                                AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="1:00 PM">
+                                                                1:00 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="1:30 PM">
+                                                                1:30 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="2:00 PM">
+                                                                2:00 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="2:30 PM">
+                                                                2:30 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="3:00 PM">
+                                                                3:00 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="3:30 PM">
+                                                                3:30 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="4:00 PM">
+                                                                4:00 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="4:30 PM">
+                                                                4:30 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="5:00 PM">
+                                                                5:00 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="5:30 PM">
+                                                                5:30 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="6:00 PM">
+                                                                6:00 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="6:30 PM">
+                                                                6:30 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="7:00 PM">
+                                                                7:00 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="7:30 PM">
+                                                                7:30 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="8:00 PM">
+                                                                8:00 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="8:30 PM">
+                                                                8:30 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="9:00 PM">
+                                                                9:00 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="9:30 PM">
+                                                                9:00 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="10:00 PM">
+                                                                10:00
+                                                                PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="10:30 PM">
+                                                                10:30
+                                                                PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="11:00 PM">
+                                                                11:00
+                                                                PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="11:30 PM">
+                                                                11:30
+                                                                PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="12:00 PM">
+                                                                12:00
+                                                                PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="12:30 PM">
+                                                                12:30
+                                                                PM
+                                                            </option>
+
+                                                        </select>
+                                                        <span class="input-group-text"
+                                                              style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; background-color: transparent; border: none; box-shadow: none;"><i
+                                                                class="bi bi-clock text-warning"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-grid index">
+                                    <button class="btn btn-light rounded color" type="submit">Search
+                                        Cabs
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!------------------------------------------------------ AIRPORT CABS ------------------------------------------------------------>
+
+
+                        <div class="tab-pane fade card-body pt-0" id="tab3">
+                            <div class="col-12 d-flex justify-content-center ">
+                                <h3 style="font-size:13px; border-top: 2px solid #f39e22; border-bottom: 2px solid #f39e22; color:#1e1a4d"
+                                >RELIABLE AIRPORT PICKUPS & DROPS</h3>
+                            </div>
+                            <form action="{% url 'airport_cab' %}" class="cab-form" id="cab-form"
+                                  method="post"
+                                  novalidate>
+                                {% csrf_token %}
+                                <div class="row g-1 g-md-3 pb-1 p-1">
+                                    <div class="col-md-12">
+                                        <div class="form-group row justify-content-center">
+                                            <div class="col-8 ">
+                                                <div class="btn-group btn-group-toggle"
+                                                     data-toggle="buttons">
+                                                    <label class="btn btn-sm active airport border"
+                                                           style="margin:0; padding:0; font-size:14px;">
+                                                        <input checked
+                                                               class="tripSelection visually-hidden"
+                                                               name="selected_option1" type="radio"
+                                                               value="airport_pickup"> Pickup
+                                                    </label>
+                                                    <label class="btn btn-sm airport border"
+                                                           style="margin:0; padding:0; font-size:14px;">
+                                                        <input class="tripSelection visually-hidden"
+                                                               name="selected_option1" type="radio"
+                                                               value="airport_drop"> Drop
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <!-- Pickup -->
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label class="col-3 small cityLabel text-dark"><b>PICKUP
+                                                CITY</b></label>
+                                            <div class="col-9">
+                                                <div class="form-border-bottom form-control-transparent d-flex align-items-center">
+                                                    <!-- Cities -->
+                                                    <div>
+                                                        <input class="form-control city cityInput"
+                                                               id="airport"
+                                                               name="airport"
+                                                               placeholder="Select Airport or City"
+                                                               required
+                                                               size="100" type="text">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label class="col-3 small addressLabel text-dark"><b>PICKUP
+                                                ADDRESS</b></label>
+                                            <div class="col-9">
+                                                <div class="form-border-bottom form-control-transparent d-flex">
+                                                    <!-- Cities -->
+                                                    <div class="form">
+                                                        <input class="form-control addressInput"
+                                                               id="address"
+                                                               name="address"
+                                                               placeholder="Select Your Location"
+                                                               required
+                                                               size="100" type="text">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Date -->
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label class="col-3 small"><b>DATE</b></label>
+                                            <div class="col-9">
+                                                <div class="form-border-bottom form-control-transparent d-flex align-items-center">
+
+                                                    <div class="form input-group" style="position: relative;">
+                                                        <input class="form-control flatpickr"
+                                                               data-date-format="d/M/Y"
+                                                               name="date"
+                                                               placeholder="Select Date" required
+                                                               type="date" style="padding-right: 38px;">
+                                                        <input hidden
+                                                               name="booking_type" value="Airport Booking">
+                                                        <span class="input-group-text"
+                                                              style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; background-color: transparent; border: none; box-shadow: none;"><i
+                                                                class="bi bi-calendar3 text-warning"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <!-- Time -->
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label class="col-3 small"><b>TIME</b></label>
+                                            <div class="col-9">
+                                                <div class="form-border-bottom form-control-transparent d-flex align-items-center">
+                                                    <div class="form input-group" style="position: relative;">
+
+                                                        <select class="form-control"
+                                                                name="time"
+                                                                required style="padding-right: 38px;">
+                                                            <option value="">Select time</option>
+                                                            <option class="form-control"
+                                                                    value="12:00 AM">
+                                                                12:00
+                                                                AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="00:30 AM">
+                                                                00:30
+                                                                AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="1:00 AM">
+                                                                1:00 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="1:30 AM">
+                                                                1:30 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="2:00 AM">
+                                                                2:00 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="2:30 AM">
+                                                                2:30 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="3:00 AM">
+                                                                3:00 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="3:30 AM">
+                                                                3:30 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="4:00 AM">
+                                                                4:00 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="4:30 AM">
+                                                                4:30 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="5:00 AM">
+                                                                5:00 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="5:30 AM">
+                                                                5:30 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="6:00 AM">
+                                                                6:00 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="6:30 AM">
+                                                                6:30 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="7:00 AM">
+                                                                7:00 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="7:30 AM">
+                                                                7:30 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="8:00 AM">
+                                                                8:00 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="8:30 AM">
+                                                                8:30 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="9:00 AM">
+                                                                9:00 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="9:30 AM">
+                                                                9:00 AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="10:00 AM">
+                                                                10:00
+                                                                AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="10:30 AM">
+                                                                10:30
+                                                                AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="11:00 AM">
+                                                                11:00
+                                                                AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="11:30 AM">
+                                                                11:30
+                                                                AM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="1:00 PM">
+                                                                1:00 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="1:30 PM">
+                                                                1:30 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="2:00 PM">
+                                                                2:00 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="2:30 PM">
+                                                                2:30 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="3:00 PM">
+                                                                3:00 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="3:30 PM">
+                                                                3:30 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="4:00 PM">
+                                                                4:00 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="4:30 PM">
+                                                                4:30 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="5:00 PM">
+                                                                5:00 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="5:30 PM">
+                                                                5:30 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="6:00 PM">
+                                                                6:00 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="6:30 PM">
+                                                                6:30 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="7:00 PM">
+                                                                7:00 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="7:30 PM">
+                                                                7:30 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="8:00 PM">
+                                                                8:00 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="8:30 PM">
+                                                                8:30 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="9:00 PM">
+                                                                9:00 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="9:30 PM">
+                                                                9:00 PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="10:00 PM">
+                                                                10:00
+                                                                PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="10:30 PM">
+                                                                10:30
+                                                                PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="11:00 PM">
+                                                                11:00
+                                                                PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="11:30 PM">
+                                                                11:30
+                                                                PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="12:00 PM">
+                                                                12:00
+                                                                PM
+                                                            </option>
+                                                            <option class="form-control"
+                                                                    value="12:30 PM">
+                                                                12:30
+                                                                PM
+                                                            </option>
+                                                        </select>
+                                                        <span class="input-group-text"
+                                                              style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; background-color: transparent; border: none; box-shadow: none;"><i
+                                                                class="bi bi-clock text-warning"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="d-grid index">
+                                    <button class="btn btn-light rounded color" type="submit">Search
+                                        Cabs
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+
+                        <!---------------------------------------------------ONEWAY ------------------------------------------------->
+
+                        <div class="tab-pane fade show active  card-body pt-0 p-2" id="tab1">
+                            <div class="col-12 d-flex justify-content-center">
+                                <h3 style="font-size:13px; border-top: 2px solid #f39e22; border-bottom: 2px solid #f39e22; color:#1e1a4d">
+                                    INDIA'S PREMIER INTERCITY CABS</h3>
+                            </div>
+                            <form action="{% url 'calculate-fare' %}" class="cab-form" method="post"
+                                  novalidate>
+                                {% csrf_token %}
+                                <div class="row g-2 g-md-3 pb-1 p-1">
+                                    <div class="col-md-12">
+                                        <div class="form-group row justify-content-center">
+                                            <div class="col-8">
+                                                <div class="btn-group" role="group">
+                                                    <button class="btn btn-sm tab-button active border"
+                                                            id="onewayBtn"
+                                                            style="margin:0; padding:1; font-size:12px;"
+                                                            type="button">ONEWAY
+                                                    </button>
+                                                    <button class="btn btn-sm tab-button border"
+                                                            id="roundwayBtn"
+                                                            style="margin:0; padding:1; font-size:12px;"
+                                                            type="button">ROUNDWAY
+                                                    </button>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Pickup -->
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label class="col-3 small"><b>FROM</b></label>
+                                            <div class="col-9">
+                                                <div class="form-border-bottom form-control-transparent d-flex align-items-center">
+                                                    <!-- Cities -->
+                                                    <div>
+                                                        <input class="form-control source"
+                                                               name="source"
+                                                               placeholder="Select City"
+                                                               required
+                                                               size="100" type="text" value="{{route.source}}">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label class="col-3 small"><b>TO</b></label>
+                                            <div class="col-9">
+                                                <div class="form-border-bottom form-control-transparent d-flex">
+                                                    <!-- Cities -->
+                                                    <div class="form">
+                                                        <input class="form-control destination"
+                                                               name="destination"
+                                                               placeholder="Select City"
+                                                               required
+                                                               size="100" type="text" value="{{route.destination}}">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Date -->
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label class="col-3 small"><b>DATE</b></label>
+                                            <div class="col-9">
+                                                <div class="form-border-bottom form-control-transparent d-flex align-items-center">
+                                                    <div class="form input-group" style="position: relative;">
+                                                        <input class="form-control flatpickr"
+                                                               data-date-format="d/M/Y"
+                                                               id="date_input"
+                                                               name="date"
+                                                               placeholder="Select Date" required
+                                                               style="padding-right: 40px;"
+                                                               type="date">
+                                                        <span class="input-group-text"
+                                                              style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background-color: transparent; border: none; box-shadow: none;">
+                                                              <i class="bi bi-calendar3 text-warning"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!------------------------------RETURN DATE ----------------------------------->
+                                    <div class="col-md-12 return-date">
+                                        <div class="form-group row">
+                                            <label class="col-3 small"><b>RETURN DATE</b></label>
+                                            <div class="col-9">
+                                                <div class="form-border-bottom form-control-transparent d-flex align-items-center">
+                                                    <div class="form input-group" style="position: relative;">
+                                                        <input class="form-control flatpickr date-picker"
+                                                               data-date-format="d/M/Y"
+                                                               name="return_date"
+                                                               placeholder="Select Return Date"
+                                                               required
+                                                               style="padding-right: 40px;"
+                                                               type="date">
+                                                        <span class="input-group-text"
+                                                              style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background-color: transparent; border: none; box-shadow: none;"><i
+                                                                class="bi bi-calendar3 text-warning"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Time -->
+                                    <div class="col-md-12">
+                                        <div class="form-group row">
+                                            <label class="col-3 small"><b>TIME</b></label>
+                                            <div class="col-9">
+                                                <div class="form-border-bottom form-control-transparent d-flex align-items-center">
+                                                    <div class="form input-group" style="position: relative;">
+                                                        <select class="form-control time_input "
+                                                                id="time_input"
+                                                                name="time"
+                                                                style="padding-right: 40px;"
+                                                                required>
+                                                            <option value="">Select time</option>
+                                                        </select>
+                                                        <span class="input-group-text"
+                                                              style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background-color: transparent; border: none; box-shadow: none;"><i
+                                                                class="bi bi-clock text-warning"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-grid index">
+                                    <button class="btn btn-light rounded color" type="submit">Search
+                                        Cabs
+                                    </button>
+                                </div>
+                            </form>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 p-3">
+
+                <!-- Right Box Content -->
+                <div class="card shadow border pb-0 mt-3 mt-sm-n1 mt-lg-2">
+                    <!-- Card body START -->
+                    <div class="card-body p-3">
+                        <h6>Quick Inquiry for Booking
+                            <div>
+                                {% for a in number %}
+                                <a href="tel:{{a.number}}" class="btn sm text-info"><i
+                                        class="bi bi-telephone-forward-fill text-info"></i> &nbsp;{{a.number}}</a>
+                                {% endfor %}
+                            </div>
+                        </h6>
+                        <form action="{% url 'contactus' %}" class="row g-2" method="post">
+                            {% csrf_token %}
+                            <!-- Name -->
+                            <div class="col-md-6">
+                                <input class="form-control" name="name" type="text" placeholder="Name">
+                            </div>
+                            <!-- Email -->
+                            <div class="col-md-6">
+                                <input class="form-control" name="mobile" type="text" placeholder="Mobile">
+                            </div>
+                            <!-- Mobile number -->
+                            <div class="col-12">
+                                <input class="form-control" name="email" type="email" placeholder="Email Address">
+
+                            </div>
+                            <!-- Message -->
+                            <div class="col-12">
+                                <textarea class="form-control" name="message" rows="3" placeholder="Message"></textarea>
+                            </div>
+
+                            <!-- Button -->
+                            <div class="col-12 d-flex justify-content-end index">
+                                <button class="btn btn-light color"
+                                        style="padding-top:1px; padding-bottom:1px;"
+                                        type="submit">Send Now
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- Card body END -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!-- =======================
+Main Banner END -->
+<div class="container pt-3">
+
+    <div class="container border-bottom">
+        <h6>Book <span class="source">{{route.source}}</span> To <span class="destination">{{route.destination}}</span>
+            Taxi
+            For
+            Round Trip And Oneway Rides</h6>
+    </div>
+    <div class="container pt-1">
+        <h6><span class="source">{{route.source}}</span> To <span class="destination">{{route.destination}}</span> Cabs
+        </h6>
+        <p style="font-size:14px;">
+            MakeMyRyde has had its presence in chauffeur-driven car rental sector for more than 16 years. We
+            continuously
+            strive to ensure that we provide reliable, quality and timely cab services. We have wide range of car
+            options right from sedans to hatchbacks and MUVs to SUVs. You can book any type of car for your <span
+                class="source">{{route.source}}</span> To <span class="destination">{{route.destination}}</span> taxi
+            service depending on your requirement. You can easily book <span class="source">{{route.source}}</span> To
+            <span class="destination">{{route.destination}}</span> cabs at MakeMyRyde
+            24/7 without any hassle with our easy-to-use booking interface.
+        </p>
+        <p style="font-size:14px;">Book our <span class="source">{{route.source}}</span> To <span
+                class="destination">{{route.destination}}</span>
+            cab service and rest assured you will get quality & reliable services for your Car
+            Rental from <span class="source">{{route.source}}</span> To <span
+                    class="destination">{{route.destination}}</span> . With our wide range of services, you can now book
+            your
+            <span class="source">{{route.source}}</span> To <span class="destination">{{route.destination}}</span>
+            taxi in the easiest way with few simple clicks. Avail <span class="source">{{route.source}}</span> To <span
+                    class="destination">{{route.destination}}</span> car hire services at MakeMyRyde and enjoy
+            a great trip with family and friends. </p>
+
+        <p style="font-size:14px;">
+            Make the best use of the services offered by MakeMyRyde at the best rates & experience the relaxing and
+            trouble
+            free journey by hiring <span class="source">{{route.source}}</span> To <span class="destination">{{route.destination}}</span>
+            taxi at MakeMyRyde. With over a decade of experience in car rental
+            services, MakeMyRyde is the best cab service provider in the industry, if you are planning to book a taxi.
+        </p>
+    </div>
+
+    <div class="container pt-1">
+        <h6><span class="source">{{route.source}}</span> To <span class="destination">{{route.destination}}</span>
+            Distance and Time</h6>
+        <p style="font-size:14px;">The distance from <span class="source">{{route.source}}</span> To <span
+                class="destination">{{route.destination}}</span>
+            can be covered in optimal time with the help of taxi service. We will
+            ensure that your journey is comfortable and you may halt at your convenience anytime, anywhere for a short
+            break during the journey on road.</p>
+        <p style="font-size:14px;">We also launch few offers during certain seasons and holidays. We try to provide you
+            excellent deals from
+            time to time to help you travel in the cheapest possible fares.</p>
+        <p style="font-size:14px;">With our user-friendly website, you can book taxi online in a few simple steps and
+            avail hassle free car
+            rental service. Travel from <span class="source">{{route.source}}</span> To <span class="destination">{{route.destination}}</span>
+            with MakeMyRyde and have a pleasant journey.</p>
+
+    </div>
+    <div class="container pt-1">
+        <h6>
+            <span class="source">{{route.source}}</span> To <span class="destination">{{route.destination}}</span> Car
+            Rental Options
+        </h6>
+        <p style="font-size:14px;">At MakeMyRyde Car Rentals, you will get many options of car types to choose for
+            hiring a taxi from <span
+                    class="source">{{route.source}}</span> To <span class="destination">{{route.destination}}</span> .
+            Some
+            of the popular car models include Indica, Etios, Innova and many other luxury cars.</p>
+        <p style="font-size:14px;">The table below highlights the various car model options available which you can
+            choose for <span
+                    class="source">{{route.source}}</span> To <span class="destination">{{route.destination}}</span> cab
+            booking.</p>
+
+    </div>
+
+    <table class="table table-bordered table-sm w-50 pb-2 text-center" style="margin: 0px auto;">
+        <thead>
+        <tr>
+            <th>Cabs</th>
+            <th>Passenger Capacity</th>
+            <th>Ideal For</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="table-light">
+            <td>Hatchback</td>
+            <td>4</td>
+            <td>Budget Travellers</td>
+        </tr>
+        <tr>
+            <td>Sedan</td>
+            <td>4</td>
+            <td>Sedans for Small Families</td>
+        </tr>
+        <tr class="table-light">
+            <td>SUV</td>
+            <td>6/7</td>
+            <td>Travelling in Large Group</td>
+        </tr>
+        <tr>
+            <td>Innova</td>
+            <td>6/7</td>
+            <td>Premium Travelling in Large Group</td>
+        </tr>
+        </tbody>
+    </table>
+    {% for number in number%}
+    <p style="font-size:14px;">With our well-mannered drivers and great fares, we promise you a wonderful journey. For
+        any further details on Udaipur to Abu Road car rental, please call us on {{number.number}}.</p>
+    {% endfor %}
+
+    <div>
+        <h6><span class="source">{{route.source}}</span> To <span class="destination">{{route.destination}}</span>Cab
+            Package</h6>
+        <p style="font-size:14px;">
+            At Savaari you get the best deals for your Udaipur to Abu Road cab package. The cab package at Savaari is
+            sure to be affordable for you. You can avail the package depending on the itinerary available.
+        </p>
+        <p style="font-size:14px;">The details corresponding to the packages opted will be available to you once you
+            make the booking. Savaari’s
+            services are also available for local and outstation travel. You can book outstation cabs and travel to
+            popular vacation spot of your choice and interest.</p>
+    </div>
+
+    <div>
+        <h6><span class="source">{{route.source}}</span> To <span class="destination">{{route.destination}}</span>Taxi
+            Fare</h6>
+
+        <p style="font-size:14px;">We pride ourselves on transparency. With no hidden charges, great cab service at very
+            affordable rates, we
+            offer you the best prices as compared to any other player in the industry. Savaari believes in making travel
+            extremely convenient for customers and we fully understand that taxi fare is an important parameter when you
+            make the decision to book a taxi.</p>
+        {% for number in number %}
+        <p style="font-size:14px;">Your taxi fare will never be a burden on your pocket. You can contact us on
+            {{number.number}} for any enquiry or to
+            get more details on Udaipur to Abu Road cab fare. We will also help you plan your trip in the most efficient
+            way possible. Looking for offbeat getaways? We will help you with that too!</p>
+        {% endfor %}
+    </div>
+
+    <div>
+        <h6>Booking a Savaari Cab from <span class="destination">{{route.destination}}</span> To <span class="source">{{route.source}}</span>for
+            Reverse Drops
+        </h6>
+        <p style="font-size:14px;">Savaari now has a presence in over 5 lakh routes across the length and breadth of the
+            country. This means
+            that you can book a reverse cab from Abu Road to Udaipur at similar prices. We assure you that the quality
+            of service on these reverse routes will be of the same excellent standards. You can use the booking widget
+            above to make a booking on your reverse itinerary.</p>
+    </div>
+    <div>
+        <h6>FAQs on <span class="source">{{route.source}}</span> To <span
+                class="destination">{{route.destination}}</span> Road Cabs</h6>
+
+        <ol style="font-size:14px;">
+            <li><h6>Why should I book a cab from <span class="source">{{route.source}}</span> To <span
+                    class="destination">{{route.destination}}</span></h6></li>
+            The journey from <span class="source">{{route.source}}</span> To <span class="destination">{{route.destination}}</span>
+            can be covered conveniently by road. It is advisable to book a cab for
+            this route instead of self-drive or public transport such as buses or trains, simply because of the ease of
+            commuting and provision of a safe space for you and your loved ones. By booking a cab with MakeMyRyde, you
+            get
+            a clean and sanitized cab which picks and drops you at your doorstep, while you relax and let our driver
+            take care of the rest.
+            <li><h6>How can I book a cab from <span class="source">{{route.source}}</span> To <span
+                    class="destination">{{route.destination}}</span> ?</h6></li>
+            At MakeMyRyde, we offer both one-way and round-trip packages from <span
+                class="source">{{route.source}}</span>
+            To <span class="destination">{{route.destination}}</span>. You can pay according
+            to your trip plan. So, for <span class="source">{{route.source}}</span> To <span class="destination">{{route.destination}}</span>
+            one way drop, you have to pay the fare for one-side journey
+            only.
+            <li><h6>Can I book a trip from <span class="destination">{{route.destination}}</span> To <span
+                    class="source">{{route.source}}</span> as well?</h6></li>
+            Yes, we offer a wide range of cab services from <span class="destination">{{route.destination}}</span> To
+            <span
+                    class="source">{{route.source}}</span> as well. You can book a premium and
+            affordable <span class="destination">{{route.destination}}</span> To <span
+                class="source">{{route.source}}</span> cab with MakeMyRyde.
+            <li><h6>What are the best cab booking options from <span class="source">{{route.source}}</span> To <span
+                    class="destination">{{route.destination}}</span>?</h6></li>
+            MakeMyRyde offers fully customizable one-way, one-day and multi-day packages from <span class="source">{{route.source}}</span>
+            To <span class="destination">{{route.destination}}</span>.
+            {% for number in number %}
+            You may
+            also choose from our wide range of cars. Call on our helpline number {{number.number}} for any assistance
+            with the
+
+            customized itinerary for your <span class="source">{{route.source}}</span> To <span class="destination">{{route.destination}}</span>
+            trip.
+
+            <li><h6>How do I get from <span class="source">{{route.source}}</span> airport to <span
+                    class="destination">{{route.destination}}</span>?</h6></li>
+            You can easily book an airport taxi outside Udaipur airport and travel to Nathdwara in a safe, sanitized and
+            convenient car. We offer flat fares on airport cabs. Just call on {{number.number}} to book an airport cab
+            or drop
+            an email at orders@MakeMyRyde.com.
+            {% endfor %}
+            <li><h6>Can I pick a car model of my own choice for a cab from <span class="source">{{route.source}}</span>
+                To <span class="destination">{{route.destination}}</span>?</h6></li>
+            Yes, you may pick a car model of your choice from our available fleet of sedans, hatchbacks and SUVs, for
+            your journey from <span class="source">{{route.source}}</span> To <span class="destination">{{route.destination}}</span>.
+        </ol>
+    </div>
+</div>
+
+{% endblock %}

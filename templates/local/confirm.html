@@ -1,0 +1,141 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<main>
+
+    <!-- =======================
+    Main content START -->
+    <section class="pt-8">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-xl-8 mx-auto">
+
+                    <div class="card shadow">
+                        <!-- Image -->
+
+
+                        <!-- Card body -->
+                        <div class="card-body text-center p-4">
+                            <!-- Title -->
+                            <h2 class="card-title fs-4">🎊 Congratulations! 🎊</h2>
+                            <p class="lead mb-3 small">Your Booking is Confirmed</p>
+                            <span class="pb-2 text-info">Your booking details has been sent to your email address.</span>
+
+                            <!-- Second title -->
+                            <h6 class="text-primary mb-4">Local City : {{selected_city}}</h6>
+
+                            <!-- List -->
+                            <div class="row justify-content-between text-start mb-4">
+                                <div class="col-lg-5">
+                                    <ul class="list-group list-group-borderless">
+                                        <li style="font-size:13px;"
+                                            class="list-group-item d-sm-flex justify-content-between align-items-center">
+                                            <span class="mb-0"><i class="bi bi-vr fa-fw me-2"></i>Booking ID:</span>
+                                            <span style="font-size:13px;"
+                                                  class="h6 fw-normal mb-0">{{booking_id}}</span>
+                                        </li>
+                                        <li style="font-size:13px;"
+                                            class="list-group-item d-sm-flex justify-content-between align-items-center">
+                                            <span class="mb-0"><i class="bi bi-person fa-fw me-2"></i>Booked by:</span>
+                                            <span style="font-size:13px;" class="h6 fw-normal mb-0">{{name}}</span>
+                                        </li>
+                                        <li style="font-size:13px;"
+                                            class="list-group-item d-sm-flex justify-content-between align-items-center">
+                                            <span class="mb-0"><i
+                                                    class="bi bi-wallet2 fa-fw me-2"></i>Estimated Amount:</span>
+                                            <span style="font-size:13px;"
+                                                  class="h6 fw-normal mb-0">₹ {{car_price}}</span>
+                                        </li>
+                                        <li style="font-size:13px;"
+                                            class="list-group-item d-sm-flex justify-content-between align-items-center">
+                                            <span class="mb-0"><i
+                                                    class="bi bi-wallet2 fa-fw me-2"></i>Discounted Amount:</span>
+                                            <span style="font-size:13px;"
+                                                  class="h6 fw-normal mb-0 text-success">- ₹ {{coupon_price}}</span>
+                                        </li>
+                                        <li style="font-size:13px;"
+                                            class="list-group-item d-sm-flex justify-content-between align-items-center">
+                                            <span class="mb-0"><i
+                                                    class="bi bi-wallet2 fa-fw me-2"></i>Coupon Code:</span>
+                                            <span style="font-size:13px;"
+                                                  class="h6 fw-normal mb-0 text-success">{{coupon_code}}</span>
+                                        </li>
+                                        <li style="font-size:13px;"
+                                            class="list-group-item d-sm-flex justify-content-between align-items-center">
+                                            <span class="mb-0"><i
+                                                    class="bi bi-wallet2 fa-fw me-2"></i>Total Amount:</span>
+                                            <span style="font-size:13px;"
+                                                  class="h6 fw-normal mb-0">₹ {{total}}</span>
+                                        </li>
+                                        <li style="font-size:13px;"
+                                            class="list-group-item d-sm-flex justify-content-between align-items-center">
+                                            <span class="mb-0"><i class="bi bi-currency-dollar fa-fw me-2"></i>Paid Amount:</span>
+                                            <span style="font-size:13px;"
+                                                  class="h6 fw-normal mb-0 text-success">₹ {{paid}}</span>
+                                        </li>
+                                        <li style="font-size:13px;"
+                                            class="list-group-item d-sm-flex justify-content-between align-items-center">
+                                            <span class="mb-0"><i class="bi bi-currency-dollar fa-fw me-2"></i>Remaining Amount:</span>
+                                            <span style="font-size:13px;"
+                                                  class="h6 fw-normal mb-0 text-danger">₹ {{rem_amount}}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div class="col-lg-5">
+                                    <ul class="list-group list-group-borderless">
+                                        <li style="font-size:13px;"
+                                            class="list-group-item d-sm-flex justify-content-between align-items-center">
+                                            <span class="mb-0"><i
+                                                    class="bi bi-car-front-fill fa-fw me-2"></i>Package:</span>
+                                            <span style="font-size:13px;"
+                                                  class="h6 fw-normal mb-0">{{selected_package}}</span>
+                                        </li>
+                                        <li style="font-size:13px;"
+                                            class="list-group-item d-sm-flex justify-content-between align-items-center">
+                                            <span class="mb-0"><i
+                                                    class="bi bi-calendar fa-fw me-2"></i>Booking Date:</span>
+                                            <span id='today' style="font-size:13px;" class="h6 fw-normal mb-0"></span>
+                                        </li>
+                                        <li style="font-size:13px;"
+                                            class="list-group-item d-sm-flex justify-content-between align-items-center">
+                                            <span class="mb-0"><i
+                                                    class="bi bi-calendar fa-fw me-2"></i>Tour Date:</span>
+                                            <span style="font-size:13px;"
+                                                  class="h6 fw-normal mb-0">{{date}}</span>
+                                        </li>
+                                        <li style="font-size:13px;"
+                                            class="list-group-item d-sm-flex justify-content-between align-items-center">
+                                            <span class="mb-0"><i class="bi bi-car-front-fill fa-fw me-2"></i>Car Type:</span>
+                                            <span style="font-size:13px;" class="h6 fw-normal mb-0">{{car_name}}</span>
+                                        </li>
+                                        <li style="font-size:13px;"
+                                            class="list-group-item d-sm-flex justify-content-between align-items-center">
+                                            <span class="mb-0"><i class="bi bi-car-front-fill fa-fw me-2"></i>Pickup Location:</span>
+                                            <span style="font-size:13px;"
+                                                  class="h6 fw-normal mb-0">{{pick_up}}</span>
+                                        </li>
+                                        <li style="font-size:13px;"
+                                            class="list-group-item d-sm-flex justify-content-between align-items-center">
+                                            <span class="mb-0"><i class="bi bi-car-front-fill fa-fw me-2"></i>Trip Type:</span>
+                                            <span style="font-size:13px;"
+                                                  class="h6 fw-normal mb-0">Local Cab</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- =======================
+    Main content START -->
+
+</main>
+
+
+{% endblock %}

@@ -1,0 +1,696 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<!-- =======================
+Main Banner START -->
+
+<section class="pt-2 pb-3">
+    <div class="container bg-light rounded-3 p-2" data-sticky-container>
+        <div class="row g-1">
+
+            <div class="col-lg-10 ms-auto position-relative">
+                <img alt="" class="rounded-3" src="{% static 'assets/images/bg/hello.jpg' %}">
+
+                <!-- Search START -->
+                <div class="col-12 col-sm-12 col-lg-8 col-xl-6 position-lg-middle ms-lg-8 ms-xl-7">
+                    <div class="card shadow pb-0 mt-n8 mt-sm-n8 mt-lg-0">
+
+                        <!-- Card header -->
+
+                        <div class="pt-3 p-3 p-sm-4 pb-0">
+                            <div class="btn-group btn-group-sm index" role="group" style="">
+                                <button class="btn btn-light rounded" onclick="changeTab(1)"
+                                        style="font-size:12px; margin-right: 10px;">
+                                    OUTSTATION
+                                </button>
+                                <button class="btn btn-light rounded active" onclick="changeTab(2)"
+                                        style="font-size:12px; margin-right: 10px;">
+                                    LOCAL
+                                </button>
+                                <button class="btn btn-light rounded" onclick="changeTab(3)" style="font-size:12px;">
+                                    AIRPORT
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Card body START -->
+                        <!-- Tabs START -->
+                        <div class="tab-content pt-0">
+
+                            <!------------------------------------------------------ LOCAL CABS ------------------------------------------------------------>
+                            <div class="tab-pane fade card-body pt-0" id="tab2">
+                                <div class="col-12 d-flex justify-content-center">
+    <h6 style="border-top: 2px solid #17a2b8; border-bottom: 2px solid #17a2b8;" class="text-orange">HOURLY RENTALS WITHIN THE CITY</h6>
+</div>
+                                <form class="cab-form" method="post"
+                                      novalidate>
+                                    {% csrf_token %}
+                                    <div class="row g-2 g-md-3 pb-1 p-1">
+                                        <!-- Pickup -->
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label class="col-3 small"><b>CITY</b></label>
+                                                <div class="col-9">
+                                                    <div class="form-border-bottom form-control-transparent d-flex align-items-center">
+                                                        <!-- Cities -->
+                                                        <div class="bg-info text-light bg-opacity-10">
+                                                            <select class="form-control" name="city" required>
+                                                                <option value="">Select City</option>
+                                                                {% for city in cities %}
+                                                                <option value="{{ city.id }}">{{ city.name }}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                        <i class="bi bi-caret-down-square"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label class="col-3 small"><b>PACKAGE</b></label>
+                                                <div class="col-9">
+                                                    <div class="form-border-bottom form-control-transparent d-flex align-items-center">
+                                                        <!-- Cities -->
+                                                        <div class="bg-info text-light bg-opacity-10">
+                                                            <select class="form-control" name="package" required>
+                                                                <option value="">Select Package
+                                                                </option>
+                                                                {% for package in packages %}
+                                                                <option value="{{ package.id }}">{{ package.name }}
+                                                                </option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </div>
+                                                        <i class="bi bi-caret-down-square"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <!-- Date -->
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label class="col-3 small"><b>DATE</b></label>
+                                                <div class="col-9">
+                                                    <div class="form-border-bottom form-control-transparent d-flex align-items-center">
+
+                                                        <div class="form">
+                                                            <input class="form-control flatpickr"
+                                                                   data-date-format="d/M/Y"
+                                                                   name="date"
+                                                                   placeholder="Select Date" required
+                                                                   type="date">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <!-- Time -->
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label class="col-3 small"><b>TIME</b></label>
+                                                <div class="col-9">
+                                                    <div class="form-border-bottom form-control-transparent d-flex align-items-center">
+                                                        <div class="form">
+                                                            <select class="form-control" name="time" required>
+                                                                <option value="Select time">Select time</option>
+                                                                <option class="form-control" value="12:00 AM">
+                                                                    12:00
+                                                                    AM
+                                                                </option>
+                                                                <option class="form-control" value="00:30 AM">
+                                                                    00:30
+                                                                    AM
+                                                                </option>
+                                                                <option class="form-control" value="1:00 AM">
+                                                                    1:00 AM
+                                                                </option>
+                                                                <option class="form-control" value="1:30 AM">
+                                                                    1:30 AM
+                                                                </option>
+                                                                <option class="form-control" value="2:00 AM">
+                                                                    2:00 AM
+                                                                </option>
+                                                                <option class="form-control" value="2:30 AM">
+                                                                    2:30 AM
+                                                                </option>
+                                                                <option class="form-control" value="3:00 AM">
+                                                                    3:00 AM
+                                                                </option>
+                                                                <option class="form-control" value="3:30 AM">
+                                                                    3:30 AM
+                                                                </option>
+                                                                <option class="form-control" value="4:00 AM">
+                                                                    4:00 AM
+                                                                </option>
+                                                                <option class="form-control" value="4:30 AM">
+                                                                    4:30 AM
+                                                                </option>
+                                                                <option class="form-control" value="5:00 AM">
+                                                                    5:00 AM
+                                                                </option>
+                                                                <option class="form-control" value="5:30 AM">
+                                                                    5:30 AM
+                                                                </option>
+                                                                <option class="form-control" value="6:00 AM">
+                                                                    6:00 AM
+                                                                </option>
+                                                                <option class="form-control" value="6:30 AM">
+                                                                    6:30 AM
+                                                                </option>
+                                                                <option class="form-control" value="7:00 AM">
+                                                                    7:00 AM
+                                                                </option>
+                                                                <option class="form-control" value="7:30 AM">
+                                                                    7:30 AM
+                                                                </option>
+                                                                <option class="form-control" value="8:00 AM">
+                                                                    8:00 AM
+                                                                </option>
+                                                                <option class="form-control" value="8:30 AM">
+                                                                    8:30 AM
+                                                                </option>
+                                                                <option class="form-control" value="9:00 AM">
+                                                                    9:00 AM
+                                                                </option>
+                                                                <option class="form-control" value="9:30 AM">
+                                                                    9:00 AM
+                                                                </option>
+                                                                <option class="form-control" value="10:00 AM">
+                                                                    10:00
+                                                                    AM
+                                                                </option>
+                                                                <option class="form-control" value="10:30 AM">
+                                                                    10:30
+                                                                    AM
+                                                                </option>
+                                                                <option class="form-control" value="11:00 AM">
+                                                                    11:00
+                                                                    AM
+                                                                </option>
+                                                                <option class="form-control" value="11:30 AM">
+                                                                    11:30
+                                                                    AM
+                                                                </option>
+                                                                <option class="form-control" value="1:00 PM">
+                                                                    1:00 PM
+                                                                </option>
+                                                                <option class="form-control" value="1:30 PM">
+                                                                    1:30 PM
+                                                                </option>
+                                                                <option class="form-control" value="2:00 PM">
+                                                                    2:00 PM
+                                                                </option>
+                                                                <option class="form-control" value="2:30 PM">
+                                                                    2:30 PM
+                                                                </option>
+                                                                <option class="form-control" value="3:00 PM">
+                                                                    3:00 PM
+                                                                </option>
+                                                                <option class="form-control" value="3:30 PM">
+                                                                    3:30 PM
+                                                                </option>
+                                                                <option class="form-control" value="4:00 PM">
+                                                                    4:00 PM
+                                                                </option>
+                                                                <option class="form-control" value="4:30 PM">
+                                                                    4:30 PM
+                                                                </option>
+                                                                <option class="form-control" value="5:00 PM">
+                                                                    5:00 PM
+                                                                </option>
+                                                                <option class="form-control" value="5:30 PM">
+                                                                    5:30 PM
+                                                                </option>
+                                                                <option class="form-control" value="6:00 PM">
+                                                                    6:00 PM
+                                                                </option>
+                                                                <option class="form-control" value="6:30 PM">
+                                                                    6:30 PM
+                                                                </option>
+                                                                <option class="form-control" value="7:00 PM">
+                                                                    7:00 PM
+                                                                </option>
+                                                                <option class="form-control" value="7:30 PM">
+                                                                    7:30 PM
+                                                                </option>
+                                                                <option class="form-control" value="8:00 PM">
+                                                                    8:00 PM
+                                                                </option>
+                                                                <option class="form-control" value="8:30 PM">
+                                                                    8:30 PM
+                                                                </option>
+                                                                <option class="form-control" value="9:00 PM">
+                                                                    9:00 PM
+                                                                </option>
+                                                                <option class="form-control" value="9:30 PM">
+                                                                    9:00 PM
+                                                                </option>
+                                                                <option class="form-control" value="10:00 PM">
+                                                                    10:00
+                                                                    PM
+                                                                </option>
+                                                                <option class="form-control" value="10:30 PM">
+                                                                    10:30
+                                                                    PM
+                                                                </option>
+                                                                <option class="form-control" value="11:00 PM">
+                                                                    11:00
+                                                                    PM
+                                                                </option>
+                                                                <option class="form-control" value="11:30 PM">
+                                                                    11:30
+                                                                    PM
+                                                                </option>
+                                                                <option class="form-control" value="12:00 PM">
+                                                                    12:00
+                                                                    PM
+                                                                </option>
+                                                                <option class="form-control" value="12:30 PM">
+                                                                    12:30
+                                                                    PM
+                                                                </option>
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-grid">
+                                        <button class="btn btn-info mb-0" type="submit">Search Cabs</button>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <!------------------------------------------------------ AIRPORT CABS ------------------------------------------------------------>
+
+
+                            <div class="tab-pane fade show active card-body pt-0" id="tab3">
+                                <div class="col-12 d-flex justify-content-center ">
+    <h6 style="border-top: 2px solid #17a2b8; border-bottom: 2px solid #17a2b8;" class="text-orange">RELIABLE AIRPORT PICKUPS & DROPS</h6>
+</div>
+                                <form action="{% url 'airport_cab' %}" class="cab-form" id="cab-form" method="post"
+                                      novalidate>
+                                    {% csrf_token %}
+                                    <div class="row g-2 g-md-3 pb-1 p-1">
+                                        <div class="col-md-12">
+<div class="form-group row justify-content-center">
+    <div class="col-8">
+    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+        <label class="btn btn-sm active airport border" style="margin:0; padding:0; font-size:14px;">
+            <input checked class="tripSelection visually-hidden" name="selected_option1" type="radio" value="airport_pickup"> Pickup Airport
+        </label>
+        <label class="btn btn-sm airport border" style="margin:0; padding:0; font-size:14px;">
+            <input class="tripSelection visually-hidden" name="selected_option1" type="radio" value="airport_drop"> Drop Airport
+        </label>
+    </div>
+</div>
+</div>
+
+                                        </div>
+
+                                        <!-- Pickup -->
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label class="col-3 small cityLabel text-dark"><b>PICKUP
+                                                    CITY</b></label>
+                                                <div class="col-9">
+                                                    <div class="form-border-bottom form-control-transparent d-flex align-items-center">
+                                                        <!-- Cities -->
+                                                        <div>
+                                                            <input class="form-control city cityInput" id="airport"
+                                                                   name="airport"
+                                                                   placeholder="Select Airport or City"
+                                                                   required
+                                                                   size="100" type="text">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label class="col-3 small addressLabel text-dark"><b>PICKUP
+                                                    ADDRESS</b></label>
+                                                <div class="col-9">
+                                                    <div class="form-border-bottom form-control-transparent d-flex">
+                                                        <!-- Cities -->
+                                                        <div class="form">
+                                                            <input class="form-control addressInput"
+                                                                   id="address"
+                                                                   name="address"
+                                                                   placeholder="Select Your Location"
+                                                                   required
+                                                                   size="100" type="text">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Date -->
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label class="col-3 small"><b>DATE</b></label>
+                                                <div class="col-9">
+                                                    <div class="form-border-bottom form-control-transparent d-flex align-items-center">
+
+                                                        <div class="form">
+                                                            <input class="form-control flatpickr"
+                                                                   data-date-format="d/M/Y"
+                                                                   name="date"
+                                                                   placeholder="Select Date" required
+                                                                   type="date">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <!-- Time -->
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label class="col-3 small"><b>TIME</b></label>
+                                                <div class="col-9">
+                                                    <div class="form-border-bottom form-control-transparent d-flex align-items-center">
+                                                        <div class="form">
+                                                            <select class="form-control"
+                                                                    name="time"
+                                                                    required>
+                                                                <option value="">Select time</option>
+                                                                <option class="form-control" value="12:00 AM">
+                                                                    12:00
+                                                                    AM
+                                                                </option>
+                                                                <option class="form-control" value="00:30 AM">
+                                                                    00:30
+                                                                    AM
+                                                                </option>
+                                                                <option class="form-control" value="1:00 AM">
+                                                                    1:00 AM
+                                                                </option>
+                                                                <option class="form-control" value="1:30 AM">
+                                                                    1:30 AM
+                                                                </option>
+                                                                <option class="form-control" value="2:00 AM">
+                                                                    2:00 AM
+                                                                </option>
+                                                                <option class="form-control" value="2:30 AM">
+                                                                    2:30 AM
+                                                                </option>
+                                                                <option class="form-control" value="3:00 AM">
+                                                                    3:00 AM
+                                                                </option>
+                                                                <option class="form-control" value="3:30 AM">
+                                                                    3:30 AM
+                                                                </option>
+                                                                <option class="form-control" value="4:00 AM">
+                                                                    4:00 AM
+                                                                </option>
+                                                                <option class="form-control" value="4:30 AM">
+                                                                    4:30 AM
+                                                                </option>
+                                                                <option class="form-control" value="5:00 AM">
+                                                                    5:00 AM
+                                                                </option>
+                                                                <option class="form-control" value="5:30 AM">
+                                                                    5:30 AM
+                                                                </option>
+                                                                <option class="form-control" value="6:00 AM">
+                                                                    6:00 AM
+                                                                </option>
+                                                                <option class="form-control" value="6:30 AM">
+                                                                    6:30 AM
+                                                                </option>
+                                                                <option class="form-control" value="7:00 AM">
+                                                                    7:00 AM
+                                                                </option>
+                                                                <option class="form-control" value="7:30 AM">
+                                                                    7:30 AM
+                                                                </option>
+                                                                <option class="form-control" value="8:00 AM">
+                                                                    8:00 AM
+                                                                </option>
+                                                                <option class="form-control" value="8:30 AM">
+                                                                    8:30 AM
+                                                                </option>
+                                                                <option class="form-control" value="9:00 AM">
+                                                                    9:00 AM
+                                                                </option>
+                                                                <option class="form-control" value="9:30 AM">
+                                                                    9:00 AM
+                                                                </option>
+                                                                <option class="form-control" value="10:00 AM">
+                                                                    10:00
+                                                                    AM
+                                                                </option>
+                                                                <option class="form-control" value="10:30 AM">
+                                                                    10:30
+                                                                    AM
+                                                                </option>
+                                                                <option class="form-control" value="11:00 AM">
+                                                                    11:00
+                                                                    AM
+                                                                </option>
+                                                                <option class="form-control" value="11:30 AM">
+                                                                    11:30
+                                                                    AM
+                                                                </option>
+                                                                <option class="form-control" value="1:00 PM">
+                                                                    1:00 PM
+                                                                </option>
+                                                                <option class="form-control" value="1:30 PM">
+                                                                    1:30 PM
+                                                                </option>
+                                                                <option class="form-control" value="2:00 PM">
+                                                                    2:00 PM
+                                                                </option>
+                                                                <option class="form-control" value="2:30 PM">
+                                                                    2:30 PM
+                                                                </option>
+                                                                <option class="form-control" value="3:00 PM">
+                                                                    3:00 PM
+                                                                </option>
+                                                                <option class="form-control" value="3:30 PM">
+                                                                    3:30 PM
+                                                                </option>
+                                                                <option class="form-control" value="4:00 PM">
+                                                                    4:00 PM
+                                                                </option>
+                                                                <option class="form-control" value="4:30 PM">
+                                                                    4:30 PM
+                                                                </option>
+                                                                <option class="form-control" value="5:00 PM">
+                                                                    5:00 PM
+                                                                </option>
+                                                                <option class="form-control" value="5:30 PM">
+                                                                    5:30 PM
+                                                                </option>
+                                                                <option class="form-control" value="6:00 PM">
+                                                                    6:00 PM
+                                                                </option>
+                                                                <option class="form-control" value="6:30 PM">
+                                                                    6:30 PM
+                                                                </option>
+                                                                <option class="form-control" value="7:00 PM">
+                                                                    7:00 PM
+                                                                </option>
+                                                                <option class="form-control" value="7:30 PM">
+                                                                    7:30 PM
+                                                                </option>
+                                                                <option class="form-control" value="8:00 PM">
+                                                                    8:00 PM
+                                                                </option>
+                                                                <option class="form-control" value="8:30 PM">
+                                                                    8:30 PM
+                                                                </option>
+                                                                <option class="form-control" value="9:00 PM">
+                                                                    9:00 PM
+                                                                </option>
+                                                                <option class="form-control" value="9:30 PM">
+                                                                    9:00 PM
+                                                                </option>
+                                                                <option class="form-control" value="10:00 PM">
+                                                                    10:00
+                                                                    PM
+                                                                </option>
+                                                                <option class="form-control" value="10:30 PM">
+                                                                    10:30
+                                                                    PM
+                                                                </option>
+                                                                <option class="form-control" value="11:00 PM">
+                                                                    11:00
+                                                                    PM
+                                                                </option>
+                                                                <option class="form-control" value="11:30 PM">
+                                                                    11:30
+                                                                    PM
+                                                                </option>
+                                                                <option class="form-control" value="12:00 PM">
+                                                                    12:00
+                                                                    PM
+                                                                </option>
+                                                                <option class="form-control" value="12:30 PM">
+                                                                    12:30
+                                                                    PM
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-grid">
+                                        <button class="btn btn-info mb-0" type="submit">Search Cabs</button>
+                                    </div>
+                                </form>
+                            </div>
+
+
+                            <!--------------------------------------------------OUTSTATION--------------------------------------------------------->
+
+                            <div class="tab-pane fade card-body pt-0 p-4" id="tab1">
+                                <div class="col-12 d-flex justify-content-center">
+    <h6 style="border-top: 2px solid #17a2b8; border-bottom: 2px solid #17a2b8;" class="text-orange">INDIA'S PREMIER INTERCITY CABS</h6>
+</div>
+                                <form action="{% url 'calculate-fare' %}" class="cab-form" method="post" novalidate>
+                                    {% csrf_token %}
+                                    <div class="row g-2 g-md-3 pb-1 p-1">
+                                        <div class="col-md-12">
+                                            <div class="form-group row justify-content-center">
+                                                <div class="col-8">
+                                                    <div class="btn-group" role="group">
+                                                        <button class="btn btn-sm tab-button active border" id="onewayBtn"
+                                                                type="button">ONEWAY
+                                                        </button>
+                                                        <button class="btn btn-sm tab-button border" id="roundwayBtn"
+                                                                type="button">ROUNDWAY
+                                                        </button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Pickup -->
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label class="col-3 small"><b>FROM</b></label>
+                                                <div class="col-9">
+                                                    <div class="form-border-bottom form-control-transparent d-flex align-items-center">
+                                                        <!-- Cities -->
+                                                        <div>
+                                                            <input class="form-control source"
+                                                                   name="source"
+                                                                   placeholder="Select City"
+                                                                   required
+                                                                   size="100" type="text">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label class="col-3 small"><b>TO</b></label>
+                                                <div class="col-9">
+                                                    <div class="form-border-bottom form-control-transparent d-flex">
+                                                        <!-- Cities -->
+                                                        <div class="form">
+                                                            <input class="form-control destination"
+                                                                   name="destination"
+                                                                   placeholder="Select City"
+                                                                   required
+                                                                   size="100" type="text">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Date -->
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label class="col-3 small"><b>DATE</b></label>
+                                                <div class="col-9">
+                                                    <div class="form-border-bottom form-control-transparent d-flex align-items-center">
+
+                                                        <div class="form">
+                                                            <input class="form-control flatpickr"
+                                                                   data-date-format="d/M/Y"
+                                                                   id="date_input"
+                                                                   name="date"
+                                                                   placeholder="Select Date" required
+                                                                   type="date">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!------------------------------RETURN DATE ----------------------------------->
+                                        <div class="col-md-12 return-date">
+                                            <div class="form-group row">
+                                                <label class="col-3 small"><b>RETURN DATE</b></label>
+                                                <div class="col-9">
+                                                    <div class="form-border-bottom form-control-transparent d-flex align-items-center">
+                                                        <div class="form">
+                                                            <input class="form-control flatpickr date-picker"
+                                                                   data-date-format="d/M/Y"
+                                                                   name="return_date"
+                                                                   placeholder="Select Return Date" required
+                                                                   type="date">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Time -->
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label class="col-3 small"><b>TIME</b></label>
+                                                <div class="col-9">
+                                                    <div class="form-border-bottom form-control-transparent d-flex align-items-center">
+                                                        <div class="form">
+                                                            <select class="form-control time_input"
+                                                                    id="time_input"
+                                                                    name="time"
+                                                                    required>
+                                                                <option value="">Select time</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="d-grid">
+                                        <button class="btn btn-info mb-0" type="submit">Search Cabs</button>
+                                    </div>
+                                </form>
+
+                            </div>
+
+                        </div>
+                        <!-- Card-body END -->
+                    </div>
+                </div>
+                <!-- Search END -->
+            </div>
+        </div> <!-- Row END -->
+    </div>
+</section>
+<!-- =======================
+Main Banner END -->
+{% endblock %}

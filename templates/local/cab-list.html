@@ -1,0 +1,453 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+
+<!--{% for result in results %}
+<li>{{ result.car_name }} - {{ result.price }}</li>
+{% empty %}
+<li>No results found</li>
+{% endfor %}-->
+
+
+<div class="d-flex justify-content-center text-info pb-0 pt-8">
+    <p style="font-size:13px;"><b>Book Comfortable Rides And Select Your Comfort</b></p>
+</div>
+<section class="pt-1 pb-0">
+
+    <div class="container d-flex justify-content-center">
+        <!---------------------------------------------------FOR MOBILE SCREENS --------------------------------------->
+        <div class="row g-1 justify-content-center">
+            <!-- Fleet item -->
+            {% for result in results %}
+            <div class="col-sm-3 col-3">
+                <a class="back card text-center align-items-center h-90 p-1 common-button"
+                   data-base_fare="{{ result.estimated_amount }}"
+                   data-car-image="{{result.container_image}}"
+                   data-car-name="{{result.custom_name}}"
+                   data-disprice="{{result.dis_price}}" data-gst="{{result.gst_amount}}"
+                   data-total-fare="{{result.price}}" data-passenger="{{result.person}}" data-bags="{{result.bags}}"
+                   href="javascript:void(0);"
+                   id="{{result.button_label}}">
+
+
+                    <div class="icon-lg rounded-circle pb-0 circle">
+                        <img alt="" src="{{ result.car_image_url }}">
+                    </div>
+
+                    <div class="card-body px-0 pb-0 pt-0">
+                        <p class="fw-bold mb-0 car-name text-dark" style="font-size: 0.7rem;">{{ result.car_name }}</p>
+                    </div>
+                    <!-- Image -->
+                    <p class="fw-bold mb-0 total-fare" style="font-size: 0.7rem; color:#273E47;">₹ {{result.price}}</p>
+                </a>
+            </div>
+            {% endfor %}
+
+            <!---------------------------------------------------FOR DESKTOP SCREEN--------------------------------------->
+
+            <!--<div class="row g-1  justify-content-center col-6">
+
+                {% for result in results %}
+                <div class="col-sm-3 col-3">
+                    <a class="back card text-center align-items-center h-90 p-1"
+                       data-base_fare="{{result.estimated_amount}}"
+                       data-car-image="{{result.container_image}}"
+                       data-car-name="{{result.custom_name}}"
+                       data-disprice="{{result.dis_price}}" data-gst="{{result.gst_amount}}"
+                       data-total-fare="{{result.price}}" data-passenger="{{result.person}}" data-bags="{{result.bags}}"
+                       href="javascript:void(0);" id="">
+                        <div class="icon-lg rounded-circle pb-0 circle">
+                            <img alt="" src="{{ result.car_image_url }}">
+                        </div>
+
+                        <div class="card-body px-0 pb-0 pt-0">
+                            <p class="fw-bold mb-0 car-name text-dark" style="font-size: 0.7rem;">{{ result.car_name }}</p>
+                        </div>
+
+                        <p class="fw-bold mb-0 total-fare" style="font-size: 0.7rem; color:#273E47;">
+                            ₹ {{result.price}}</p>
+
+                    </a>
+                </div>
+                {% endfor %}
+
+            </div>-->
+        </div>
+    </div>
+
+</section>
+<!-- ==== First Page SECLECTION END -->
+
+<!-- =========Type Car Category Display  -->
+<br>
+
+
+<!-- Card body START -->
+
+<!-- ============== Cab list START -->
+<!-- Notice board START -->
+<div class="shadow-dark container CarDetailsContainer">
+    <div class="rounded-3 border overflow-hidden mt-1 p-2">
+        <div class="row g-2 align-items-center">
+            <!-- Image -->
+            <div class="col-6 col-md-3 text-center order-md-1 car-image">
+                <img alt="" class="mb-n5" src="" style="width:300px;">
+            </div>
+
+            <!-- Content -->
+            <div class="col-md-6 order-2 d-flex justify-content-center d-md-none">
+                <div class="row bg-light rounded-1 col-12 bg-opacity-75 p-1">
+                    <div class="col-1 col-md-1 p-0"></div>
+                    <div class="col-5 col-md-5 p-0">
+                        <ul class="list-group list-group-borderless mb-0">
+                            <li class="list-group-item d-flex p-0 mb-0 text-info">
+                                <span style="font-size: 12px;"><i class="bi bi-person-check me-2 text-info"></i>Verified Driver</span>
+                            </li>
+                            <li class="list-group-item d-flex p-0 mb-0 text-info">
+                                <span style="font-size: 12px;"><i
+                                        class="bi bi-receipt me-2 text-info"></i>GST Invoice</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-5 col-md-5 p-0">
+                        <ul class="list-group list-group-borderless mb-0">
+                            <li class="list-group-item d-flex p-0 mb-0 text-info">
+                                            <span style="font-size: 12px;"><i
+                                                    class="bi bi-speedometer2 me-2 text-info"></i>On Time Cab</span>
+                            </li>
+                            <li class="list-group-item d-flex p-0 mb-0 text-info">
+                                            <span style="font-size: 12px;"><i
+                                                    class="bi bi-check-circle me-2 text-info"></i>No Hidden Charges</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-6 order-2 justify-content-center d-none d-md-flex">
+                <div class="row bg-light rounded-3 col-10 bg-opacity-75">
+                    <div class="col-1 col-md-1 p-0"></div>
+                    <div class="col-5 col-md-5 p-0">
+                        <ul class="list-group list-group-borderless mb-0">
+                            <li class="list-group-item d-flex p-0 mb-0 text-info">
+                                            <span style="font-size: 20px;"><i
+                                                    class="bi bi-person-check me-2 text-info"></i>Verified Driver</span>
+                            </li>
+                            <li class="list-group-item d-flex p-0 mb-0 text-info">
+                                <span style="font-size: 20px;"><i
+                                        class="bi bi-receipt me-2 text-info"></i>GST Invoice</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-5 col-md-5 p-0">
+                        <ul class="list-group list-group-borderless mb-0">
+                            <li class="list-group-item d-flex p-0 mb-0 text-info">
+                                            <span style="font-size: 20px;"><i
+                                                    class="bi bi-speedometer2 me-2 text-info"></i>On Time Cab</span>
+                            </li>
+                            <li class="list-group-item d-flex p-0 mb-0 text-info">
+                                            <span style="font-size: 20px;"><i
+                                                    class="bi bi-check-circle me-2 text-info"></i>No Hidden Charges</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Image -->
+            <div class="col-6 col-md-3 order-md-3">
+                <div class="car-name row p-2">
+                    <h6 class="text-info" style="font-size:18px;"><span class="similar"></span></h6>
+                    <ul class="list-inline mb-1">
+                        <li style="font-size:14px;"><span class="bi bi-person-fill text-info passenger"> 4</span>&nbsp;&nbsp;
+                            <span class="bi bi-briefcase-fill text-info bags">&nbsp; 2</span>
+                            &nbsp;<span class="bi bi-snow2 text-info mt-n1">  AC</span></li>
+
+                        <li><span class="badge bg-danger" style="font-size:9px;">15% OFF</span></li>
+
+                        <li class="carPrice to list-inline-item h5 mb-0 text-dark bg-info bg-opacity-10"></li>
+                        <li class="disprice list-inline-item text-decoration-line-through text-danger"
+                            style="font-size:13px;"></li>
+
+                        <li style="font-size: 14px; font-weight: 700;">
+                            <a data-bs-toggle="modal" href="#staticBackdrop1"><u class="text-primary">Fare summary <i
+                                    class="bi bi-eye"></i></u> </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="order-md-4 order-4">
+                <form action="{% url 'local_cab_detail' %}" method="post">
+                    {% csrf_token %}
+                    <input value="{{selected_city}}" hidden name="selected_city">
+                    <input value="{{selected_package}}" hidden name="selected_package">
+                    <input class="carNameInput" hidden name="car_name" type="text">
+                    <input class="carPriceInput" hidden name="car_price" type="text">
+                    <input class="dispriceInput" hidden name="dis_price" type="text">
+                    <input class="base_fareInput" hidden name="base_fare" type="text">
+                    <input class="gstInput" hidden name="gst" type="text">
+                    <div class="d-grid card-body form-control-border">
+                        <button class="btn btn-info mb-0" type="submit">
+                            Select Cab
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+    <div class="container bg-info bg-opacity-10 rounded-3 border overflow-hidden mb-1 mt-1 p-2">
+        <!-- Title and button START -->
+        <div class="">
+
+            <!-- Title -->
+            <h6 class="fw-normal mb-1 text-dark bg-opacity-10" style="font-size: 13px; text-nowrap"><span
+                    class="badge bg-secondary"> LOCAL TRIP </span>
+                | <span>{{selected_city}} For {{selected_package}}</span>| On
+                <span>{{date}} at {{time}}</span> <span class="badge bg-info"><a class="text-light"
+                                                                                 href="{% url 'index' %}">Modify</a> </span>
+            </h6>
+
+        </div>     <!-- Badge -->
+    </div>
+</div>
+<!-- Notice board END -->
+
+
+<!-- ============Car Category Display End -->
+
+<div aria-hidden="true" aria-labelledby="staticBackdropLabel" class="modal fade" data-bs-backdrop="static"
+     data-bs-keyboard="false"
+     id="staticBackdrop1" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+            <div class="modal-header bg-secondary bg-opacity-10">
+                <h6 class="modal-title text-info" id="staticBackdropLabel"></h6>
+                <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+            </div>
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h6 class="fw-normal mb-0 text-dark bg-opacity-10" style="font-size: 12px; text-nowrap"><i
+                            class="bi bi-taxi-front-fill"></i>
+                        TRIP : <span>{{selected_city}}</span> For {{selected_package}}
+                        <span class="text-dark"> > DATE</span> :<span class="text-dark">{{date}} | <b>TIME</b> {{time}}</span>
+                    </h6>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="">
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="h6 small col-8">Estimated Amount</div>
+                            <div class="col-4" style="font-size:12px;">
+                                <span id="estimatedAmount1" style=" float:right"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="h6 small col-4" hidden=""></div>
+                            <div class="col-8" style="font-size:12px;">
+                                <span hidden="" id="coveredKms1" style=" float:right"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="h6 small col-8">GST (5%)</div>
+                            <div class="col-4" style="font-size:12px;">
+                                <span id="gstAmount1" style=" float:right"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="h6 small col-8">Driver DA</div>
+                            <div class="col-4" style="font-size:12px;">
+                                <span style=" float:right">₹ 0</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="h6 small col-8">State & Toll tax</div>
+                            <div class="col-4" style="font-size:12px;">
+                                <span style=" float:right">₹ 0</span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="h6 small col-8">Total Cost</div>
+                            <div class="col-4" style="font-size:15px;">
+                                <b><span class="text-info" id="totalCost1" style="float:right"></span></b>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="h6 small col-8">(No hidden charges)</div>
+                            <div class="col-4" style="font-size:12px;">
+                                <span class="text-info" style="float:right"></span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div>
+                    <!--<ul style="list-style:none; padding:0;">
+                        <li><h6>Fare Breakup:</h6></li>
+                        <li>Estimated Amount <span class="fw-bold"
+                                                   style="float:right;"></span></li>
+                        <li>Covered Kms <span id="coveredKms1" style="float:right;"></span></li>
+                        <li>GST (5%) <span id="gstAmount1" style="float:right;">â‚¹ </span></li>
+                        <li>Total Cost <span id="totalCost1" style="float:right;">â‚¹ </span></li>
+                    </ul>-->
+
+                    <h6 style="font-size:12px;" class="bg-secondary text-info bg-opacity-10">Inclusion :</h6>
+                    <ul style="font-size:13px;">
+                        <li>Base fare charges include for {{distance}} Km</li>
+                        <li>After {{distance}} Km, extra amount will charge on per km basis</li>
+                        <li>Driver, Vehicle and Fuel Allowance</li>
+
+                    </ul>
+                    <h6 style="font-size:12px;" class="bg-secondary text-info bg-opacity-10">Exclusion :</h6>
+                    <ul style="font-size:13px;">
+                        <li>Parking Charge, Airport Parking Charge if Applicable</li>
+                        <li>Tolls Tax, Inter State Tax & Parking Charges are payable by Guest as per actual ( if
+                            applicable)
+                        </li>
+                    </ul>
+
+                    <h6 style="font-size:12px;" class="bg-secondary text-info bg-opacity-10">Notes :</h6>
+                    <ul style="font-size:13px;">
+                        <li>Kms & Timing will be charged from customer location</li>
+
+                        <li>To cancel a booking trip, you need to inform us at least 2 hours before your scheduled
+                            pickup time.
+                        </li>
+                    </ul>
+
+                    <h6 class="text-success"> FOR MORE INFORMATION </h6>
+                    <div class="row">
+                        <div class="h6 small col-6">
+                            <div>
+                                <a class="btn btn-outline-info btn-sm" href="tel:9375144444" type="button"><i
+                                        class="bi bi-telephone-forward-fill"></i> &nbsp;9375144444</a>
+                            </div>
+                        </div>
+                        <div class="col-6 d-flex justify-content-end" style="font-size:12px;">
+
+                            <form action="{% url 'cab-detail' %}" method="post">
+                                {% csrf_token %}
+                                <input class="carNameInput" hidden name="car_name" type="text">
+                                <input class="similarInput" hidden name="similar" type="text">
+                                <input class="carPriceInput" hidden name="car_price" type="text">
+                                <input class="dispriceInput" hidden name="dis_price" type="text">
+                                <input class="base_fareInput" hidden name="base_fare" type="text">
+                                <input class="gstInput" hidden name="gst" type="text">
+                                <div style="float:right;" class="card-body form-control-border">
+                                    <button class="btn btn-outline-info btn-sm" type="submit">
+                                        <i class="bi bi-arrow-right"></i> Book now
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- ============== Cab list END  -->
+
+
+<!--<section class="p-3">
+    <div class="container" data-sticky-container>
+        <div class="row g-4">
+
+
+            <div class="col-xl-12">
+                <div class="vstack gap-12">
+
+
+
+
+                    <div class="card border mt-12">
+                        <div class="card border">
+                            <div class="row">
+                                <div class="col-12">
+
+                                    <div style="align:center;">
+                                        <div class="col-xl-12">
+                                            <div class="vstack gap-5">
+
+                                                <div class="container mt-3">
+
+
+                                                    <div style="align:center;" class="border-bottom p-1">
+                                                        <ul
+                                                            class="nav nav-pills nav justify-content-center" role="tablist">
+                                                            <li class="nav-item">
+                                                                <a class="nav-link active bg-dark" data-bs-toggle="pill" href="#home">INCLUSION</a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link" data-bs-toggle="pill" href="#menu1">EXCLUSION</a>
+                                                            </li>
+                                                            <li class="nav-item">
+                                                                <a class="nav-link" data-bs-toggle="pill" href="#menu2">T&C</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+
+
+                                                    <div class="tab-content">
+                                                        <div id="home"
+                                                            class="container tab-pane active"><br>
+                                                            <ul style="font-size:13px;" class="list-group list-group-borderless mb-0">
+                                                                <li class="list-group-item mb-0 pb-0"><i class="bi bi-check text-dark me-1"></i>Driver, Vehicle and Fuel Charges</li>
+                                                                <li class="list-group-item mb-0 pb-0"><i class="bi bi-check text-dark me-1"></i>Toll Tax, State Tax, Driver Food & Stay Charges</li>
+                                                                <li class="list-group-item mb-0 pb-0"><i class="bi bi-check text-dark me-1"></i>GST Charges (5%)</li>
+                                                                <li class="list-group-item mb-0 pb-0"><i class="bi bi-check text-dark me-1"></i>Only one pickup and drop</li>
+                                                            </ul>
+                                                        </div>
+                                                        <div id="menu1" class="container tab-pane fade"><br>
+
+                                                            <ul style="font-size:13px;" class="list-group list-group-borderless mb-0">
+                                                                <li class="list-group-item mb-0 pb-0"><i class="bi bi-patch-check-fill text-primary me-1"></i>airport entry charge</li>
+                                                                <li class="list-group-item mb-0 pb-0"><i class="bi bi-patch-check-fill text-primary me-1"></i>Parking charges</li>
+                                                                <li class="list-group-item mb-0 pb-0"><i class="bi bi-patch-check-fill text-primary me-1"></i>Multiple Pickups and drops</li>
+                                                            </ul>
+                                                        </div>
+                                                        <div id="menu2" class="container tab-pane fade"><br>
+                                                            <h6>Driver & Cab Details</h6>
+                                                            <ul style="font-size:13px; bold" class="list-group list-group-borderless mb-0">
+                                                                <li class="list-group-item mb-0 pb-0"><i class="bi bi-patch-check-fill text-primary me-1"></i>
+                                                                    Cab and driver details will be shared on your registered mobile number before 1 - 2 hours of pickup
+                                                                </li>
+                                                                <li class="list-group-item mb-0 pb-0"><i class="bi bi-patch-check-fill text-primary me-1"></i>
+                                                                    Due to traffic or any other unavoidable reason, the pickup may be delayed for 30 minutes.
+                                                                </li>
+                                                                <li class="list-group-item mb-0 pb-0"><i class="bi bi-patch-check-fill text-primary me-1"></i>
+                                                                    For nighttime driving (between 11:00 pm to 7:00 am) on any of the nights.
+                                                                </li>
+                                                                <li class="list-group-item mb-0 pb-0"><i class="bi bi-patch-check-fill text-primary me-1"></i>
+                                                                    Trip details will be share on WhatsApp or Registered Email.
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div >
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </section>-->
+
+{% endblock %}

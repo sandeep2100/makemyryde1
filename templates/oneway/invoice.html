@@ -1,0 +1,380 @@
+<!--<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MakeMyRyde Booking Details</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;500;700&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/vendor/font-awesome/css/all.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/vendor/flatpickr/css/flatpickr.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/vendor/choices/css/choices.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}">
+
+    <style>
+    /* Custom CSS Styles Here */
+    body {
+        font-family: 'DM Sans', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #ffffff;
+    }
+
+    .container {
+        max-width: 100%;
+        padding: 15px;
+    }
+
+    .border-bottom {
+        max-width: 12.5%;
+        margin: 0 auto;
+        border-bottom: 1px solid #000;
+    }
+
+    .navbar-brand {
+        text-decoration: none;
+    }
+
+    .navbar-brand h5 {
+        background-color: #17a2b8;
+        opacity: 0.5;
+        color: #ffffff;
+        padding: 5px 10px;
+        display: inline-block;
+    }
+
+    .container p {
+        max-width: 50%;
+        margin: 0 auto;
+        font-size: 16px;
+    }
+
+    table {
+        max-width: 50%;
+        margin: 0 auto;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    table th, table td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: left;
+    }
+
+    table th {
+        background-color: #f0f0f0;
+        font-weight: bold;
+    }
+
+    .pt-2 {
+        max-width: 50%;
+        margin: 0 auto;
+        font-size: 16px;
+    }
+
+    .bg-info {
+        background-color: #17a2b8;
+        color: #ffffff;
+        padding: 10px;
+        text-align: center;
+    }
+
+    a {
+        text-decoration: none;
+        color: #17a2b8;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    .text-light {
+        color: #ffffff;
+    }
+
+    .bg-danger {
+        background-color: #dc3545;
+        opacity: 0.5;
+    }
+
+    .bi-car-front {
+        font-size: 1.5rem;
+    }
+
+    /* Media Query for screens smaller than 768px (Mobile) */
+    @media (max-width: 768px) {
+        .container p, table, .pt-2 {
+            max-width: 100%; /* Make elements full width on mobile */
+        }
+
+        table {
+            margin: 0; /* Remove horizontal margin on mobile */
+        }
+    }
+</style>
+
+</head>
+<body>
+<section>
+    <div class="container pt-5 border">
+        <div class="border-bottom">
+            <a class="navbar-brand" href="/">
+                <h5> MAKE <b class="bg-danger text-light"> <i class="bi bi-car-front"></i></b> RYDE </h5>
+            </a>
+        </div>
+        <div>
+            <p> Hello {{name}},</p>
+            <p>Thank you for Booking with MakeMyRyde. Please find below Booking details</p>
+        </div>
+
+        <table>
+            <thead>
+            <tr>
+                <th>Booking Reference Number</th>
+                <td>{{booking_id}}</td>
+                <th>Car Selected</th>
+                <td>Sedan</td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <th>Pickup City</th>
+                <td>{{pickup_city}}</td>
+                <th>Pick Point</th>
+                <td>{{pickup_address}}</td>
+            </tr>
+            <tr>
+                <th>Drop City</th>
+                <td>{{drop_city}}</td>
+                <th>Drop Point</th>
+                <td>{{drop_address}}</td>
+            </tr>
+            <tr>
+                <th>Pick Date</th>
+                <td>{{date}}</td>
+                <th>Pick Time</th>
+                <td>{{time}}</td>
+            </tr>
+            <tr>
+                <th>Toll Tax</th>
+                <td>Include</td>
+                <th>State Tax</th>
+                <td>-</td>
+            </tr>
+            <tr>
+                <th>Base Fare</th>
+                <td>-</td>
+                <th>GST</th>
+                <td>Include</td>
+            </tr>
+            <tr>
+                <th>Driver Charge</th>
+                <td>-</td>
+                <th>Gross Total</th>
+                <td>{{amount}}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{name}}</td>
+                <th>Email</th>
+                <td>{{email}}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{mobile_b}}</td>
+                <th>Information to Driver</th>
+                <td>{{remark}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div style="padding-top: 10px;">
+            <p style="font-size:14px;">
+                If you wish to cancel the booking after confirmation you will need to inform us by calling us on <a
+                    href="tel:+91-9375144444">+91-9375144444</a> or email us at <a href="mailto:makemyryde@gmail.com">makemyryde@gmail.com.</a>
+            </p>
+            <p>Thanks for Booking with us.</p>
+            <p>Please check our <a href="{% url 'terms' %}">Terms & Conditions</a>.</p>
+        </div>
+        <div class="pt-2">
+            <a href="https:makemyryde.in">makemyryde.in</a><br>
+            <a href="tel:+91-9375144444">+91-9375144444</a>
+        </div>
+    </div>
+
+</section>
+</body>
+</html>-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Taxi Booking Invoice</title>
+    <!-- Add Bootstrap CSS link -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Custom CSS */
+        body {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+
+        .invoice-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .invoice-logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .invoice-table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        .invoice-table th,
+        .invoice-table td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+
+        .invoice-content {
+            margin-top: 20px;
+        }
+
+        .invoice-links {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        /* Responsive Styles */
+        @media (max-width: 576px) {
+            .invoice-container {
+                padding: 10px;
+            }
+
+            .invoice-logo img {
+                max-width: 300px;
+            }
+        }
+
+    </style>
+</head>
+<body class="pb-5">
+<div class="invoice-container border">
+    <div class="invoice-logo">
+        <a class="navbar-brand" href="/">
+            <img style="width: 200px; height:60px;" src="http://16.171.35.196/static/assets/images/makemyrydelogo.png">
+        </a>
+        <!--<img src="your-logo.png" alt="Company Logo">-->
+    </div>
+    <div>
+        <p> Hello {{name}},</p>
+        <p>Thank you for Booking with MakeMyRyde. Please find below Booking details</p>
+    </div>
+    <table class="invoice-table" style="font-size:13px;">
+        <tr style="background-color:#7cc1cc;">
+            <th>Booking Reference Number</th>
+            <td>{{booking_id}}</td>
+            <th>Car Selected</th>
+            <td>{{car_name}}</td>
+        </tr>
+        <tr>
+            <th>Pickup City</th>
+            <td>{{pickup_city}}</td>
+            <th>Pick Point</th>
+            <td>{{pickup_address}}</td>
+        </tr>
+        <tr style="background-color: #7cc1cc;">
+            <th>Drop City</th>
+            <td>{{drop_city}}</td>
+            <th>Drop Point</th>
+            <td>{{drop_address}}</td>
+        </tr>
+        <tr>
+            <th>Pick Date</th>
+            <td>{{date}}</td>
+            <th>Pick Time</th>
+            <td>{{time}}</td>
+        </tr>
+        <tr style="background-color: #7cc1cc;">
+            <th>Distance</th>
+            <td>{{distance}} KM</td>
+            <th>Booking Type</th>
+            <td>{{booking_type}}</td>
+        </tr>
+        <tr>
+            <th>State & Toll tax</th>
+            <td>₹ 0</td>
+            <th>Total</th>
+            <td>₹ {{amount}}</td>
+        </tr>
+        <tr style="background-color: #7cc1cc;">
+            <th>GST</th>
+            <td>₹ {{gst}}</td>
+            <th>Amount Paid</th>
+            <td>₹ {{paid_amount}}</td>
+        </tr>
+        <tr>
+            <th>Driver Charge</th>
+            <td>₹ 0</td>
+            <th>Remaining Amount</th>
+            <td>₹ {{remaining_amount}}</td>
+        </tr>
+        <tr style="background-color: #7cc1cc;">
+            <th>Name</th>
+            <td>{{name}}</td>
+            <th>Email</th>
+            <td>{{email}}</td>
+        </tr>
+        <tr>
+            <th>Phone</th>
+            <td>{{mobile_b}}</td>
+            <th>Information to Driver</th>
+            <td>{{remark}}</td>
+        </tr>
+        <tr style="background-color: #7cc1cc;">
+            <th>GST Company</th>
+            <td>{{gst_company}}</td>
+            <th>GST Number</th>
+            <td>{{gst_number}}</td>
+        </tr>
+        <tr>
+            <th>Alternative Number</th>
+            <td>{{alternative_number}}</td>
+        </tr>
+
+    </table>
+
+    <div class="invoice-content">
+        <p>Thank you for choosing our taxi service. We appreciate your business.</p>
+    </div>
+    <div class="invoice-links">
+        <a href="#">Terms and Conditions</a> | <a href="#">Refund Policy</a>
+    </div>
+</div>
+
+<!-- Add Bootstrap JS and jQuery if needed -->
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script> -->
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script> -->
+</body>
+</html>

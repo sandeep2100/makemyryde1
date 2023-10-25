@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add City</title>
+</head>
+<body>
+<h2>Add City</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add City</button>
+</form>
+<h2>Cities</h2>
+<ul>
+    {% for city in cities %}
+    <li>
+        {{ city.name }}
+        <form method="post" action="">
+            {% csrf_token %}
+            <button type="submit" name="delete" value="{{ city.id }}">Delete</button>
+            <button type="submit" name="update" value="{{ city.id }}">Update</button>
+        </form>
+    </li>
+    {% empty %}
+    <li>No cities available.</li>
+    {% endfor %}
+
+</ul>
+<a href="{% url 'route_list' %}">Back To List</a>
+
+
+</body>
+</html>

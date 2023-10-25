@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Package</title>
+</head>
+<body>
+<h2>Add Package</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Package</button>
+</form>
+<h2>Packages</h2>
+<ul>
+    {% for package in packages %}
+    <li>
+        {{ package.name }}
+        <form method="post" action="">
+            {% csrf_token %}
+            <button type="submit" name="delete" value="{{ package.id }}">Delete</button>
+            <button type="submit" name="update" value="{{ package.id }}">Update</button>
+        </form>
+    </li>
+    {% empty %}
+    <li>No packages available.</li>
+    {% endfor %}
+</ul>
+<a href="{% url 'route_list' %}">Back To List</a>
+</body>
+</html>

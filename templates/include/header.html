@@ -1,0 +1,81 @@
+{% load static %}
+
+<!-- Favicon -->
+<link rel="shortcut icon" href="assets/images/favicon.ico">
+
+<!-- Google Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Poppins:wght@400;500;700&display=swap">
+
+<!-- Plugins CSS -->
+<link rel="stylesheet" type="text/css" href="{% static 'assets/vendor/font-awesome/css/all.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/vendor/flatpickr/css/flatpickr.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'assets/vendor/choices/css/choices.min.css' %}">
+<!-- Theme CSS -->
+<link rel="stylesheet" type="text/css" href="{% static 'assets/css/style.css' %}">
+<body>
+
+<!-- Header START -->
+<header class="header-transparent header-sticky">
+    <!-- Nav START -->
+    <nav class="navbar navbar-expand-xl z-index-9">
+        <div class="container">
+            <!-- Logo START -->
+            <a class="navbar-brand" href="{% url 'index' %}">
+                <img class="light-mode-item navbar-brand-item" src="{% static 'assets/images/makemyrydelogo.png' %}"
+                     alt="MakeMyRyde">
+                <img class="dark-mode-item navbar-brand-item" src="{% static 'assets/images/makemyrydelogo.png' %}"
+                     alt="MakeMyRyde">
+            </a>
+
+
+            <div class="navbar-collapse w-100 collapse" id="navbarCollapse">
+                <!-- Nav Main menu START -->
+                <ul class="navbar-nav nav-active-line navbar-nav-scroll mx-auto">
+                    <li class="nav-item"><a class="nav-link text-info" href="{% url 'index' %}">Home</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle  text-info" href="#" id="listingMenu"
+                           data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Routes</a>
+                        <ul class="dropdown-menu" aria-labelledby="listingMenu">
+                            <li class="dropdown-submenu dropend">
+                                <a class="dropdown-item text-info" href="{% url 'oneway_route_list' %}">Oneway
+                                    Rentals</a>
+                                <a class="dropdown-item text-info" href="{% url 'roundway-city-list' %}">Roundway
+                                    Rentals</a>
+                                <a class="dropdown-item text-info" href="{% url 'all_cities' %}">Local
+                                    Rentals</a>
+                                <a class="dropdown-item text-info" href="{% url 'dynamic_airport' %}">Airport
+                                    Rentals</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item"><a class="nav-link text-info" href="{% url 'popular' %}">Popular</a></li>
+                    <!-- Nav item -->
+                    <li class="nav-item"><a class="nav-link text-info" href="{% url 'aboutus' %}">About Us</a>
+                    </li>
+
+                    <!-- Nav item -->
+                    <li class="nav-item"><a class="nav-link text-info" href="{% url 'contactus' %}">Contact
+                        Us</a></li>
+
+                </ul>
+            </div>
+            <!-- Main navbar END -->
+            <div class="badge bg-info">
+                {% for a in number %}
+                <a href="tel:{{a.number}}" class="text-light"><i class="bi bi-telephone-forward-fill"></i> Call now</a>
+                {% endfor %}
+            </div>
+            <button class="navbar-toggler" type="button" id="navbarToggleBtn">
+                <i class="bi bi-three-dots-vertical text-light"></i>
+            </button>
+        </div>
+
+    </nav>
+
+</header>
+<!-- Header END -->

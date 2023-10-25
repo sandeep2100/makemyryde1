@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Route List</title>
+</head>
+<body>
+    <h1>{{ city.city }} Routes</h1>
+    <ul>
+          {% for route in routes %}
+        <li><a href="{% url 'route_detail' custom_url=route.custom_url %}">{{ route.destination }}</a></li>
+         {% endfor %}
+    </ul>
+</body>
+</html>

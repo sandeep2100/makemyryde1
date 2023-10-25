@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+
+<div class="container pt-8">
+    <div>
+        <h6>Cancellation and Returns</h6>
+        <p>You may cancel the booking 24 hour prior to the time of journey, without any cancellation charges for all
+            services. In case cancellation or shorting of the trip is requested within 24 hours of the pick-up time,
+            then following rules will apply:</p>
+
+        <ul>
+            <li>
+                Multi Day trip: The charge for the first day would be deducted from the total amount and refund will be
+                issued to the user.
+            </li>
+            <li>
+                Single Day trip/ Airport transfer: No Refund will be issued to the user.
+            </li>
+            <li>
+                Airport transfer: No Cancellation Charges if Cancelled at least 2 hours prior of pickup time.
+            </li>
+        </ul>
+    </div>
+
+    <div>
+        {% for i in number %}
+        <h6>Refunds</h6>
+        <p>If you are eligible for refunds based on the “Cancellation and Returns” policy above, then the refund will be
+            remitted back to you in 5-7 working days. In case of any issues, write to us at <a
+                    href="mailto:info@savaari.com">info@savaari.com</a> or call us
+            at {{i.number}}</p>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

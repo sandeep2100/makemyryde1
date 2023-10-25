@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <title>{{ city.city }} Routes</title>
+</head>
+<body>
+    <h1>{{ city.city }} Routes</h1>
+    <ul>
+        {% for route in routes %}
+        <li><a href="{% url 'route' route.custom_url %}">{{ route.source }} to {{ route.destination }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
